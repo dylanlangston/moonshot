@@ -9,4 +9,10 @@
     <PackageReference Include="Raylib-cs" Version="3.1.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Images\moonshotlogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -12,8 +12,7 @@ namespace moonshot.Screens
             this._x = x;
             this._y = y;
             this._radius = radius;
-            this._color1 = StarTwinkle();
-            this._color2 = Colors.space;
+            this._color = StarTwinkle();
         }
         private int _x { get; set;}
         public int x { get { return _x; } }
@@ -21,10 +20,8 @@ namespace moonshot.Screens
         public int y { get { return _y; } }
         private float _radius { get; set; }
         public float radius { get { return _radius; } }
-        private Color _color1 { get; set; }
-        public Color color1 { get { return _color1; } }
-        private Color _color2 { get; set; }
-        public Color color2 { get { return _color2; } }
+        private Color _color { get; set; }
+        public Color color { get { return _color; } }
         private Color StarTwinkle()
         {
             Color starColor = new Color();
@@ -59,15 +56,20 @@ namespace moonshot.Screens
         {
             ClearBackground(Colors.space);
             starscape();
-            DrawText("Welcome to Moonshot!", 220, 200, 40, MAROON);
+            MoonshotLogo();
         }
         internal static void starscape()
         {
-            //int Width = GetScreenWidth();
-            //int Height = GetScreenHeight();
             foreach (StarGradient star in stars) {
-                Raylib.DrawCircleGradient(star.x, star.y, star.radius, star.color1, star.color2);
+                Raylib.DrawCircleGradient(star.x, star.y, star.radius, star.color, Colors.space);
             }
+        }
+        internal static void MoonshotLogo()
+        {
+            Image logo = LoadImage("Images/moonshotlogo.png");
+            Texture2D logoAsTexture = LoadTextureFromImage(logo);
+            UnloadImage(logo);
+            DrawTexture(logoAsTexture, 0, 0, WHITE);
         }
         internal static StarGradient[] stars = StarGradientLoop();
         private static StarGradient[] StarGradientLoop(int howManyTimes = 150) {
