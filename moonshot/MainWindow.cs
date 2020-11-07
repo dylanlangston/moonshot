@@ -11,14 +11,12 @@ namespace moonshot
         {
             // Initialization
             //--------------------------------------------------------------------------------------
-            const int screenWidth = 600;
-            const int screenHeight = 800;
 
             // Full Screen
-            InitWindow(screenWidth, screenHeight, "moonshot");
-            if (!Raylib.IsWindowFullscreen())
+            InitWindow(Settings.DefaultWidth, Settings.DefaultHeight, "moonshot");
+            if (!Raylib.IsWindowFullscreen() && Settings.StartFullscreen)
             {
-                Raylib.ToggleFullscreen();
+                //Raylib.ToggleFullscreen();
             }
 
             // Set FPS Target
@@ -37,6 +35,7 @@ namespace moonshot
                 //----------------------------------------------------------------------------------
                 BeginDrawing();
 
+                Raylib.DisableCursor();
                 new welcome();
 
                 EndDrawing();
