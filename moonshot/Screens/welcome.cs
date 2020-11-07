@@ -26,7 +26,7 @@ namespace moonshot.Screens
         {
             Color starColor = new Color();
             Random rnd = new Random();
-            switch (rnd.Next(0,6))
+            switch (rnd.Next(0,9))
             {
                 case 1:
                     starColor = WHITE;
@@ -38,13 +38,10 @@ namespace moonshot.Screens
                     starColor = YELLOW;
                     break;
                 case 4:
-                    starColor = DARKGRAY;
-                    break;
-                case 5:
                     starColor = MAROON;
                     break;
                 default:
-                    starColor = WHITE;
+                    starColor = DARKGRAY;
                     break;
             }
             return starColor;
@@ -57,13 +54,18 @@ namespace moonshot.Screens
             ClearBackground(Colors.space);
             starscape();
             MoonshotLogo();
+            Menu();
         }
-        internal static void starscape()
-        {
-            foreach (StarGradient star in stars) {
-                Raylib.DrawCircleGradient(star.x, star.y, star.radius, star.color, Colors.space);
-            }
+        internal static void Menu() {
+            Raylib.DrawText("You may:", Raylib.GetScreenWidth()/6, Raylib.GetScreenHeight()/3, 30, WHITE);
+            Raylib.DrawText("1.  Blast off!", Raylib.GetScreenWidth()/5, Raylib.GetScreenHeight()/3 + 50, 30, WHITE);
+            Raylib.DrawText("2. Learn about the Apollo Astronauts", Raylib.GetScreenWidth()/5, Raylib.GetScreenHeight()/3 + 90, 30, WHITE);
+            Raylib.DrawText("3. See the Moon top ten", Raylib.GetScreenWidth()/5, Raylib.GetScreenHeight()/3 + 130, 30, WHITE);
+            Raylib.DrawText("4. Settings", Raylib.GetScreenWidth()/5, Raylib.GetScreenHeight()/3 + 170, 30, WHITE);
+            Raylib.DrawText("5. Quit", Raylib.GetScreenWidth()/5, Raylib.GetScreenHeight()/3 + 210, 30, WHITE);
+            Raylib.DrawText("What is your choice? _", Raylib.GetScreenWidth()/6, Raylib.GetScreenHeight()/5*4, 30, WHITE);
         }
+        // Logo
         internal static void MoonshotLogo()
         {
             Image logo = LoadImage("Images/moonshotlogo.png");
@@ -71,15 +73,22 @@ namespace moonshot.Screens
             UnloadImage(logo);
             DrawTexture(logoAsTexture, 0, 0, WHITE);
         }
+        // Draw Star background
+        internal static void starscape()
+        {
+            foreach (StarGradient star in stars) {
+                Raylib.DrawCircleGradient(star.x, star.y, star.radius, star.color, Colors.space);
+            }
+        }
         internal static StarGradient[] stars = StarGradientLoop();
-        private static StarGradient[] StarGradientLoop(int howManyTimes = 150) {
+        private static StarGradient[] StarGradientLoop(int howManyTimes = 125) {
             StarGradient[] stars = new StarGradient[howManyTimes];
             int count = 0;
             while (count < howManyTimes) {
                 Random random = new Random();
                 int x = random.Next(0,Raylib.GetScreenWidth());
                 int y = random.Next(0,Raylib.GetScreenHeight());
-                int radius = random.Next(0,12);
+                int radius = random.Next(2,12);
                 stars[count] = new StarGradient(x, y, radius);
                 count++;
             }
