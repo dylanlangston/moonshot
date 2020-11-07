@@ -8,8 +8,6 @@ namespace moonshot.Screens
     {
         public screen()
         {
-            // Clear Display when screen loads
-            ClearBackground(BLACK);
             Display();
         }
         public abstract void Display();

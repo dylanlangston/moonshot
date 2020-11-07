@@ -13,14 +13,14 @@ namespace moonshot
             //--------------------------------------------------------------------------------------
 
             // Full Screen
-            InitWindow(Settings.DefaultWidth, Settings.DefaultHeight, "moonshot");
+            InitWindow(800, 600, "moonshot");
             if (!Raylib.IsWindowFullscreen() && Settings.StartFullscreen)
             {
-                //Raylib.ToggleFullscreen();
+                Raylib.ToggleFullscreen();
             }
 
             // Set FPS Target
-            SetTargetFPS(60);
+            SetTargetFPS(10);
             //--------------------------------------------------------------------------------------
 
             // Main game loop
