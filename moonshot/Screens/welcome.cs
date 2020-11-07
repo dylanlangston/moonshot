@@ -2,6 +2,7 @@
 using static Raylib_cs.Raylib;
 using static Raylib_cs.Color;
 using System;
+using System.Numerics;
 
 namespace moonshot.Screens
 {
@@ -53,17 +54,20 @@ namespace moonshot.Screens
         {
             ClearBackground(Colors.space);
             starscape();
+            Moon();
+            Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight() / 6);
+            Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight() / 24 * 21 );
             MoonshotLogo();
             Menu();
         }
         internal static void Menu() {
-            Raylib.DrawText("You may:", Raylib.GetScreenWidth()/6, Raylib.GetScreenHeight()/3, 30, WHITE);
-            Raylib.DrawText("1.  Blast off!", Raylib.GetScreenWidth()/5, Raylib.GetScreenHeight()/3 + 50, 30, WHITE);
-            Raylib.DrawText("2. Learn about the Apollo Astronauts", Raylib.GetScreenWidth()/5, Raylib.GetScreenHeight()/3 + 90, 30, WHITE);
-            Raylib.DrawText("3. See the Moon top ten", Raylib.GetScreenWidth()/5, Raylib.GetScreenHeight()/3 + 130, 30, WHITE);
-            Raylib.DrawText("4. Settings", Raylib.GetScreenWidth()/5, Raylib.GetScreenHeight()/3 + 170, 30, WHITE);
-            Raylib.DrawText("5. Quit", Raylib.GetScreenWidth()/5, Raylib.GetScreenHeight()/3 + 210, 30, WHITE);
-            Raylib.DrawText("What is your choice? _", Raylib.GetScreenWidth()/6, Raylib.GetScreenHeight()/5*4, 30, WHITE);
+            Raylib.DrawText("You may:", Raylib.GetScreenWidth()/8, Raylib.GetScreenHeight()/3, 30, WHITE);
+            Raylib.DrawText("1.  Blast off!", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 50, 30, WHITE);
+            Raylib.DrawText("2. Learn about the Apollo Astronauts", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 90, 30, WHITE);
+            Raylib.DrawText("3. See the Moon top ten", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 130, 30, WHITE);
+            Raylib.DrawText("4. Settings", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 170, 30, WHITE);
+            Raylib.DrawText("5. Quit", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 210, 30, WHITE);
+            Raylib.DrawText("What is your choice? _", Raylib.GetScreenWidth()/8, Raylib.GetScreenHeight()/5*4, 30, WHITE);
         }
         // Logo
         internal static void MoonshotLogo()
@@ -72,6 +76,22 @@ namespace moonshot.Screens
             Texture2D logoAsTexture = LoadTextureFromImage(logo);
             UnloadImage(logo);
             DrawTexture(logoAsTexture, 0, 0, WHITE);
+        }
+        // Moon
+        internal static void Moon()
+        {
+            Image moon = LoadImage("Images/moon.png");
+            Texture2D moonAsTexture = LoadTextureFromImage(moon);
+            UnloadImage(moon);
+            DrawTextureEx(moonAsTexture, new Vector2(Raylib.GetScreenHeight()/4*3, 0), 0f, 0.10f, WHITE);
+        }
+        // Menuline
+        internal static void Menuline(int x, int y)
+        {
+            Image menuline = LoadImage("Images/menuline.png");
+            Texture2D menulineAsTexture = LoadTextureFromImage(menuline);
+            UnloadImage(menuline);
+            DrawTextureEx(menulineAsTexture, new Vector2(x, y), 0f, 0.55f, WHITE);
         }
         // Draw Star background
         internal static void starscape()
