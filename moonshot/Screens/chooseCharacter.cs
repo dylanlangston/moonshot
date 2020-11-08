@@ -3,41 +3,36 @@ using static Raylib_cs.Raylib;
 using static Raylib_cs.Color;
 using System;
 using System.Numerics;
-using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace moonshot.Screens
 {
-    class welcome : screen
+    class chooseCharacter : screen
     {
         public override string Name {
-            get { return "welcome"; }
+            get { return "Character Selection"; }
         }
         public override void Display()
         {
             ClearBackground(Colors.space);
             starscape();
-            Moon();
-            Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight() / 6);
+            Menuline(Raylib.GetScreenWidth() / 128, 0);
             Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight() / 24 * 21 );
-            MoonshotLogo();
             Menu();
         }
         internal static string selection = String.Empty;
         internal static void Menu() {
+            Raylib.DrawText("Many kinds of people made the trip to\nthe Moon.", Raylib.GetScreenWidth()/8, Raylib.GetScreenHeight()/6, 30, WHITE);
             Raylib.DrawText("You may:", Raylib.GetScreenWidth()/8, Raylib.GetScreenHeight()/3, 30, WHITE);
-            Raylib.DrawText("1.  Blast off!", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 50, 30, WHITE);
-            Raylib.DrawText("2. Learn about the Apollo Astronauts", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 90, 30, WHITE);
-            Raylib.DrawText("3. See the Moon top ten", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 130, 30, WHITE);
-            Raylib.DrawText("4. Settings", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 170, 30, WHITE);
-            Raylib.DrawText("5. Quit", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 210, 30, WHITE);
+            Raylib.DrawText("1.  Banker", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 50, 30, WHITE);
+            Raylib.DrawText("2. carpenter", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 90, 30, WHITE);
+            Raylib.DrawText("3. farmer", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 130, 30, WHITE);
+            Raylib.DrawText("4. Find out the differences between\nthese choices", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 170, 30, WHITE);
             int keypress = Raylib.GetKeyPressed();
             if (Raylib.IsKeyPressed(KeyboardKey.KEY_BACKSPACE)) {
                 keypress = 9000;
             } else if (Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER)) {
                 switch (selection) {
-                    case "1":
-                        MainWindow.currentScreen = "Character Selection";
-                        break;
                     case "5":
                         MainWindow.Running = false;
                         break;
@@ -57,9 +52,6 @@ namespace moonshot.Screens
                     break;
                 case 52:
                     selection = "4";
-                    break;
-                case 53:
-                    selection = "5";
                     break;
                 case 9000:
                     selection = String.Empty;
