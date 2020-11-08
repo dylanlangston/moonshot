@@ -16,16 +16,24 @@ namespace moonshot
 
         // Track the current session. Default to the welcome screen.
         internal string currentScreen = "welcome";
+        
+        // Track if settings have been saved.
+        internal bool savedProgress = false;
 
         // All available screens in the game. Setting is intended to store the screens and not be changed durring runtime hence why it is marked as private.
         private List<screen> _screensList = new List<screen>(){ 
             new welcome(),
             new settingsScreen(),
+            new saveScreen(),
+            new loadScreen(),
             new chooseCharacter()
         };
         internal List<screen> screensList {
             get { return _screensList; }
         }
+
+        // Screens to load even if current game is in progress.
+        internal List<string> nonGameScreens = new List<string>() {"load", "save", "settings", "welcome"};
 
         // Track if game should start fullscreen
         public bool StartFullscreen = true;
@@ -34,10 +42,10 @@ namespace moonshot
         internal UserStats userStats = new UserStats();
 
         // Init Settings
-        public Settings() 
+        public Settings(bool useDefaults = false) 
         {
             // Load settings on startup
-            LoadSettings();
+            if (!useDefaults) {LoadSettings();} else {savedProgress = true; }
         }
 
         // Load Settings from save file if it exists
@@ -45,11 +53,18 @@ namespace moonshot
         private void LoadSettings()
         {
             // Load last used full screen setting.
-            bool.TryParse(GetConfigValue("StartFullscreen"), out StartFullscreen);
+            try {
+                StartFullscreen = bool.Parse(GetConfigValue("StartFullscreen"));
+            } catch {}
 
             // Load the current screen (progress)
             string cScreenRaw = GetConfigValue("CurrentScreen");
-            currentScreen = string.IsNullOrEmpty(cScreenRaw) ? "welcome" : cScreenRaw;
+            if (string.IsNullOrEmpty(cScreenRaw)) {
+                currentScreen = "welcome"; // default 
+            } else {
+                currentScreen = cScreenRaw;
+                savedProgress = true; // Loaded Saved Progress
+            }
 
         }
         

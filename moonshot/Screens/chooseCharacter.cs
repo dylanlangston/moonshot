@@ -16,18 +16,20 @@ namespace moonshot.Screens
         {
             ClearBackground(Colors.space);
             starscape();
-            Menuline(Raylib.GetScreenWidth() / 128, 0);
-            Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight() / 24 * 21 );
-            Menu();
+            Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight()/12);
+            Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight() / 24 * 20 );
+            if (selection == String.Empty) {
+                Menu();
+            }
         }
         internal static string selection = String.Empty;
         internal static void Menu() {
-            Raylib.DrawText("Many kinds of people made the trip to\nthe Moon.", Raylib.GetScreenWidth()/8, Raylib.GetScreenHeight()/6, 30, WHITE);
-            Raylib.DrawText("You may:", Raylib.GetScreenWidth()/8, Raylib.GetScreenHeight()/3, 30, WHITE);
-            Raylib.DrawText("1.  Banker", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 50, 30, WHITE);
-            Raylib.DrawText("2. carpenter", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 90, 30, WHITE);
-            Raylib.DrawText("3. farmer", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 130, 30, WHITE);
-            Raylib.DrawText("4. Find out the differences between\nthese choices", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 170, 30, WHITE);
+            Raylib.DrawText("Many kinds of people made the trip to\nthe Moon.", Raylib.GetScreenWidth()/8, Raylib.GetScreenHeight()/5, 30, WHITE);
+            Raylib.DrawText("You may:", Raylib.GetScreenWidth()/8, Raylib.GetScreenHeight()/3 + 20, 30, WHITE);
+            Raylib.DrawText("1.  Be Neil A. Armstrong from Apollo 11", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 60, 30, WHITE);
+            Raylib.DrawText("2. Be Charles Conrad Jr. from Apollo 12", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 100, 30, WHITE);
+            Raylib.DrawText("3. Be Alan B. Shepard Jr. from Apollo 14", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 140, 30, WHITE);
+            Raylib.DrawText("4. Find out the differences between\nthese choices", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 180, 30, WHITE);
             int keypress = Raylib.GetKeyPressed();
             if (Raylib.IsKeyPressed(KeyboardKey.KEY_BACKSPACE)) {
                 keypress = 9000;

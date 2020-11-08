@@ -4,6 +4,7 @@ using static Raylib_cs.Color;
 using moonshot.Screens;
 using System;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace moonshot
 {
@@ -12,7 +13,7 @@ namespace moonshot
         // Load Settings
         internal static Settings settings= new Settings();
 
-        private static string currentScreenTempStore = "";
+        internal static string currentScreenTempStore = settings.currentScreen;
         public static int Init(bool debugging = true, bool resetProgress = false)
         {
             // Initialization
@@ -29,6 +30,11 @@ namespace moonshot
                 Raylib.SetTraceLogLevel(TraceLogType.LOG_ALL);
             } else {
                 Raylib.SetTraceLogLevel(TraceLogType.LOG_NONE);
+            }
+
+            // Reset to defaults
+            if (resetProgress) {
+                settings = new Settings(true);
             }
 
             // Create Window
@@ -48,17 +54,14 @@ namespace moonshot
             // Set FPS Target
             SetTargetFPS(60);
 
-            // Reset CurrentScreen if flag has been specified
-            if (resetProgress) {
-                settings.currentScreen = "welcome";
-            }
-
             //--------------------------------------------------------------------------------------
             // Main game loop
             while (!WindowShouldClose())    // Detect window close button
             {
+
                 // Check if tab key is pressed and if so launch save menu
-                tabCounter = SavetoMenu(tabCounter, cleanupCounter);
+                if (!settings.nonGameScreens.Contains(settings.currentScreen.ToLower())) 
+                    tabCounter = SavetoMenu(tabCounter, cleanupCounter);
 
                 // Toggle FullScreen on Escape key
                 ToggleFS();
@@ -83,10 +86,20 @@ namespace moonshot
                     bool foundScreen = false;
                     foreach (screen scrn in settings.screensList)
                     {
-                        if (scrn.Name.ToLower() == settings.currentScreen.ToLower())
-                        {
-                            ((screen)scrn).Display(); // Display screen
-                            foundScreen = true;
+                        if (settings.savedProgress == true ) {
+                            if (settings.nonGameScreens.Contains(scrn.Name.ToLower()) && settings.nonGameScreens.Contains(settings.currentScreen.ToLower()))
+                            {
+                                if (settings.currentScreen.ToLower() == scrn.Name.ToLower()) {
+                                    ((screen)scrn).Display(); // Display screen
+                                    foundScreen = true;
+                                }
+                            } 
+                        } else {
+                            if (scrn.Name.ToLower() == settings.currentScreen.ToLower())
+                            {
+                                ((screen)scrn).Display(); // Display screen
+                                foundScreen = true;
+                            }
                         }
                     }
                     if (!foundScreen) { settings.currentScreen = "welcome"; }
@@ -110,6 +123,14 @@ namespace moonshot
             }
 
             // Save settings
+            if (settings.nonGameScreens.Contains(settings.currentScreen.ToLower())) {
+                if (!string.IsNullOrEmpty(currentScreenTempStore)) {
+                    settings.currentScreen = currentScreenTempStore;
+                }
+                else if (settings.currentScreen == "welcome") {
+                    settings.currentScreen = "";
+                }
+            }
             settings.SaveSettings();
 
             // De-Initialization
@@ -124,15 +145,10 @@ namespace moonshot
             // Check if tab key is pressed within a few seconds. If so display save screen.
             if (Raylib.IsKeyPressed(KeyboardKey.KEY_TAB)) {
                 tabCounter++;
-                if (tabCounter > 1) {
-                    if (string.IsNullOrEmpty(currentScreenTempStore)) {
-                        currentScreenTempStore = settings.currentScreen;
-                        settings.currentScreen = "welcome";
-                    } else {
-                        settings.currentScreen = currentScreenTempStore;
-                        currentScreenTempStore = "";
-                        tabCounter = 0;
-                    }
+                if ((tabCounter > 1) && string.IsNullOrEmpty(currentScreenTempStore)) {
+                    currentScreenTempStore = settings.currentScreen;
+                    settings.currentScreen = "save";
+                    tabCounter = 0;
                 }
             } else if (tabCounter > 0) {
                 if (cleanupCounter % 100 == 0) {

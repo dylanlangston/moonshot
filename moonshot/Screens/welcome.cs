@@ -37,7 +37,12 @@ namespace moonshot.Screens
             } else if (Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER)) {
                 switch (selection) {
                     case "1":
-                        MainWindow.settings.currentScreen = "Character Selection";
+                        if (MainWindow.settings.savedProgress == true) {
+                            MainWindow.settings.currentScreen = "load";
+                        }
+                        else {
+                            MainWindow.settings.currentScreen = "Character Selection";
+                        }
                         break;
                     case "4":
                         MainWindow.settings.currentScreen = "Settings";
@@ -48,6 +53,7 @@ namespace moonshot.Screens
                     default:
                         break;
                 }
+                selection = String.Empty;
             }
             switch (keypress){
                 case 49:
@@ -72,17 +78,6 @@ namespace moonshot.Screens
                     break;
             }
             Raylib.DrawText("What is your choice? " + selection + "_", Raylib.GetScreenWidth()/8, Raylib.GetScreenHeight()/5*4, 30, WHITE);
-        }
-        // Logo
-        internal static Texture2D logoTexture = new Texture2D();
-        internal static void MoonshotLogo()
-        {
-            if (logoTexture.height == 0) {
-                Image logo = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/moonshotlogo.png"));
-                logoTexture = LoadTextureFromImage(logo);
-                UnloadImage(logo);
-            }
-            DrawTexture(logoTexture, 0, 0, WHITE);
         }
         // Moon
         internal static Texture2D moonTexture = new Texture2D();

@@ -15,7 +15,7 @@ namespace moonshot.Screens
         }
         public override void Display()
         {
-            ClearBackground(WHITE);
+            ClearBackground(Colors.splashBackground);
             SplashScreen();
         }
         // Splash Screen

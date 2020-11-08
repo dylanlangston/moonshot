@@ -18,6 +18,26 @@ namespace moonshot.Screens
         }
         public abstract void Display();
 
+        // Press SPACEBAR to continue text and logic
+        internal static bool PressSPACEBAR() {
+            Raylib.DrawText("Press SPACE BAR to continue", Raylib.GetScreenWidth()/5, Raylib.GetScreenHeight()-35, 30, WHITE);
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE)) {
+                return true;
+            }
+            return false;
+        }
+        // Logo
+        internal static Texture2D logoTexture = new Texture2D();
+        internal static void MoonshotLogo()
+        {
+            if (logoTexture.height == 0) {
+                Image logo = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/moonshotlogo.png"));
+                logoTexture = LoadTextureFromImage(logo);
+                UnloadImage(logo);
+            }
+            DrawTexture(logoTexture, 0, 0, WHITE);
+        }
+
         // Menuline
         internal static Texture2D menulineTexture = new Texture2D();
         internal static void Menuline(int x, int y)
