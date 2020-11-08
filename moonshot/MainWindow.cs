@@ -3,6 +3,7 @@ using static Raylib_cs.Raylib;
 using static Raylib_cs.Color;
 using moonshot.Screens;
 using System;
+using System.Threading;
 
 namespace moonshot
 {
@@ -16,6 +17,7 @@ namespace moonshot
         {
             // Initialization
             //--------------------------------------------------------------------------------------
+            bool firstRun = true;
 
             // Count the amount of cycles to track when to run GC.Collect 
             int cleanupCounter = 0;
@@ -59,37 +61,42 @@ namespace moonshot
                 tabCounter = SavetoMenu(tabCounter, cleanupCounter);
 
                 // Toggle FullScreen on Escape key
-                if (Raylib.IsKeyPressed(KeyboardKey.KEY_ESCAPE)) {
-                    Raylib.ToggleFullscreen();
-                    // Show/Hide cursor depending on if full screen or not.
-                    if (Raylib.IsCursorHidden()) {
-                        Raylib.ShowCursor();
-                    } else {
-                        Raylib.HideCursor();
-                    }
-                    // Update setting
-                    settings.StartFullscreen = Raylib.IsWindowFullscreen();
-                }
+                ToggleFS();
+
                 // Draw
                 //----------------------------------------------------------------------------------
                 BeginDrawing();
 
-                // Go through each screen and check if screen name matches the currentScreen. 
-                // This is how we track the game state. Not sure if this is how other's would create games but it works.
-                bool foundScreen = false;
-                foreach (screen scrn in settings.screensList) {
-                    if (scrn.Name.ToLower() == settings.currentScreen.ToLower()) {
-                        ((screen)scrn).Display(); // Display screen
-                        foundScreen = true;
+                // Splash Screen on initial launch
+                if (firstRun)
+                {
+                    (new splashScreen()).Display();
+                    if (cleanupCounter > 150)
+                    {
+                        firstRun = false;
                     }
                 }
-                if (!foundScreen) {settings.currentScreen = "welcome";}
+                else
+                {
+                    // Go through each screen and check if screen name matches the currentScreen. 
+                    // This is how we track the game state. Not sure if this is how other's would create games but it works.
+                    bool foundScreen = false;
+                    foreach (screen scrn in settings.screensList)
+                    {
+                        if (scrn.Name.ToLower() == settings.currentScreen.ToLower())
+                        {
+                            ((screen)scrn).Display(); // Display screen
+                            foundScreen = true;
+                        }
+                    }
+                    if (!foundScreen) { settings.currentScreen = "welcome"; }
+                }
                 EndDrawing();
 
                 // Count loops
                 cleanupCounter++;
 
-                // .NET Garbage collection very 10000 cycles
+                // .NET Garbage collection every 10000 cycles
                 // Probably not needed but why not.
                 if (cleanupCounter > 10000) {
                     GC.Collect();
@@ -133,6 +140,26 @@ namespace moonshot
                 }
             }
             return tabCounter;
+        }
+
+        private static void ToggleFS()
+        {
+            // Toggle FullScreen on Escape key
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_ESCAPE))
+            {
+                Raylib.ToggleFullscreen();
+                // Show/Hide cursor depending on if full screen or not.
+                if (Raylib.IsCursorHidden())
+                {
+                    Raylib.ShowCursor();
+                }
+                else
+                {
+                    Raylib.HideCursor();
+                }
+                // Update setting
+                settings.StartFullscreen = Raylib.IsWindowFullscreen();
+            }
         }
     }
 }
