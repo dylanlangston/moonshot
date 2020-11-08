@@ -4,6 +4,7 @@ using static Raylib_cs.Color;
 using System;
 using System.Numerics;
 using System.Collections.Generic;
+using System.IO;
 
 namespace moonshot.Screens
 {
@@ -22,7 +23,7 @@ namespace moonshot.Screens
         internal static void Menuline(int x, int y)
         {
             if (menulineTexture.height == 0) {
-                Image menuline = LoadImage("Images/menuline.png");
+                Image menuline = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/menuline.png"));
                 menulineTexture = LoadTextureFromImage(menuline);
                 UnloadImage(menuline);
             }

@@ -96,7 +96,7 @@ namespace moonshot
             if (!Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images" )))
             {
                 Console.WriteLine("Error loading 'Images' folder.");
-                return true; // Exit
+                return false; // Exit
             }
             return true;
         }

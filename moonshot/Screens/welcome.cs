@@ -4,6 +4,7 @@ using static Raylib_cs.Color;
 using System;
 using System.Numerics;
 using System.Collections.Generic;
+using System.IO;
 
 namespace moonshot.Screens
 {
@@ -74,7 +75,7 @@ namespace moonshot.Screens
         internal static void MoonshotLogo()
         {
             if (logoTexture.height == 0) {
-                Image logo = LoadImage("Images/moonshotlogo.png");
+                Image logo = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/moonshotlogo.png"));
                 logoTexture = LoadTextureFromImage(logo);
                 UnloadImage(logo);
             }
@@ -85,7 +86,7 @@ namespace moonshot.Screens
         internal static void Moon()
         {
             if (moonTexture.height == 0) {
-                Image moon = LoadImage("Images/moon.png");
+                Image moon = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/moon.png"));
                 moonTexture = LoadTextureFromImage(moon);
                 UnloadImage(moon);
             }
