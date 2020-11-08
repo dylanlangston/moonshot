@@ -7,17 +7,15 @@ using System.Windows.Input;
 
 namespace moonshot.Screens
 {
-    class chooseCharacter : screen
+    class settingsScreen : screen
     {
         public override string Name {
-            get { return "Character Selection"; }
+            get { return "Settings"; }
         }
         public override void Display()
         {
             ClearBackground(Colors.space);
             starscape();
-            Menuline(Raylib.GetScreenWidth() / 128, 0);
-            Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight() / 24 * 21 );
             Menu();
         }
         internal static string selection = String.Empty;
@@ -52,6 +50,9 @@ namespace moonshot.Screens
                     break;
                 case 52:
                     selection = "4";
+                    break;
+                case 53:
+                    selection = "5";
                     break;
                 case 9000:
                     selection = String.Empty;

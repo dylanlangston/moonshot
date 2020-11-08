@@ -24,5 +24,9 @@ namespace moonshot
         int progress;
         Inventory inventory = new Inventory();
         string status;
+        public override string ToString()
+        {
+            return Money.ToString() + ":" + playerType + ":" + progress.ToString() + ":" + status;
+        }
     }
 }

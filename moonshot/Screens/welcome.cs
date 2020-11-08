@@ -39,6 +39,9 @@ namespace moonshot.Screens
                     case "1":
                         MainWindow.settings.currentScreen = "Character Selection";
                         break;
+                    case "4":
+                        MainWindow.settings.currentScreen = "Settings";
+                        break;
                     case "5":
                         MainWindow.settings.Running = false;
                         break;

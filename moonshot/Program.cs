@@ -33,6 +33,8 @@ namespace moonshot
 | MOONSHOT - Version: " + version + (Program.Repeater(' ', (25 - version.Length))) + @"|
 |- - - - - - - - - - - - - - - - - - - - - - - |
 | Run with '-Debug' to get raylib output.      |
+|- - - - - - - - - - - - - - - - - - - - - - - |
+| Run with '-Reset' to reset progress.         |
 ------------------------------------------------";
                 Console.WriteLine(helpMessage);
                 return;
@@ -54,7 +56,9 @@ namespace moonshot
                 }
 
                 // Create Main Window
-                MainWindow.Init(argsList.Contains("-debug", StringComparer.InvariantCultureIgnoreCase));
+                bool debugging = argsList.Contains("-debug", StringComparer.InvariantCultureIgnoreCase);
+                bool resetProgress = argsList.Contains("-reset", StringComparer.InvariantCultureIgnoreCase);
+                MainWindow.Init(debugging, resetProgress);
             } 
             catch (Exception err) 
             {
