@@ -33,8 +33,8 @@ namespace moonshot.Screens
                 keypress = 9000;
             } else if (Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER)) {
                 switch (selection) {
-                    case "5":
-                        MainWindow.Running = false;
+                    case "4":
+                        MainWindow.settings.Running = false;
                         break;
                     default:
                         break;

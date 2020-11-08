@@ -36,10 +36,10 @@ namespace moonshot.Screens
             } else if (Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER)) {
                 switch (selection) {
                     case "1":
-                        MainWindow.currentScreen = "Character Selection";
+                        MainWindow.settings.currentScreen = "Character Selection";
                         break;
                     case "5":
-                        MainWindow.Running = false;
+                        MainWindow.settings.Running = false;
                         break;
                     default:
                         break;
