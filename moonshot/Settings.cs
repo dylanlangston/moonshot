@@ -45,7 +45,7 @@ namespace moonshot
         public Settings(bool useDefaults = false) 
         {
             // Load settings on startup
-            if (!useDefaults) {LoadSettings();} else {savedProgress = true; }
+            if (!useDefaults) {LoadSettings();}
         }
 
         // Load Settings from save file if it exists

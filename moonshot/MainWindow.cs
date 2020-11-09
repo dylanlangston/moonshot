@@ -13,7 +13,7 @@ namespace moonshot
         // Load Settings
         internal static Settings settings= new Settings();
 
-        internal static string currentScreenTempStore = settings.currentScreen;
+        internal static string currentScreenTempStore = "";
         public static int Init(bool debugging = true, bool resetProgress = false)
         {
             // Initialization
@@ -53,6 +53,11 @@ namespace moonshot
 
             // Set FPS Target
             SetTargetFPS(60);
+
+            // Set currentScreenTempStore to the currentScreen if savedProgress is true
+            if (settings.savedProgress) {
+                currentScreenTempStore = settings.currentScreen;
+            }
 
             //--------------------------------------------------------------------------------------
             // Main game loop
@@ -116,6 +121,8 @@ namespace moonshot
                     GC.WaitForPendingFinalizers();
                     cleanupCounter = 0;
                 }
+
+                //Console.WriteLine(new UserStats().ToString());
 
                 // Exit if Running is false;
                 if (!settings.Running) { break; }
