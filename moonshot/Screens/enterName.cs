@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Windows.Input;
+using System.IO;
 
 namespace moonshot.Screens
 {
@@ -17,6 +18,7 @@ namespace moonshot.Screens
         {
             ClearBackground(Colors.space);
             starscape();
+            Crew();
             Menu();
         }
         internal static string selection = String.Empty;
@@ -99,6 +101,17 @@ namespace moonshot.Screens
             if (confirmName) {
                 Raylib.DrawText("Are these names correct? " + confirm + "_", Raylib.GetScreenWidth()/8, (Raylib.GetScreenHeight()/10*9), 30, WHITE);
             }
+        }
+        // Crew
+        internal static Texture2D crewTexture = new Texture2D();
+        internal static void Crew()
+        {
+            if (crewTexture.height == 0) {
+                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/crew.png"));
+                crewTexture = LoadTextureFromImage(img);
+                UnloadImage(img);
+            }
+            DrawTextureEx(crewTexture, new Vector2(0, 0), 0f, 0.55f, WHITE);
         }
     }
 }
