@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml;
 
 namespace moonshot
 {
@@ -80,7 +81,7 @@ namespace moonshot
     }
     public class Inventory
     {
-        internal static List<InventoryItem> Items = new List<InventoryItem>(){new InventoryItem("test", 1, 1)};
+        internal static List<InventoryItem> Items = new List<InventoryItem>(){}; //new List<InventoryItem>(){new InventoryItem("test", 1, 1)};
         public override string ToString()
         {
             string output = "<Items>";
@@ -89,6 +90,35 @@ namespace moonshot
             }
             output += "</Items>";
             return output;
+        }
+        public void LoadInventoryFromString(string inventoryString, Inventory inventory) {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(inventoryString);
+            foreach (XmlNode node in doc)
+            {
+                string name = "";
+                int id = 0;
+                int value = 0;
+                for (int i = 0; i < node.ChildNodes.Count; i++)
+                {
+                    switch (node.ChildNodes[i].Name) {
+                        case "Name":
+                            name = node.ChildNodes[i].InnerText;
+                            break;
+                        case "Id":
+                            Int32.TryParse(node.ChildNodes[i].InnerText, out id);
+                            break;
+                        case "Value":
+                            Int32.TryParse(node.ChildNodes[i].InnerText, out value);
+                            break;
+                        default:
+                            Console.WriteLine(node.ChildNodes[i].Name);
+                            break;
+                    }
+                }
+                //inventory.Items
+                Console.WriteLine(name + id.ToString() + "" + value.ToString());
+            }
         }
     }
     public class UserStats
@@ -100,7 +130,41 @@ namespace moonshot
         public string status = PlayerStatus.good;
         public override string ToString()
         {
-            return "<Money>" + Money.ToString() + "</Money><PlayerType>" + playerType + "</PlayerType><Status>" + status + "</Status>" + inventory.ToString() + crew.ToString();
+            return "<Stats><Money>" + Money.ToString() + "</Money><PlayerType>" + playerType + "</PlayerType><Status>" + status + "</Status>" + inventory.ToString() + crew.ToString() + "</Stats>";
+        }
+        public void LoadUserStatsFromString(string userStatsString, UserStats stats)
+        {
+            try {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(userStatsString);
+            foreach (XmlNode node in doc)
+            {
+                for (int i = 0; i < node.ChildNodes.Count; i++)
+                {
+                    switch (node.ChildNodes[i].Name) {
+                        case "Money":
+                            Int32.TryParse(node.ChildNodes[i].InnerText, out stats.Money);
+                            break;
+                        case "PlayerType":
+                            stats.playerType = node.ChildNodes[i].InnerText;
+                            break;
+                        case "Status":
+                            stats.status = node.ChildNodes[i].InnerText;
+                            break;
+                        case "Items":
+                            inventory.LoadInventoryFromString(node.ChildNodes[i].InnerXml, inventory);
+                            break;
+                        case "PartyMembers":
+                            break;
+                        default:
+                            Console.WriteLine(node.ChildNodes[i].Name);
+                            break;
+                    }
+                }
+            }
+            } catch (Exception ex) {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

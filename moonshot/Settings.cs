@@ -68,6 +68,10 @@ namespace moonshot
                 savedProgress = true; // Loaded Saved Progress
             }
 
+            // Load Userstats
+            string ustat = GetConfigValue("UserStats");
+            userStats.LoadUserStatsFromString(ustat, userStats);
+
         }
         
         // Save Settings
@@ -79,6 +83,9 @@ namespace moonshot
             
             // Save the current screen (progress)
             SetConfigValue("CurrentScreen", currentScreen.ToLower());
+
+            // Save the Userstats
+            SetConfigValue("UserStats", userStats.ToString());
         }
 
         // Reads the moonshot.xml file for the supplied tag value.

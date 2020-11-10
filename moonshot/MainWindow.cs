@@ -126,7 +126,7 @@ namespace moonshot
                 if (!settings.Running) { break; }
                 //----------------------------------------------------------------------------------
 
-                Console.WriteLine(settings.userStats.ToString());
+                //Console.WriteLine(settings.userStats.ToString());
             }
 
             // Save settings

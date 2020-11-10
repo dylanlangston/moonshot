@@ -16,12 +16,14 @@ namespace moonshot.Screens
         {
             ClearBackground(Colors.space);
             starscape();
+            Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight()/12);
+            Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight() / 24 * 20 );
             Confirmation();
         }
         private static void Confirmation(){
-            //Raylib.DrawText("Your game has been saved.", Raylib.GetScreenWidth()/32*7, (Raylib.GetScreenHeight()/2)-30, 30, WHITE);
+            Raylib.DrawText("Before leaving Indepedence...", Raylib.GetScreenWidth()/32*7, (Raylib.GetScreenHeight()/2)-30, 30, WHITE);
             if (PressSPACEBAR()) {
-                MainWindow.settings.currentScreen = "welcome";
+                //MainWindow.settings.currentScreen = "welcome";
             }
         }
     }

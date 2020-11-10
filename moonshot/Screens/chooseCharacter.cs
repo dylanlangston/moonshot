@@ -4,6 +4,7 @@ using static Raylib_cs.Color;
 using System;
 using System.Numerics;
 using System.Windows.Input;
+using System.IO;
 
 namespace moonshot.Screens
 {
@@ -18,6 +19,7 @@ namespace moonshot.Screens
             starscape();
             Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight()/12);
             Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight() / 24 * 20 );
+            Crew();
             Menu();
         }
         internal static string selection = String.Empty;
@@ -76,6 +78,18 @@ namespace moonshot.Screens
                     break;
             }
             Raylib.DrawText("What is your choice? " + selection + "_", Raylib.GetScreenWidth()/8, Raylib.GetScreenHeight()/5*4, 30, WHITE);
+        }
+
+        // Crew
+        internal static Texture2D crewTexture = new Texture2D();
+        internal static void Crew()
+        {
+            if (crewTexture.height == 0) {
+                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/crew.png"));
+                crewTexture = LoadTextureFromImage(img);
+                UnloadImage(img);
+            }
+            DrawTextureEx(crewTexture, new Vector2(0, 0), 0f, 0.55f, WHITE);
         }
     }
 }
