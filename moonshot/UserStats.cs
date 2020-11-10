@@ -3,19 +3,19 @@ using System.Collections.Generic;
 
 namespace moonshot
 {
-    class PlayerType
+    public class PlayerType
     {
         public const string apollo11 = "Apollo 11";
         public const string apollo12 = "Apollo 12";
-        public const string apollo13 = "Apollo 14";
+        public const string apollo14 = "Apollo 14";
     }
-    class PlayerStatus
+    public class PlayerStatus
     {
         public const string good = "Good";
         public const string fair = "Fair";
         public const string poor = "Poor";
     }
-    class PartyMembers {
+    public class PartyMembers {
         internal List<PartyMember> Party;
 
         public override string ToString()
@@ -28,7 +28,7 @@ namespace moonshot
             return output;
         }
     }
-    class PartyMember
+    public class PartyMember
     {
         internal PartyMember(string nameIn, string statusIn) {
             name = nameIn;
@@ -37,7 +37,7 @@ namespace moonshot
         internal string name;
         internal string status; 
     }
-    class apollo11 : PartyMembers {
+    public class apollo11 : PartyMembers {
         internal apollo11() {
             Party = new List<PartyMember>()
             {
@@ -47,7 +47,7 @@ namespace moonshot
             };
         }
     }
-    class apollo12 : PartyMembers {
+    public class apollo12 : PartyMembers {
         internal apollo12() {
             Party = new List<PartyMember>()
             {
@@ -57,7 +57,7 @@ namespace moonshot
             };
         }
     }
-    class apollo14 : PartyMembers {
+    public class apollo14 : PartyMembers {
         internal apollo14() {
             Party = new List<PartyMember>()
             {
@@ -67,7 +67,7 @@ namespace moonshot
             };
         }
     }
-    class InventoryItem
+    public class InventoryItem
     {
         public InventoryItem(string nameIn, int idIn, int valueIn) {
             name = nameIn;
@@ -78,7 +78,7 @@ namespace moonshot
         public int id;
         public int value;
     }
-    class Inventory
+    public class Inventory
     {
         internal static List<InventoryItem> Items = new List<InventoryItem>(){new InventoryItem("test", 1, 1)};
         public override string ToString()
@@ -93,12 +93,11 @@ namespace moonshot
     }
     public class UserStats
     {
-        List<PartyMember> PartyMembers = new List<PartyMember>(){};
-        int Money = 0;
-        String playerType = PlayerType.apollo11;
-        PartyMembers crew = new apollo11();
-        Inventory inventory = new Inventory();
-        string status = PlayerStatus.good;
+        public int Money = 0;
+        public String playerType = PlayerType.apollo11;
+        public PartyMembers crew = new apollo11();
+        public Inventory inventory = new Inventory();
+        public string status = PlayerStatus.good;
         public override string ToString()
         {
             return "<Money>" + Money.ToString() + "</Money><PlayerType>" + playerType + "</PlayerType><Status>" + status + "</Status>" + inventory.ToString() + crew.ToString();

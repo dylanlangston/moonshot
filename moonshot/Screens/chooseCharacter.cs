@@ -33,12 +33,28 @@ namespace moonshot.Screens
                 keypress = 9000;
             } else if (Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER)) {
                 switch (selection) {
+                    case "1":
+                        MainWindow.settings.userStats.playerType = PlayerType.apollo11;
+                        MainWindow.settings.userStats.crew =  new apollo11();
+                        MainWindow.settings.currentScreen = "Enter Name";
+                        break;
+                    case "2":
+                    MainWindow.settings.userStats.playerType = PlayerType.apollo12;
+                        MainWindow.settings.userStats.crew =  new apollo12();
+                        MainWindow.settings.currentScreen = "Enter Name";
+                        break;
+                    case "3":
+                    MainWindow.settings.userStats.playerType = PlayerType.apollo14;
+                        MainWindow.settings.userStats.crew =  new apollo14();
+                        MainWindow.settings.currentScreen = "Enter Name";
+                        break;
                     case "4":
                         MainWindow.settings.Running = false;
                         break;
                     default:
                         break;
                 }
+                selection = "";
             }
             switch (keypress){
                 case 49:

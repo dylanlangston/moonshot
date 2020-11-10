@@ -115,18 +115,18 @@ namespace moonshot
                 cleanupCounter++;
 
                 // .NET Garbage collection every 10000 cycles
-                // Probably not needed but why not.
+                // Probably not needed but why not?
                 if (cleanupCounter > 10000) {
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
                     cleanupCounter = 0;
                 }
 
-                //Console.WriteLine(new UserStats().ToString());
-
                 // Exit if Running is false;
                 if (!settings.Running) { break; }
                 //----------------------------------------------------------------------------------
+
+                Console.WriteLine(settings.userStats.ToString());
             }
 
             // Save settings

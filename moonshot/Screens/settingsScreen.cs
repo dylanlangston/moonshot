@@ -4,7 +4,6 @@ using static Raylib_cs.Color;
 using System;
 using System.Numerics;
 using System.Windows.Input;
-using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -36,7 +35,7 @@ namespace moonshot.Screens
             Raylib.DrawLineV(new Vector2(0, 92), new Vector2(Raylib.GetScreenWidth(), 92), BLUE);
             Raylib.DrawLineV(new Vector2(0, 93), new Vector2(Raylib.GetScreenWidth(), 93), BLUE);
             Raylib.DrawLineV(new Vector2(0, 94), new Vector2(Raylib.GetScreenWidth(), 94), BLUE);
-            Raylib.DrawText("Management Options", Raylib.GetScreenWidth()/96*31, 95, 30, WHITE);
+            Raylib.DrawText("Settings", Raylib.GetScreenWidth()/128*57, 95, 30, WHITE);
 
             Raylib.DrawText("You may:", Raylib.GetScreenWidth()/8, Raylib.GetScreenHeight()/4, 30, WHITE);
             Raylib.DrawText("1.  See the current Top Ten list", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3, 30, WHITE);
