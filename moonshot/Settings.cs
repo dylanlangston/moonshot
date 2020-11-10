@@ -26,7 +26,9 @@ namespace moonshot
             new settingsScreen(),
             new saveScreen(),
             new loadScreen(),
-            new chooseCharacter()
+            new chooseCharacter(),
+            new enterName(),
+            new suppliesScreenOne()
         };
         internal List<screen> screensList {
             get { return _screensList; }
@@ -45,7 +47,7 @@ namespace moonshot
         public Settings(bool useDefaults = false) 
         {
             // Load settings on startup
-            if (!useDefaults) {LoadSettings();} else {savedProgress = true; }
+            if (!useDefaults) {LoadSettings();}
         }
 
         // Load Settings from save file if it exists

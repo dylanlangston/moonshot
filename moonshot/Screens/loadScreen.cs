@@ -38,11 +38,11 @@ namespace moonshot.Screens
                         MainWindow.settings.currentScreen = "Character Selection";
                         MainWindow.currentScreenTempStore = "";
                         MainWindow.settings.savedProgress = false;
-                        selection = "";
                         break;
                     default:
                         break;
                 }
+                selection = "";
             }
             switch (keypress){
                 case 121:
