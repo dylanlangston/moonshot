@@ -7,23 +7,28 @@ using System.Windows.Input;
 
 namespace moonshot.Screens
 {
-    class suppliesScreenOne : screen
+    class suppliesScreenFour : screen
     {
         public override string Name {
-            get { return "Supplies Screen One"; }
+            get { return "Supplies Screen Four"; }
         }
+        static int loopCount = 0;
         public override void Display()
         {
             ClearBackground(Colors.space);
             starscape();
             Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight()/12);
             Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight() / 24 * 20 );
-            Confirmation();
+            if (loopCount > 5) {
+                Confirmation();
+            } else {
+                loopCount++;
+            }
         }
         private static void Confirmation(){
-            Raylib.DrawText("Before leaving Indepedence...", Raylib.GetScreenWidth()/32*7, (Raylib.GetScreenHeight()/2)-30, 30, WHITE);
+            Raylib.DrawText("...", Raylib.GetScreenWidth()/32*7, (Raylib.GetScreenHeight()/2)-30, 30, WHITE);
             if (PressSPACEBAR()) {
-                MainWindow.settings.currentScreen = "Supplies Screen Two";
+                //MainWindow.settings.currentScreen = "welcome";
             }
         }
     }

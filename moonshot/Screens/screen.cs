@@ -21,7 +21,7 @@ namespace moonshot.Screens
         // Press SPACEBAR to continue text and logic
         internal static bool PressSPACEBAR() {
             Raylib.DrawText("Press SPACE BAR to continue", Raylib.GetScreenWidth()/5, Raylib.GetScreenHeight()-35, 30, WHITE);
-            if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE)) {
+            if (Raylib.IsKeyReleased(KeyboardKey.KEY_SPACE)) {
                 return true;
             }
             return false;
