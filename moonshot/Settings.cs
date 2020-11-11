@@ -28,7 +28,10 @@ namespace moonshot
             new loadScreen(),
             new chooseCharacter(),
             new enterName(),
-            new suppliesScreenOne()
+            new suppliesScreenOne(),
+            new suppliesScreenTwo(),
+            new suppliesScreenThree(),
+            new suppliesScreenFour()
         };
         internal List<screen> screensList {
             get { return _screensList; }

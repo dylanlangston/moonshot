@@ -111,7 +111,7 @@ namespace moonshot.Screens
                 crewTexture = LoadTextureFromImage(img);
                 UnloadImage(img);
             }
-            DrawTextureEx(crewTexture, new Vector2(0, 0), 0f, 0.55f, WHITE);
+            DrawTextureEx(crewTexture, new Vector2(0, 0), 0f, 1f, WHITE);
         }
     }
 }
