@@ -19,7 +19,7 @@ namespace moonshot.Screens
             ClearBackground(Colors.space);
             starscape();
             Salesman();
-            if (loopCount > 10) {
+            if (loopCount > 5) {
                 Confirmation();
             } else {
                 loopCount++;
@@ -31,6 +31,7 @@ namespace moonshot.Screens
             Raylib.DrawText("- Fuel to get you there and back ", Raylib.GetScreenWidth()/18*5, (Raylib.GetScreenHeight()/2)+95, 30, WHITE);
             if (PressSPACEBAR()) {
                 MainWindow.settings.currentScreen = "Supplies Screen Four";
+                loopCount = 0;
             }
         }
         // Salesman
