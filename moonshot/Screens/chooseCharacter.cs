@@ -47,7 +47,7 @@ namespace moonshot.Screens
                         MainWindow.settings.currentScreen = "Enter Name";
                         break;
                     case "4":
-                        MainWindow.settings.Running = false;
+                        MainWindow.settings.currentScreen = "About Characters";
                         break;
                     default:
                         break;

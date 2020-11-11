@@ -3,7 +3,7 @@ using static Raylib_cs.Raylib;
 using static Raylib_cs.Color;
 using System;
 using System.Numerics;
-using System.Windows.Input;
+using System.IO;
 
 namespace moonshot.Screens
 {
@@ -17,19 +17,32 @@ namespace moonshot.Screens
         {
             ClearBackground(Colors.space);
             starscape();
-            Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight()/12);
-            Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight() / 24 * 20 );
-            if (loopCount > 5) {
+            Salesman();
+            if (loopCount > 10) {
                 Confirmation();
             } else {
                 loopCount++;
             }
         }
         private static void Confirmation(){
-            Raylib.DrawText("...", Raylib.GetScreenWidth()/32*7, (Raylib.GetScreenHeight()/2)-30, 30, WHITE);
+            Raylib.DrawText("Hello, I'm Matt. So you're going to the\nMoon! I can fix you up with what you\nneed:", Raylib.GetScreenWidth()/32*7, (Raylib.GetScreenHeight()/8), 30, WHITE);
+            Raylib.DrawText("- Plenty of food for the trip", Raylib.GetScreenWidth()/18*5, Raylib.GetScreenHeight()/16*7, 30, WHITE);
+            Raylib.DrawText("- Boxes to collect the rocks", Raylib.GetScreenWidth()/18*5, (Raylib.GetScreenHeight()/16*7)+65, 30, WHITE);
+            Raylib.DrawText("- Spare parts for your ship", Raylib.GetScreenWidth()/18*5, (Raylib.GetScreenHeight()/16*7)+125, 30, WHITE);
             if (PressSPACEBAR()) {
-                //MainWindow.settings.currentScreen = "welcome";
+                MainWindow.settings.currentScreen = "Matts Store";
             }
+        }
+        // Salesman
+        internal static Texture2D salesmanTexture = new Texture2D();
+        internal static void Salesman()
+        {
+            if (salesmanTexture.height == 0) {
+                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/salesman.png"));
+                salesmanTexture = LoadTextureFromImage(img);
+                UnloadImage(img);
+            }
+            DrawTextureEx(salesmanTexture, new Vector2(0, 0), 0f, 1f, WHITE);
         }
     }
 }

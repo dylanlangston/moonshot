@@ -9,6 +9,18 @@ namespace moonshot
         public const string apollo11 = "Apollo 11";
         public const string apollo12 = "Apollo 12";
         public const string apollo14 = "Apollo 14";
+
+        public static DateTime GetLaunchDate(string playerType){
+            switch (playerType){
+                default: // Apollo 11
+                    return new DateTime(1969, 7, 16);
+                case PlayerType.apollo12:
+                    return new DateTime(1969, 11, 14);
+                case PlayerType.apollo14:
+                    return new DateTime(1971, 1, 31);
+                
+            }
+        }
     }
     public class PlayerStatus
     {
@@ -17,7 +29,7 @@ namespace moonshot
         public const string poor = "Poor";
     }
     public class PartyMembers {
-        internal List<PartyMember> Party;
+        internal List<PartyMember> Party = new List<PartyMember>(){};
 
         public override string ToString()
         {
@@ -27,6 +39,29 @@ namespace moonshot
             }
             output += "</PartyMembers>";
             return output;
+        }
+        public void LoadPartyMembersFromString(string partyString, PartyMembers members) {
+            members.Party.RemoveRange(0, members.Party.Count);
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(partyString);
+            foreach (XmlNode node in doc)
+            {
+                for (int i = 0; i < node.ChildNodes.Count; i++)
+                {
+                    string name = "";
+                    string status = "";
+                    switch (node.ChildNodes[i].Name) {
+                        case "Member":
+                            name = node.ChildNodes[i].FirstChild.InnerText.ToString();
+                            status = node.ChildNodes[i].LastChild.InnerText.ToString();
+                            break;
+                        default:
+                            break;
+                    }
+                    if (!String.IsNullOrEmpty(name+status))
+                        members.Party.Add(new PartyMember(name, status));
+                }
+            }
         }
     }
     public class PartyMember
@@ -152,9 +187,12 @@ namespace moonshot
                             stats.status = node.ChildNodes[i].InnerText;
                             break;
                         case "Items":
-                            inventory.LoadInventoryFromString(node.ChildNodes[i].InnerXml, inventory);
+                            if (!String.IsNullOrEmpty(node.ChildNodes[i].InnerXml))
+                                inventory.LoadInventoryFromString(node.ChildNodes[i].InnerXml, inventory);
                             break;
                         case "PartyMembers":
+                            if (!String.IsNullOrEmpty(node.ChildNodes[i].OuterXml))
+                                crew.LoadPartyMembersFromString(node.ChildNodes[i].OuterXml, crew);
                             break;
                         default:
                             Console.WriteLine(node.ChildNodes[i].Name);

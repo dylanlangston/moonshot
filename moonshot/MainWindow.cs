@@ -79,7 +79,7 @@ namespace moonshot
                 if (firstRun)
                 {
                     (new splashScreen()).Display();
-                    if (cleanupCounter > 150)
+                    if (true) //if (cleanupCounter > 150)
                     {
                         firstRun = false;
                     }
@@ -126,7 +126,7 @@ namespace moonshot
                 if (!settings.Running) { break; }
                 //----------------------------------------------------------------------------------
 
-                //Console.WriteLine(settings.userStats.ToString());
+                Console.WriteLine(settings.userStats.ToString());
             }
 
             // Save settings

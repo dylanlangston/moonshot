@@ -21,7 +21,7 @@ namespace moonshot.Screens
             Confirmation();
         }
         private static void Confirmation(){
-            Raylib.DrawText("Before leaving Indepedence...", Raylib.GetScreenWidth()/32*7, (Raylib.GetScreenHeight()/2)-30, 30, WHITE);
+            Raylib.DrawText("Before leaving Cape Kennedy you should\nget equipment and supplies. You have " + MainWindow.settings.userStats.Money + "\nin credits, but you don't have to use it\nall now.", Raylib.GetScreenWidth()/10, (Raylib.GetScreenHeight()/3), 30, WHITE);
             if (PressSPACEBAR()) {
                 MainWindow.settings.currentScreen = "Supplies Screen Two";
             }

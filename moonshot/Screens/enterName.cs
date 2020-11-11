@@ -83,6 +83,10 @@ namespace moonshot.Screens
                         confirm = "";
                     }
                     break;
+                case '<':
+                    break;
+                case '>':
+                    break;
                 default:
                     if (!confirmName) {
                         if (selection.Length < 16)

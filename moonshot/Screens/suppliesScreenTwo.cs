@@ -19,14 +19,14 @@ namespace moonshot.Screens
             starscape();
             Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight()/12);
             Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight() / 24 * 20 );
-            if (loopCount > 5) {
+            if (loopCount > 10) {
                 Confirmation();
             } else {
                 loopCount++;
             }
         }
         private static void Confirmation(){
-            Raylib.DrawText("2", Raylib.GetScreenWidth()/32*7, (Raylib.GetScreenHeight()/2)-30, 30, WHITE);
+            Raylib.DrawText("You can get whatever you need at\nMatt's Commissary.", Raylib.GetScreenWidth()/10, (Raylib.GetScreenHeight()/2)-30, 30, WHITE);
             if (PressSPACEBAR()) {
                 MainWindow.settings.currentScreen = "Supplies Screen Three";
             }

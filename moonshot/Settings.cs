@@ -31,7 +31,9 @@ namespace moonshot
             new suppliesScreenOne(),
             new suppliesScreenTwo(),
             new suppliesScreenThree(),
-            new suppliesScreenFour()
+            new suppliesScreenFour(),
+            new mattsStore(),
+            new aboutCharacters()
         };
         internal List<screen> screensList {
             get { return _screensList; }
