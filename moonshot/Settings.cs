@@ -27,13 +27,18 @@ namespace moonshot
             new saveScreen(),
             new loadScreen(),
             new chooseCharacter(),
+            new aboutCharacters(),
             new enterName(),
             new suppliesScreenOne(),
             new suppliesScreenTwo(),
             new suppliesScreenThree(),
             new suppliesScreenFour(),
             new mattsStore(),
-            new aboutCharacters()
+            new mattsStoreOxygenTanks(),
+            new mattsStoreFuel(),
+            new mattsStoreFood(),
+            new mattsStoreBoxes(),
+            new mattsStoreShipParts()
         };
         internal List<screen> screensList {
             get { return _screensList; }

@@ -18,7 +18,19 @@ namespace moonshot.Screens
             starscape();
             Salesman();
             Store();
+            if (loopCount > 5) {
+                if (selection == " ")
+                { 
+                    DontForget();
+                } else {
+                    GetInput();
+                }
+            } else {
+                loopCount++;
+            }
         }
+        private static string selection = String.Empty;
+        private static int loopCount = 0;
         private static void Store()
         {
             Raylib.DrawLineV(new Vector2(220, 25), new Vector2(Raylib.GetScreenWidth()-20, 25), RED);
@@ -40,11 +52,11 @@ namespace moonshot.Screens
             Raylib.DrawLineV(new Vector2(220, 165), new Vector2(Raylib.GetScreenWidth()-20, 165), RED);
             Raylib.DrawLineV(new Vector2(220, 166), new Vector2(Raylib.GetScreenWidth()-20, 166), RED);
 
-            Raylib.DrawText("1.  Oxygen", Raylib.GetScreenWidth()/3, Raylib.GetScreenHeight()/24*7, 30, WHITE);
+            Raylib.DrawText("1.  Oxygen Tanks", Raylib.GetScreenWidth()/3, Raylib.GetScreenHeight()/24*7, 30, WHITE);
             Raylib.DrawText("2. Fuel", Raylib.GetScreenWidth()/3, Raylib.GetScreenHeight()/24*7+35, 30, WHITE);
             Raylib.DrawText("3. Food", Raylib.GetScreenWidth()/3, Raylib.GetScreenHeight()/24*7+70, 30, WHITE);
             Raylib.DrawText("4. Boxes", Raylib.GetScreenWidth()/3, Raylib.GetScreenHeight()/24*7+105, 30, WHITE);
-            Raylib.DrawText("5. Space Parts", Raylib.GetScreenWidth()/3, Raylib.GetScreenHeight()/24*7+140, 30, WHITE);
+            Raylib.DrawText("5. Spare Ship Parts", Raylib.GetScreenWidth()/3, Raylib.GetScreenHeight()/24*7+140, 30, WHITE);
 
             Raylib.DrawLineV(new Vector2(220, 355), new Vector2(Raylib.GetScreenWidth()-20, 355), RED);
             Raylib.DrawLineV(new Vector2(220, 356), new Vector2(Raylib.GetScreenWidth()-20, 356), RED);
@@ -58,6 +70,71 @@ namespace moonshot.Screens
 
             //MainWindow.settings.userStats.inventory.
         }
+        private static void GetInput() {
+            Raylib.DrawText("Which item would you like? " + selection + "_", Raylib.GetScreenWidth()/3 + 30, Raylib.GetScreenHeight()/96*70, 30, WHITE);
+
+            Raylib.DrawText("Press SPACE BAR to leave\nstore", Raylib.GetScreenWidth()/3 + 30, Raylib.GetScreenHeight()/96*85, 30, WHITE);
+
+            int keypress = Raylib.GetKeyPressed();
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_BACKSPACE)) {
+                keypress = 9000;
+            } else if (Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER)) {
+                switch (selection) {
+                    case "1":
+                        MainWindow.settings.currentScreen = "Matts Store Oxygen Tanks";
+                        break;
+                    case "2":
+                        MainWindow.settings.currentScreen = "Matts Store Food";
+                        break;
+                    case "3":
+                        MainWindow.settings.currentScreen = "Matts Store Fuel";
+                        break;
+                    case "4":
+                        MainWindow.settings.currentScreen = "Matts Store Boxes";
+                        break;
+                    case "5":
+                        MainWindow.settings.currentScreen = "Matts Store Ship Parts";
+                        break;
+                    default:
+                        break;
+                }
+                loopCount = 0;
+                selection = "";
+            } else if (Raylib.IsKeyReleased(KeyboardKey.KEY_SPACE)) {
+                    selection = " ";
+            }
+            switch (keypress){
+                case '1':
+                    selection = "1";
+                    break;
+                case '2':
+                    selection = "2";
+                    break;
+                case '3':
+                    selection = "3";
+                    break;
+                case '4':
+                    selection = "4";
+                    break;
+                case '5':
+                    selection = "5";
+                    break;
+                case 9000:
+                    selection = String.Empty;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private static void DontForget()
+        {
+            Raylib.DrawText("Don't forget, you'll need\noxygen to breath in space.", Raylib.GetScreenWidth()/3 + 30, Raylib.GetScreenHeight()/96*70, 30, WHITE);
+            if (PressSPACEBAR()) {
+                selection = "";
+            }
+        }
+
         // Salesman
         internal static Texture2D salesmanTexture = new Texture2D();
         internal static void Salesman()

@@ -4,6 +4,10 @@ using System.Xml;
 
 namespace moonshot
 {
+
+    // Extension of the settings. This tracks all the user stats through the game.
+    // Provides a way to save and load usersettings but converting them to/from XML.
+
     public class PlayerType
     {
         public const string apollo11 = "Apollo 11";
@@ -105,6 +109,7 @@ namespace moonshot
     }
     public class InventoryItem
     {
+        public InventoryItem() { }
         public InventoryItem(string nameIn, int idIn, int valueIn) {
             name = nameIn;
             id = idIn;
@@ -114,18 +119,50 @@ namespace moonshot
         public int id;
         public int value;
     }
+    public class OxygenTank : InventoryItem 
+    {
+        internal OxygenTank() {
+            name = "Oxygen Tanks";
+            id = 101;
+            value = 0;
+        }
+    }
+    public class Fuel : InventoryItem 
+    {
+        internal Fuel() {
+            name = "Fuel";
+            id = 102;
+            value = 0;
+        }
+    }
+    public class Food : InventoryItem 
+    {
+        internal Food() {
+            name = "Food";
+            id = 103;
+            value = 0;
+        }
+    }
+    public class Boxes: InventoryItem 
+    {
+        internal Boxes() {
+            name = "Boxes";
+            id = 104;
+            value = 0;
+        }
+    }
+    public class ShipParts : InventoryItem 
+    {
+        internal ShipParts() {
+            name = "Space Ship Parts";
+            id = 105;
+            value = 0;
+        }
+
+    }
     public class Inventory
     {
-        internal static List<InventoryItem> Items = new List<InventoryItem>(){}; //new List<InventoryItem>(){new InventoryItem("test", 1, 1)};
-        public bool AddItemToInventory(InventoryItem item)
-        {
-            return true;
-        }
-        public bool RemoveItemFromInventory(InventoryItem item)
-        {
-
-            return true;
-        }
+        public List<InventoryItem> Items = new List<InventoryItem>(){}; //new List<InventoryItem>(){new InventoryItem("test", 1, 1)};
         public override string ToString()
         {
             string output = "<Items>";
@@ -138,31 +175,34 @@ namespace moonshot
         public void LoadInventoryFromString(string inventoryString, Inventory inventory) {
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(inventoryString);
-            foreach (XmlNode node in doc)
+            List<InventoryItem> Items = new List<InventoryItem>(){};
+            foreach (XmlNode node in doc.ChildNodes)
             {
                 string name = "";
                 int id = 0;
                 int value = 0;
                 for (int i = 0; i < node.ChildNodes.Count; i++)
                 {
-                    switch (node.ChildNodes[i].Name) {
-                        case "Name":
-                            name = node.ChildNodes[i].InnerText;
-                            break;
-                        case "Id":
-                            Int32.TryParse(node.ChildNodes[i].InnerText, out id);
-                            break;
-                        case "Value":
-                            Int32.TryParse(node.ChildNodes[i].InnerText, out value);
-                            break;
-                        default:
-                            Console.WriteLine(node.ChildNodes[i].Name);
-                            break;
+                    foreach (XmlNode item in node.ChildNodes[i]) {
+                        switch (item.Name) {
+                            case "Name":
+                                name = item.InnerText;
+                                break;
+                            case "Id":
+                                Int32.TryParse(item.InnerText, out id);
+                                break;
+                            case "Value":
+                                Int32.TryParse(item.InnerText, out value);
+                                break;
+                            default:
+                                Console.WriteLine(item.Name);
+                                break;
+                        }
                     }
+                    Items.Add(new InventoryItem(name, id, value));
                 }
-                //inventory.Items
-                Console.WriteLine(name + id.ToString() + "" + value.ToString());
             }
+            inventory.Items = Items;
         }
     }
     public class UserStats
@@ -196,15 +236,14 @@ namespace moonshot
                             stats.status = node.ChildNodes[i].InnerText;
                             break;
                         case "Items":
-                            if (!String.IsNullOrEmpty(node.ChildNodes[i].InnerXml))
-                                inventory.LoadInventoryFromString(node.ChildNodes[i].InnerXml, inventory);
+                            if (!String.IsNullOrEmpty(node.ChildNodes[i].OuterXml))
+                                inventory.LoadInventoryFromString(node.ChildNodes[i].OuterXml, inventory);
                             break;
                         case "PartyMembers":
                             if (!String.IsNullOrEmpty(node.ChildNodes[i].OuterXml))
                                 crew.LoadPartyMembersFromString(node.ChildNodes[i].OuterXml, crew);
                             break;
                         default:
-                            Console.WriteLine(node.ChildNodes[i].Name);
                             break;
                     }
                 }
