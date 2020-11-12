@@ -2,6 +2,7 @@
 using static Raylib_cs.Raylib;
 using static Raylib_cs.Color;
 using System;
+using System.Collections.Generic;
 
 namespace moonshot.Screens
 {
@@ -35,18 +36,21 @@ namespace moonshot.Screens
                         MainWindow.settings.userStats.playerType = PlayerType.apollo11;
                         MainWindow.settings.userStats.crew = new apollo11();
                         MainWindow.settings.userStats.Money = 1600;
+                        MainWindow.settings.userStats.inventory.Items = new List<InventoryItem>(){new OxygenTank(), new Fuel(), new Food(), new Boxes(), new ShipParts()};
                         MainWindow.settings.currentScreen = "Enter Name";
                         break;
                     case "2":
                     MainWindow.settings.userStats.playerType = PlayerType.apollo12;
                         MainWindow.settings.userStats.crew = new apollo12();
                         MainWindow.settings.userStats.Money = 800;
+                        MainWindow.settings.userStats.inventory.Items = new List<InventoryItem>(){new OxygenTank(), new Fuel(), new Food(), new Boxes(), new ShipParts()};
                         MainWindow.settings.currentScreen = "Enter Name";
                         break;
                     case "3":
                     MainWindow.settings.userStats.playerType = PlayerType.apollo14;
                         MainWindow.settings.userStats.crew = new apollo14();
                         MainWindow.settings.userStats.Money = 400;
+                        MainWindow.settings.userStats.inventory.Items = new List<InventoryItem>(){new OxygenTank(), new Fuel(), new Food(), new Boxes(), new ShipParts()};
                         MainWindow.settings.currentScreen = "Enter Name";
                         break;
                     case "4":
