@@ -19,7 +19,7 @@ namespace moonshot.Screens
             Salesman();
             Title();
             if (PressSPACEBAR()) {
-                MainWindow.settings.currentScreen = "Matts Store";
+                MainWindow.settings.currentScreen = "Leaving Cape Kennedy";
             }
         }
 

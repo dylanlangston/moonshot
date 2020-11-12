@@ -41,6 +41,10 @@ namespace moonshot
             // 800x600 is the games internal resolution. 
             InitWindow(800, 600, "M O O N S H O T");
 
+
+            // Enable Sound
+            InitAudioDevice();
+
             // Switch to Full Screen if setting is set.
             if (!Raylib.IsWindowFullscreen() && settings.StartFullscreen)
             {
@@ -126,7 +130,7 @@ namespace moonshot
                 if (!settings.Running) { break; }
                 //----------------------------------------------------------------------------------
 
-                Console.WriteLine(settings.userStats.ToString());
+                //Console.WriteLine(settings.userStats.ToString());
             }
 
             // Save settings
