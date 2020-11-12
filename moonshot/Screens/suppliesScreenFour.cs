@@ -18,7 +18,7 @@ namespace moonshot.Screens
             ClearBackground(Colors.space);
             starscape();
             Salesman();
-            if (loopCount > 10) {
+            if (loopCount > 5) {
                 Confirmation();
             } else {
                 loopCount++;
@@ -31,6 +31,7 @@ namespace moonshot.Screens
             Raylib.DrawText("- Spare parts for your ship", Raylib.GetScreenWidth()/18*5, (Raylib.GetScreenHeight()/16*7)+125, 30, WHITE);
             if (PressSPACEBAR()) {
                 MainWindow.settings.currentScreen = "Matts Store";
+                loopCount = 0;
             }
         }
         // Salesman

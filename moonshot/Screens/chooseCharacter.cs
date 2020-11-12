@@ -33,17 +33,20 @@ namespace moonshot.Screens
                 switch (selection) {
                     case "1":
                         MainWindow.settings.userStats.playerType = PlayerType.apollo11;
-                        MainWindow.settings.userStats.crew =  new apollo11();
+                        MainWindow.settings.userStats.crew = new apollo11();
+                        MainWindow.settings.userStats.Money = 1600;
                         MainWindow.settings.currentScreen = "Enter Name";
                         break;
                     case "2":
                     MainWindow.settings.userStats.playerType = PlayerType.apollo12;
-                        MainWindow.settings.userStats.crew =  new apollo12();
+                        MainWindow.settings.userStats.crew = new apollo12();
+                        MainWindow.settings.userStats.Money = 800;
                         MainWindow.settings.currentScreen = "Enter Name";
                         break;
                     case "3":
                     MainWindow.settings.userStats.playerType = PlayerType.apollo14;
-                        MainWindow.settings.userStats.crew =  new apollo14();
+                        MainWindow.settings.userStats.crew = new apollo14();
+                        MainWindow.settings.userStats.Money = 400;
                         MainWindow.settings.currentScreen = "Enter Name";
                         break;
                     case "4":

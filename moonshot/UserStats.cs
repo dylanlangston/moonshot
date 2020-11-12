@@ -117,6 +117,15 @@ namespace moonshot
     public class Inventory
     {
         internal static List<InventoryItem> Items = new List<InventoryItem>(){}; //new List<InventoryItem>(){new InventoryItem("test", 1, 1)};
+        public bool AddItemToInventory(InventoryItem item)
+        {
+            return true;
+        }
+        public bool RemoveItemFromInventory(InventoryItem item)
+        {
+
+            return true;
+        }
         public override string ToString()
         {
             string output = "<Items>";
