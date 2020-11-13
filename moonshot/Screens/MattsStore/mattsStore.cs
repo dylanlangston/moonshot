@@ -97,8 +97,8 @@ namespace moonshot.Screens
             Raylib.DrawLineV(new Vector2(220, 360), new Vector2(Raylib.GetScreenWidth()-20, 360), RED);
             Raylib.DrawLineV(new Vector2(220, 361), new Vector2(Raylib.GetScreenWidth()-20, 361), RED);
 
-            Raylib.DrawText("Total Bill:", Raylib.GetScreenWidth()/2, Raylib.GetScreenHeight()/96*61, 30, WHITE);
-            Raylib.DrawText("$" + CurrentBill + ".00", (Raylib.GetScreenWidth()-(CurrentBill.ToString().Length * 16)-140)+(CurrentBill.ToString().ToCharArray().Where(x => x == '1').Count()*6), Raylib.GetScreenHeight()/96*61, 30, WHITE);
+            Raylib.DrawText("Total Bill:", Raylib.GetScreenWidth()/2, Raylib.GetScreenHeight()/96*61+5, 30, WHITE);
+            Raylib.DrawText("$" + CurrentBill + ".00", (Raylib.GetScreenWidth()-(CurrentBill.ToString().Length * 16)-140)+(CurrentBill.ToString().ToCharArray().Where(x => x == '1').Count()*6), Raylib.GetScreenHeight()/96*61+5, 30, WHITE);
 
             //MainWindow.settings.userStats.inventory.
         }
