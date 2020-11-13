@@ -121,42 +121,42 @@ namespace moonshot
     }
     public class OxygenTank : InventoryItem 
     {
-        internal OxygenTank() {
+        internal OxygenTank(int valueIn = 0) {
             name = "Oxygen Tanks";
             id = 101;
-            value = 0;
+            value = valueIn;
         }
     }
     public class Fuel : InventoryItem 
     {
-        internal Fuel() {
+        internal Fuel(int valueIn = 0) {
             name = "Fuel";
             id = 102;
-            value = 0;
+            value = valueIn;
         }
     }
     public class Food : InventoryItem 
     {
-        internal Food() {
+        internal Food(int valueIn = 0) {
             name = "Food";
             id = 103;
-            value = 0;
+            value = valueIn;
         }
     }
     public class Boxes: InventoryItem 
     {
-        internal Boxes() {
+        internal Boxes(int valueIn = 0) {
             name = "Boxes";
             id = 104;
-            value = 0;
+            value = valueIn;
         }
     }
     public class ShipParts : InventoryItem 
     {
-        internal ShipParts() {
+        internal ShipParts(int valueIn = 0) {
             name = "Space Ship Parts";
             id = 105;
-            value = 0;
+            value = valueIn;
         }
 
     }

@@ -18,9 +18,9 @@ namespace moonshot.Screens
             starscape();
             Salesman();
             Title();
-            if (PressSPACEBAR()) {
-                MainWindow.settings.currentScreen = "Leaving Cape Kennedy";
-            }
+            OxygenTanks();
+            HowMany();
+            CurrentBill();
         }
 
         private static void Title()
@@ -41,6 +41,89 @@ namespace moonshot.Screens
             Raylib.DrawLineV(new Vector2(220, 114), new Vector2(Raylib.GetScreenWidth()-20, 114), RED);
             Raylib.DrawLineV(new Vector2(220, 115), new Vector2(Raylib.GetScreenWidth()-20, 115), RED);
             Raylib.DrawLineV(new Vector2(220, 116), new Vector2(Raylib.GetScreenWidth()-20, 116), RED);
+        }
+        private static string _selection = String.Empty;
+        private static string selection { 
+            get { return _selection; } 
+            set { 
+                int tempInt = 0; 
+                Int32.TryParse(value, out tempInt);
+                if (tempInt < 17) 
+                    if (value.Length < 3)
+                        _selection = value;
+                } 
+            }
+        internal static void HowMany()
+        {
+            Raylib.DrawText("There are 2 two tanks per suit;\nI recommend at least 8 tanks.\nI charge $15 a tank.", Raylib.GetScreenWidth()/3, Raylib.GetScreenHeight()/4, 30, WHITE);
+            int keypress = Raylib.GetKeyPressed();
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_BACKSPACE)) {
+                keypress = 9000;
+            } else if (Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER)) {
+                if (!String.IsNullOrEmpty(selection))
+                {
+                    int tempInt = 0; 
+                    Int32.TryParse(selection, out tempInt);
+                    try {
+                        mattsStore.CurrentBill -= mattsStore.CurrentSelection.Items[mattsStore.CurrentSelection.Items.FindIndex(x => x.id == 101)].value * 15;
+                        mattsStore.CurrentSelection.Items[mattsStore.CurrentSelection.Items.FindIndex(x => x.id == 101)].value = tempInt;
+                    } catch {
+                        mattsStore.CurrentSelection.Items.Add(new OxygenTank(tempInt));
+                    }
+                    mattsStore.CurrentBill += (tempInt * 15);
+                    MainWindow.settings.currentScreen = "Matts Store";
+                    selection = String.Empty;
+                }
+            }
+            switch (keypress){
+                case '1':
+                    selection += "1";
+                    break;
+                case '2':
+                    selection += "2";
+                    break;
+                case '3':
+                    selection += "3";
+                    break;
+                case '4':
+                    selection += "4";
+                    break;
+                case '5':
+                    selection += "5";
+                    break;
+                case '6':
+                    selection += "6";
+                    break;
+                case '7':
+                    selection += "7";
+                    break;
+                case '8':
+                    selection += "8";
+                    break;
+                case '9':
+                    selection += "9";
+                    break;
+                case 9000:
+                    try {selection = selection.Remove(selection.Length-1, 1);} catch {}
+                    break;
+                default:
+                    break;
+            }
+            Raylib.DrawText("How many tanks do you want? " + selection + "_", Raylib.GetScreenWidth()/3, Raylib.GetScreenHeight()/2, 30, WHITE);
+        }
+        internal static void CurrentBill() {
+            Raylib.DrawText("Bill so far: $" + mattsStore.CurrentBill + ".00", Raylib.GetScreenWidth()/3, Raylib.GetScreenHeight()/24*21, 30, WHITE);
+        }
+        // Oxygen Tanks
+        internal static Texture2D oxygenTanksTexture = new Texture2D();
+        internal static void OxygenTanks()
+        {
+            if (oxygenTanksTexture.height == 0) {
+                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/oxygentanks.png"));
+                oxygenTanksTexture = LoadTextureFromImage(img);
+                UnloadImage(img);
+            }
+            DrawTextureEx(oxygenTanksTexture, new Vector2((Raylib.GetScreenWidth()/2)-30, Raylib.GetScreenHeight()/5*3), 0f, 1f, WHITE);
         }
         // Salesman
         internal static Texture2D salesmanTexture = new Texture2D();

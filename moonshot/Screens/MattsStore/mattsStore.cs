@@ -4,6 +4,7 @@ using static Raylib_cs.Color;
 using System;
 using System.Numerics;
 using System.IO;
+using System.Linq;
 
 namespace moonshot.Screens
 {
@@ -12,6 +13,10 @@ namespace moonshot.Screens
         public override string Name {
             get { return "Matts Store"; }
         }
+
+        public static int CurrentBill = 0;
+        public static Inventory CurrentSelection = new Inventory();
+        
         public override void Display()
         {
             ClearBackground(Colors.space);
@@ -57,6 +62,32 @@ namespace moonshot.Screens
             Raylib.DrawText("3. Food", Raylib.GetScreenWidth()/3, Raylib.GetScreenHeight()/24*7+70, 30, WHITE);
             Raylib.DrawText("4. Boxes", Raylib.GetScreenWidth()/3, Raylib.GetScreenHeight()/24*7+105, 30, WHITE);
             Raylib.DrawText("5. Spare Ship Parts", Raylib.GetScreenWidth()/3, Raylib.GetScreenHeight()/24*7+140, 30, WHITE);
+            int OxygenAmount = 0;
+            try {
+                OxygenAmount = CurrentSelection.Items[CurrentSelection.Items.FindIndex(x => x.id == 101)].value * 15;
+            } catch {}
+            Raylib.DrawText("$" + OxygenAmount + ".00", (Raylib.GetScreenWidth()-(OxygenAmount.ToString().Length * 16)-140)+(OxygenAmount.ToString().ToCharArray().Where(x => x == '1').Count()*6), Raylib.GetScreenHeight()/24*7, 30, WHITE);
+            int FuelAmount = 0;
+            try {
+                FuelAmount = CurrentSelection.Items[CurrentSelection.Items.FindIndex(x => x.id == 102)].value;
+            } catch {}
+            Raylib.DrawText("$" + FuelAmount + ".00", (Raylib.GetScreenWidth()-(FuelAmount.ToString().Length * 16)-140)+(FuelAmount.ToString().ToCharArray().Where(x => x == '1').Count()*6), Raylib.GetScreenHeight()/24*7+35, 30, WHITE);
+            int FoodAmount = 0;
+            try {
+                FoodAmount = CurrentSelection.Items[CurrentSelection.Items.FindIndex(x => x.id == 103)].value;
+            } catch {}
+            Raylib.DrawText("$" + FoodAmount + ".00", (Raylib.GetScreenWidth()-(FoodAmount.ToString().Length * 16)-140)+(FoodAmount.ToString().ToCharArray().Where(x => x == '1').Count()*6), Raylib.GetScreenHeight()/24*7+70, 30, WHITE);
+            int BoxesAmount = 0;
+            try {
+                BoxesAmount = CurrentSelection.Items[CurrentSelection.Items.FindIndex(x => x.id == 104)].value * 15;
+            } catch {}
+            Raylib.DrawText("$" + BoxesAmount + ".00", (Raylib.GetScreenWidth()-(BoxesAmount.ToString().Length * 16)-140)+(BoxesAmount.ToString().ToCharArray().Where(x => x == '1').Count()*6), Raylib.GetScreenHeight()/24*7+105, 30, WHITE);
+            int PartsAmount = 0;
+            try {
+                PartsAmount = CurrentSelection.Items[CurrentSelection.Items.FindIndex(x => x.id == 105)].value * 15;
+            } catch {}
+            Raylib.DrawText("$" + PartsAmount + ".00", (Raylib.GetScreenWidth()-(PartsAmount.ToString().Length * 16)-140)+(PartsAmount.ToString().ToCharArray().Where(x => x == '1').Count()*6), Raylib.GetScreenHeight()/24*7+140, 30, WHITE);
+
 
             Raylib.DrawLineV(new Vector2(220, 355), new Vector2(Raylib.GetScreenWidth()-20, 355), RED);
             Raylib.DrawLineV(new Vector2(220, 356), new Vector2(Raylib.GetScreenWidth()-20, 356), RED);
@@ -67,11 +98,15 @@ namespace moonshot.Screens
             Raylib.DrawLineV(new Vector2(220, 361), new Vector2(Raylib.GetScreenWidth()-20, 361), RED);
 
             Raylib.DrawText("Total Bill:", Raylib.GetScreenWidth()/2, Raylib.GetScreenHeight()/96*61, 30, WHITE);
+            Raylib.DrawText("$" + CurrentBill + ".00", (Raylib.GetScreenWidth()-(CurrentBill.ToString().Length * 16)-140)+(CurrentBill.ToString().ToCharArray().Where(x => x == '1').Count()*6), Raylib.GetScreenHeight()/96*61, 30, WHITE);
 
             //MainWindow.settings.userStats.inventory.
         }
         private static void GetInput() {
-            Raylib.DrawText("Which item would you like? " + selection + "_", Raylib.GetScreenWidth()/3 + 30, Raylib.GetScreenHeight()/96*70, 30, WHITE);
+            Raylib.DrawText("Amount you have: ", Raylib.GetScreenWidth()/3, Raylib.GetScreenHeight()/96*69, 30, WHITE);
+            Raylib.DrawText("$" + MainWindow.settings.userStats.Money + ".00", (Raylib.GetScreenWidth()-(MainWindow.settings.userStats.Money.ToString().Length * 16)-140)+(MainWindow.settings.userStats.Money.ToString().ToCharArray().Where(x => x == '1').Count()*6), Raylib.GetScreenHeight()/96*69, 30, WHITE);
+
+            Raylib.DrawText("Which item would you like? " + selection + "_", Raylib.GetScreenWidth()/3 + 30, Raylib.GetScreenHeight()/96*77, 30, WHITE);
 
             Raylib.DrawText("Press SPACE BAR to leave\nstore", Raylib.GetScreenWidth()/3 + 30, Raylib.GetScreenHeight()/96*85, 30, WHITE);
 
@@ -84,10 +119,10 @@ namespace moonshot.Screens
                         MainWindow.settings.currentScreen = "Matts Store Oxygen Tanks";
                         break;
                     case "2":
-                        MainWindow.settings.currentScreen = "Matts Store Food";
+                        MainWindow.settings.currentScreen = "Matts Store Fuel";
                         break;
                     case "3":
-                        MainWindow.settings.currentScreen = "Matts Store Fuel";
+                        MainWindow.settings.currentScreen = "Matts Store Food";
                         break;
                     case "4":
                         MainWindow.settings.currentScreen = "Matts Store Boxes";
@@ -101,6 +136,13 @@ namespace moonshot.Screens
                 loopCount = 0;
                 selection = "";
             } else if (Raylib.IsKeyReleased(KeyboardKey.KEY_SPACE)) {
+                int tempInt = 0;
+                try {
+                    tempInt = CurrentSelection.Items[CurrentSelection.Items.FindIndex(x => x.id == 101)].value;
+                } catch {}
+                if (tempInt > 0)
+                    selection = "";
+                else
                     selection = " ";
             }
             switch (keypress){
