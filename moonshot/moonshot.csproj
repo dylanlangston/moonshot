@@ -13,6 +13,9 @@
     <None Update="Images\crew.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Images\food.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Images\fuel.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
