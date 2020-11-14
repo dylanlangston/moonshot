@@ -31,6 +31,7 @@ namespace moonshot
         public const string good = "Good";
         public const string fair = "Fair";
         public const string poor = "Poor";
+        public const string veryPoor = "Very Poor";
     }
     public class PartyMembers {
         internal List<PartyMember> Party = new List<PartyMember>(){};
@@ -121,42 +122,42 @@ namespace moonshot
     }
     public class OxygenTank : InventoryItem 
     {
-        internal OxygenTank() {
+        internal OxygenTank(int valueIn = 0) {
             name = "Oxygen Tanks";
             id = 101;
-            value = 0;
+            value = valueIn;
         }
     }
     public class Fuel : InventoryItem 
     {
-        internal Fuel() {
+        internal Fuel(int valueIn = 0) {
             name = "Fuel";
             id = 102;
-            value = 0;
+            value = valueIn;
         }
     }
     public class Food : InventoryItem 
     {
-        internal Food() {
+        internal Food(int valueIn = 0) {
             name = "Food";
             id = 103;
-            value = 0;
+            value = valueIn;
         }
     }
     public class Boxes: InventoryItem 
     {
-        internal Boxes() {
+        internal Boxes(int valueIn = 0) {
             name = "Boxes";
             id = 104;
-            value = 0;
+            value = valueIn;
         }
     }
     public class ShipParts : InventoryItem 
     {
-        internal ShipParts() {
+        internal ShipParts(int valueIn = 0) {
             name = "Space Ship Parts";
             id = 105;
-            value = 0;
+            value = valueIn;
         }
 
     }
@@ -171,6 +172,23 @@ namespace moonshot
             }
             output += "</Items>";
             return output;
+        }
+
+        public void AddItem(int id, int value) {
+            foreach (InventoryItem item in Items)
+            {
+                if (item.id == id)
+                    item.value += value;
+            }
+        }
+        public void RemoveItem(int id, int value) {
+            foreach (InventoryItem item in Items)
+            {
+                if (item.id == id)
+                    item.value -= value;
+                if (item.value < 0)
+                    item.value = 0;
+            }
         }
         public void LoadInventoryFromString(string inventoryString, Inventory inventory) {
             XmlDocument doc = new XmlDocument();

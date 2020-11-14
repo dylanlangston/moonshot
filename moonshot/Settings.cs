@@ -39,6 +39,7 @@ namespace moonshot
             new mattsStoreFood(),
             new mattsStoreBoxes(),
             new mattsStoreShipParts(),
+            new LeavingMattsStore(),
             new leavingCapeKennedy()
         };
         internal List<screen> screensList {

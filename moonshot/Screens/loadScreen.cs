@@ -38,6 +38,7 @@ namespace moonshot.Screens
                         MainWindow.settings.currentScreen = "Character Selection";
                         MainWindow.currentScreenTempStore = "";
                         MainWindow.settings.savedProgress = false;
+                        MainWindow.settings.userStats = new UserStats();
                         break;
                     default:
                         break;
