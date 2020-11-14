@@ -27,6 +27,10 @@ namespace moonshot.Screens
                 if (selection == " ")
                 { 
                     DontForget();
+                } else if(selection == "-") {
+                    TooExpensive();
+                } else if(selection == "_") {
+                    Purchase();
                 } else {
                     GetInput();
                 }
@@ -79,12 +83,12 @@ namespace moonshot.Screens
             Raylib.DrawText("$" + FoodAmount + ".00", (Raylib.GetScreenWidth()-(FoodAmount.ToString().Length * 16)-140)+(FoodAmount.ToString().ToCharArray().Where(x => x == '1').Count()*6), Raylib.GetScreenHeight()/24*7+70, 30, WHITE);
             int BoxesAmount = 0;
             try {
-                BoxesAmount = CurrentSelection.Items[CurrentSelection.Items.FindIndex(x => x.id == 104)].value * 15;
+                BoxesAmount = CurrentSelection.Items[CurrentSelection.Items.FindIndex(x => x.id == 104)].value * 4;
             } catch {}
             Raylib.DrawText("$" + BoxesAmount + ".00", (Raylib.GetScreenWidth()-(BoxesAmount.ToString().Length * 16)-140)+(BoxesAmount.ToString().ToCharArray().Where(x => x == '1').Count()*6), Raylib.GetScreenHeight()/24*7+105, 30, WHITE);
             int PartsAmount = 0;
             try {
-                PartsAmount = CurrentSelection.Items[CurrentSelection.Items.FindIndex(x => x.id == 105)].value * 15;
+                PartsAmount = CurrentSelection.Items[CurrentSelection.Items.FindIndex(x => x.id == 105)].value * 20;
             } catch {}
             Raylib.DrawText("$" + PartsAmount + ".00", (Raylib.GetScreenWidth()-(PartsAmount.ToString().Length * 16)-140)+(PartsAmount.ToString().ToCharArray().Where(x => x == '1').Count()*6), Raylib.GetScreenHeight()/24*7+140, 30, WHITE);
 
@@ -141,7 +145,10 @@ namespace moonshot.Screens
                     tempInt = CurrentSelection.Items[CurrentSelection.Items.FindIndex(x => x.id == 101)].value;
                 } catch {}
                 if (tempInt > 0)
-                    selection = "";
+                    if (CurrentBill > MainWindow.settings.userStats.Money)
+                        selection = "-";
+                    else
+                        selection = "_";
                 else
                     selection = " ";
             }
@@ -175,6 +182,25 @@ namespace moonshot.Screens
             if (PressSPACEBAR()) {
                 selection = "";
             }
+        }
+
+        private static void TooExpensive()
+        {
+            Raylib.DrawText("Okay, that comes to $"+ CurrentBill +".00.\nBut I see that you only have\n$" + MainWindow.settings.userStats.Money + ".00. We'd better review.", Raylib.GetScreenWidth()/3, Raylib.GetScreenHeight()/96*70, 30, WHITE);
+            if (PressSPACEBAR()) {
+                selection = "";
+            }
+        }
+
+        private static void Purchase()
+        {
+            MainWindow.settings.userStats.Money -= CurrentBill;
+            foreach (InventoryItem item in CurrentSelection.Items)
+            {
+                MainWindow.settings.userStats.inventory.AddItem(item.id, item.value);
+            }
+            MainWindow.settings.currentScreen = "Leaving Matts Store";
+            selection = "";
         }
 
         // Salesman

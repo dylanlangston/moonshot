@@ -31,6 +31,7 @@ namespace moonshot
         public const string good = "Good";
         public const string fair = "Fair";
         public const string poor = "Poor";
+        public const string veryPoor = "Very Poor";
     }
     public class PartyMembers {
         internal List<PartyMember> Party = new List<PartyMember>(){};
@@ -171,6 +172,23 @@ namespace moonshot
             }
             output += "</Items>";
             return output;
+        }
+
+        public void AddItem(int id, int value) {
+            foreach (InventoryItem item in Items)
+            {
+                if (item.id == id)
+                    item.value += value;
+            }
+        }
+        public void RemoveItem(int id, int value) {
+            foreach (InventoryItem item in Items)
+            {
+                if (item.id == id)
+                    item.value -= value;
+                if (item.value < 0)
+                    item.value = 0;
+            }
         }
         public void LoadInventoryFromString(string inventoryString, Inventory inventory) {
             XmlDocument doc = new XmlDocument();
