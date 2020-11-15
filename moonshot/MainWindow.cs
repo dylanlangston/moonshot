@@ -5,6 +5,8 @@ using moonshot.Screens;
 using System;
 using System.Threading;
 using System.Collections.Generic;
+using System.Windows;
+using System.IO;
 
 namespace moonshot
 {
@@ -41,6 +43,9 @@ namespace moonshot
             // 800x600 is the games internal resolution. 
             InitWindow(800, 600, "M O O N S H O T");
 
+            Image icon = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/moon.png"));
+            Raylib.ImageResize(ref icon, 100, 100);
+            Raylib.SetWindowIcon(icon);
 
             // Enable Sound
             InitAudioDevice();
@@ -68,6 +73,8 @@ namespace moonshot
             while (!WindowShouldClose())    // Detect window close button
             {
 
+                
+
                 // Check if tab key is pressed and if so launch save menu
                 if (!settings.nonGameScreens.Contains(settings.currentScreen.ToLower())) 
                     tabCounter = SavetoMenu(tabCounter, cleanupCounter);
@@ -87,8 +94,10 @@ namespace moonshot
                     {
                         firstRun = false;
                     }
-                }
-                else
+                } else if (Raylib.GetScreenWidth() > 800) {
+                    Raylib.ClearBackground(BLACK);
+                    Raylib.DrawText("Screen resize not working!\nPlease change resolution to 800x600 manually.", 30, 30, 30, WHITE);
+                } else
                 {
                     // Go through each screen and check if screen name matches the currentScreen. 
                     // This is how we track the game state. Not sure if this is how other's would create games but it works.
@@ -130,7 +139,7 @@ namespace moonshot
                 if (!settings.Running) { break; }
                 //----------------------------------------------------------------------------------
 
-                Console.WriteLine(settings.userStats.ToString());
+                //Console.WriteLine(settings.userStats.ToString());
             }
 
             // Save settings
@@ -175,6 +184,7 @@ namespace moonshot
             if (Raylib.IsKeyPressed(KeyboardKey.KEY_ESCAPE))
             {
                 Raylib.ToggleFullscreen();
+                Raylib.SetWindowSize(800,600);
                 // Show/Hide cursor depending on if full screen or not.
                 if (Raylib.IsCursorHidden())
                 {

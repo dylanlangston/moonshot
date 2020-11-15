@@ -4,6 +4,7 @@ using Raylib_cs;
 using moonshot.Screens;
 using System.Xml;
 using System.IO;
+using System;
 
 namespace moonshot
 {
@@ -40,11 +41,39 @@ namespace moonshot
             new mattsStoreBoxes(),
             new mattsStoreShipParts(),
             new LeavingMattsStore(),
-            new leavingCapeKennedy()
+            new leavingCapeKennedy(),
+            new CheckStats(),
+            new ContinueOnTrail(),
+            new CheckSupplies(),
+            new LookAtMap(),
+            new ChangePace(),
+            new ChangeFoodRation(),
+            new StopToRest(),
+            new TalkToPeople(),
+            new BuySupplies()
         };
         internal List<screen> screensList {
             get { return _screensList; }
         }
+
+        private List<Tuple<string, int>> _Locations = new List<Tuple<string, int>>() {
+            new Tuple<string, int>("Cape Kennedy, Florida", 0),
+            new Tuple<string, int>("Landing Site", 1),
+            new Tuple<string, int>("Mare Tranquillitatis", 2),
+            new Tuple<string, int>("Collapsed Pit of Mare Tranquillitatis", 3),
+            new Tuple<string, int>("Mare Serenitatis", 4),
+            new Tuple<string, int>("Posidonius", 5),
+            new Tuple<string, int>("Sculptured Hills", 6),
+            new Tuple<string, int>("Atlas & Hercules", 7),
+            new Tuple<string, int>("Mare Frigoris", 8),
+            new Tuple<string, int>("Anaxagoras", 9),
+            new Tuple<string, int>("Peary", 10)
+        };
+        internal List<Tuple<string, int>> Locations
+        {
+            get { return _Locations; }
+        }
+        
 
         // Screens to load even if current game is in progress.
         internal List<string> nonGameScreens = new List<string>() {"load", "save", "settings", "welcome"};
