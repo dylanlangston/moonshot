@@ -116,7 +116,7 @@ namespace moonshot.Screens
         internal static void CurrentBill() {
             Raylib.DrawText("Bill so far: $" + mattsStore.CurrentBill + ".00", Raylib.GetScreenWidth()/3, Raylib.GetScreenHeight()/24*21, 30, WHITE);
         }
-        // Oxygen Tanks
+        // Food
         internal static Texture2D foodTexture = new Texture2D();
         internal static void Food()
         {

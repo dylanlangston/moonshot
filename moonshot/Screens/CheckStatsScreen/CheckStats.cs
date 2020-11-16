@@ -57,8 +57,17 @@ namespace moonshot.Screens
                 keypress = 9000;
             } else if (Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER)) {
                 switch (selection) {
+                    case "2":
+                        MainWindow.settings.currentScreen = "Check Supplies";
+                        break;
                     case "3":
                         MainWindow.settings.currentScreen = "Look at Map";
+                        break;
+                    case "4":
+                        MainWindow.settings.currentScreen = "Change Pace";
+                        break;
+                    case "5":
+                        MainWindow.settings.currentScreen = "Change Food Ration";
                         break;
                     default:
                         break;
