@@ -15,6 +15,7 @@ namespace moonshot.Screens
         }
         private static string selection = String.Empty;
         private static bool selectionMade = false;
+        private static bool cantAffort = false;
         public override void Display()
         {
             ClearBackground(Colors.space);
@@ -24,7 +25,10 @@ namespace moonshot.Screens
             YouMayBuy();
             if (selectionMade)
             {
-                HowMany();
+                if (!cantAffort)
+                    HowMany();
+                else
+                    CantAffort();
             }
         }
         private void LocationAndTime(string Location, DateTime time)
@@ -96,7 +100,49 @@ namespace moonshot.Screens
             }
             }
         }
-        private static string howManySelection = String.Empty;
+
+        private static string _howManySelection = String.Empty;
+        private static string howManySelection { 
+            get { return _howManySelection; } 
+            set { 
+                int tempInt = 0; 
+                switch (selection){
+                    case "1":
+                        Int32.TryParse(value, out tempInt);
+                        if (tempInt < 17) 
+                            if (value.Length < 3)
+                                _howManySelection = value;
+                        break;
+                    case "2":
+                        Int32.TryParse(value, out tempInt);
+                        if (tempInt < 181) 
+                            if (value.Length < 4)
+                                _howManySelection = value;
+                                break;
+                    case "3":
+                        Int32.TryParse(value, out tempInt);
+                        if (tempInt < 401) 
+                            if (value.Length < 4)
+                                _howManySelection = value;
+                        break;
+                    case "4":
+                        Int32.TryParse(value, out tempInt);
+                        if (tempInt < 200) 
+                            if (value.Length < 4)
+                                _howManySelection = value;
+                        break;
+                    case "5":
+                        Int32.TryParse(value, out tempInt);
+                        if (tempInt < 6) 
+                            if (value.Length < 2)
+                                _howManySelection = value;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
         private static void HowMany()
         {
             string message = String.Empty;
@@ -119,7 +165,151 @@ namespace moonshot.Screens
                 default:
                     break;
             }
+
+            int keypress = Raylib.GetKeyPressed();
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_BACKSPACE)) {
+                keypress = 9000;
+            } else if (Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER)) {
+                if (!String.IsNullOrEmpty(howManySelection))
+                {
+                    int tempInt = 0; 
+                    int price = 0;
+                    switch (selection){
+                        case "1":
+                            Int32.TryParse(howManySelection, out tempInt);
+                            price = (tempInt * 15);
+                            if (price <= MainWindow.settings.userStats.Money)
+                            {
+                                MainWindow.settings.userStats.inventory.AddItem(101, tempInt);
+                                MainWindow.settings.userStats.Money -= price;
+                                howManySelection = String.Empty;
+                                selection = String.Empty;
+                                selectionMade = false;
+                            } 
+                            else 
+                            {
+                                cantAffort = true;
+                            }
+                            break;
+                        case "2":
+                            Int32.TryParse(howManySelection, out tempInt);
+                            price = (tempInt);
+                            if (price <= MainWindow.settings.userStats.Money)
+                            {
+                                MainWindow.settings.userStats.inventory.AddItem(102, tempInt);
+                                MainWindow.settings.userStats.Money -= price;
+                                howManySelection = String.Empty;
+                                selection = String.Empty;
+                                selectionMade = false;
+                            }
+                            else 
+                            {
+                                cantAffort = true;
+                            }
+                            break;
+                        case "3":
+                            Int32.TryParse(howManySelection, out tempInt);
+                            price = (tempInt);
+                            if (price <= MainWindow.settings.userStats.Money)
+                            {
+                                MainWindow.settings.userStats.inventory.AddItem(103, tempInt);
+                                MainWindow.settings.userStats.Money -= price;
+                                howManySelection = String.Empty;
+                                selection = String.Empty;
+                                selectionMade = false;
+                            }
+                            else 
+                            {
+                                cantAffort = true;
+                            }
+                            break;
+                        case "4":
+                            Int32.TryParse(howManySelection, out tempInt);
+                            price = (tempInt * 5);
+                            if (price <= MainWindow.settings.userStats.Money)
+                            {
+                                MainWindow.settings.userStats.inventory.AddItem(104, tempInt);
+                                MainWindow.settings.userStats.Money -= price;
+                                howManySelection = String.Empty;
+                                selection = String.Empty;
+                                selectionMade = false;
+                            }
+                            else 
+                            {
+                                cantAffort = true;
+                            }
+                            break;
+                        case "5":
+                            Int32.TryParse(howManySelection, out tempInt);
+                            price = (tempInt * 20);
+                            if (price <= MainWindow.settings.userStats.Money)
+                            {
+                                MainWindow.settings.userStats.inventory.AddItem(105, tempInt);
+                                MainWindow.settings.userStats.Money -= price;
+                                howManySelection = String.Empty;
+                                selection = String.Empty;
+                                selectionMade = false;
+                            }
+                            else 
+                            {
+                                cantAffort = true;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            switch (keypress){
+                case '1':
+                    howManySelection += "1";
+                    break;
+                case '2':
+                    howManySelection += "2";
+                    break;
+                case '3':
+                    howManySelection += "3";
+                    break;
+                case '4':
+                    howManySelection += "4";
+                    break;
+                case '5':
+                    howManySelection += "5";
+                    break;
+                case '6':
+                    howManySelection += "6";
+                    break;
+                case '7':
+                    howManySelection += "7";
+                    break;
+                case '8':
+                    howManySelection += "8";
+                    break;
+                case '9':
+                    howManySelection += "9";
+                    break;
+                case '0':
+                    howManySelection += "0";
+                    break;
+                case 9000:
+                    try {howManySelection = howManySelection.Remove(howManySelection.Length-1, 1);} catch {}
+                    break;
+                default:
+                    break;
+            }
+
             Raylib.DrawText(message + " " + howManySelection + "_", 10, 460, 30, WHITE);
+        }
+
+        private static void CantAffort()
+        {
+            Raylib.DrawText("You cannot afford that many.", 10, 480, 30, WHITE);
+            if (PressSPACEBAR()) {
+                howManySelection = String.Empty;
+                selection = String.Empty;
+                cantAffort = false;
+                selectionMade = false;
+            }
         }
     }
 }
