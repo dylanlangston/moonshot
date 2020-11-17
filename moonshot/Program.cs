@@ -35,6 +35,8 @@ namespace moonshot
 | Run with '-Debug' to get raylib output.      |
 |- - - - - - - - - - - - - - - - - - - - - - - |
 | Run with '-Reset' to reset progress.         |
+|- - - - - - - - - - - - - - - - - - - - - - - |
+| Run with '-RaylibLogs' to write raylib logs. |
 ------------------------------------------------";
                 Console.WriteLine(helpMessage);
                 return;
@@ -62,7 +64,8 @@ namespace moonshot
                 // Create Main Window
                 bool debugging = argsList.Contains("-debug", StringComparer.InvariantCultureIgnoreCase);
                 bool resetProgress = argsList.Contains("-reset", StringComparer.InvariantCultureIgnoreCase);
-                MainWindow.Init(debugging, resetProgress);
+                bool raylibLogs = argsList.Contains("-rayliblogs", StringComparer.InvariantCultureIgnoreCase);
+                MainWindow.Init(debugging, resetProgress, raylibLogs);
             } 
             catch (Exception err) 
             {

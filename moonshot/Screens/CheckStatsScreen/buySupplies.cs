@@ -10,6 +10,7 @@ namespace moonshot.Screens
 {
     class BuySupplies : screen
     {
+        // Sorry about the lack of comments on this. Maybe someday.
         public override string Name {
             get { return "Buy Supplies"; }
         }

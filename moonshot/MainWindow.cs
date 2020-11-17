@@ -12,11 +12,22 @@ namespace moonshot
 {
     public class MainWindow
     {
+        
+        // Custom logging function
+        private static void LogCustom(TraceLogType msgType, string text, IntPtr arg) 
+        {
+            using (System.IO.StreamWriter file =
+                new System.IO.StreamWriter(Path.Combine(Program.AppDataFolder(), @"moonshot-raylib.log"), true))
+            {
+                file.WriteLine(text);
+            }
+        }
+        
         // Load Settings
         internal static Settings settings= new Settings();
 
         internal static string currentScreenTempStore = "";
-        public static int Init(bool debugging = true, bool resetProgress = false)
+        public static int Init(bool debugging = true, bool resetProgress = false, bool raylibLogging = false)
         {
             // Initialization
             //--------------------------------------------------------------------------------------
@@ -30,8 +41,17 @@ namespace moonshot
 
             if (debugging) {
                 Raylib.SetTraceLogLevel(TraceLogType.LOG_ALL);
+                Raylib.SetTraceLogExit(TraceLogType.LOG_ALL);
             } else {
-                Raylib.SetTraceLogLevel(TraceLogType.LOG_NONE);
+                Raylib.SetTraceLogLevel(TraceLogType.LOG_ERROR);
+                Raylib.SetTraceLogExit(TraceLogType.LOG_ERROR);
+            }
+
+            // Custom Logging
+            if (raylibLogging) {
+                Raylib.SetTraceLogLevel(TraceLogType.LOG_ALL);
+                Raylib.SetTraceLogExit(TraceLogType.LOG_ALL);
+                Raylib.SetTraceLogCallback(LogCustom);
             }
 
             // Reset to defaults
