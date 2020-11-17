@@ -48,7 +48,6 @@ namespace moonshot
             new LookAtMap(),
             new ChangePace(),
             new ChangeFoodRation(),
-            new StopToRest(),
             new TalkToPeople(),
             new BuySupplies()
         };
