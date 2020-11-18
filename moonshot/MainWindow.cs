@@ -40,17 +40,14 @@ namespace moonshot
             int tabCounter = 0;
 
             if (debugging) {
-                Raylib.SetTraceLogLevel(TraceLogType.LOG_ALL);
-                Raylib.SetTraceLogExit(TraceLogType.LOG_ALL);
+                Raylib.SetTraceLogLevel(TraceLogType.LOG_ALL);    
             } else {
                 Raylib.SetTraceLogLevel(TraceLogType.LOG_ERROR);
-                Raylib.SetTraceLogExit(TraceLogType.LOG_ERROR);
             }
 
             // Custom Logging
             if (raylibLogging) {
                 Raylib.SetTraceLogLevel(TraceLogType.LOG_ALL);
-                Raylib.SetTraceLogExit(TraceLogType.LOG_ALL);
                 Raylib.SetTraceLogCallback(LogCustom);
             }
 
@@ -59,13 +56,20 @@ namespace moonshot
                 settings = new Settings(true);
             }
 
+                        Console.WriteLine("What?");
+
+
             // Create Window
             // 800x600 is the games internal resolution. 
             InitWindow(800, 600, "M O O N S H O T");
 
+                        Console.WriteLine("What now?");
+
+
             Image icon = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/moon.png"));
             Raylib.ImageResize(ref icon, 100, 100);
             Raylib.SetWindowIcon(icon);
+
 
             // Enable Sound
             InitAudioDevice();
@@ -92,8 +96,6 @@ namespace moonshot
             // Main game loop
             while (!WindowShouldClose())    // Detect window close button
             {
-
-                
 
                 // Check if tab key is pressed and if so launch save menu
                 if (!settings.nonGameScreens.Contains(settings.currentScreen.ToLower())) 

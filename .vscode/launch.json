@@ -5,15 +5,26 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (console)",
+            "name": ".NET Core Launch (terminal)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/moonshot/bin/Debug/netcoreapp3.1/moonshot.dll",
             "args": ["-debug"],
-            "cwd": "${workspaceFolder}/moonshot",
-            "console": "internalConsole",
-            "stopAtEntry": false
+            "cwd": "${workspaceFolder}/moonshot/bin/Debug/netcoreapp3.1/",
+            "stopAtEntry": false,
+            "console": "integratedTerminal"
+        },
+        {
+            "name": ".NET Core Launch (external terminal)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/moonshot/bin/Debug/netcoreapp3.1/moonshot.dll",
+            "args": ["-debug"],
+            "cwd": "${workspaceFolder}/moonshot/bin/Debug/netcoreapp3.1/",
+            "stopAtEntry": false,
+            "console": "externalTerminal"
         },
         {
             "name": ".NET Core Attach",

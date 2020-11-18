@@ -49,7 +49,8 @@ namespace moonshot
             new ChangePace(),
             new ChangeFoodRation(),
             new TalkToPeople(),
-            new BuySupplies()
+            new BuySupplies(),
+            new mainTrail()
         };
         internal List<screen> screensList {
             get { return _screensList; }
