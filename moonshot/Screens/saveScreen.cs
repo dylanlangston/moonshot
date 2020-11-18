@@ -12,6 +12,7 @@ namespace moonshot.Screens
         public override string Name {
             get { return "Save"; }
         }
+        private static bool firstTime = true;
         public override void Display()
         {
             ClearBackground(Colors.space);
@@ -20,6 +21,7 @@ namespace moonshot.Screens
             Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight() / 24 * 20 );
             if (save) { SavedConfirmation(); return; }
             Menu();
+            if (firstTime) {firstTime = false;Raylib.SetMasterVolume(0f); }
         }
         private static bool save = false;
         internal static string selection = String.Empty;
@@ -44,6 +46,7 @@ namespace moonshot.Screens
                         break;
                 }
                 selection = "";
+                firstTime = true;
             }
             switch (keypress){
                 case 121:

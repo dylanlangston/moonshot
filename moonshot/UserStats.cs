@@ -33,6 +33,20 @@ namespace moonshot
         public const string poor = "Poor";
         public const string veryPoor = "Very Poor";
     }
+    public class PlayerPace
+    {
+        public const string steady = "Steady";
+        public const string strenuous = "Strenuous";
+        public const string grueling = "Grueling";
+    }
+
+    public class PlayerRations
+    {
+        public const string filling = "Filling";
+        public const string meager = "Meager";
+        public const string bareBones = "Bare Bones";
+    }
+
     public class PartyMembers {
         internal List<PartyMember> Party = new List<PartyMember>(){};
 
@@ -225,14 +239,18 @@ namespace moonshot
     }
     public class UserStats
     {
+        public DateTime currentTime = new DateTime();
+        public int currentLocation = 0;
         public int Money = 0;
         public String playerType = PlayerType.apollo11;
         public PartyMembers crew = new apollo11();
         public Inventory inventory = new Inventory();
         public string status = PlayerStatus.good;
+        public string pace = PlayerPace.steady;
+        public string rations = PlayerRations.filling;
         public override string ToString()
         {
-            return "<Stats><Money>" + Money.ToString() + "</Money><PlayerType>" + playerType + "</PlayerType><Status>" + status + "</Status>" + inventory.ToString() + crew.ToString() + "</Stats>";
+            return "<Stats><CurrentTime>" + currentTime.ToString() + "</CurrentTime><CurrentLocation>" + currentLocation + "</CurrentLocation><Money>" + Money.ToString() + "</Money><PlayerType>" + playerType + "</PlayerType><Status>" + status + "</Status><Pace>" + pace + "</Pace><Rations>" + rations + "</Rations>" + inventory.ToString() + crew.ToString() + "</Stats>";
         }
         public void LoadUserStatsFromString(string userStatsString, UserStats stats)
         {
@@ -244,6 +262,12 @@ namespace moonshot
                 for (int i = 0; i < node.ChildNodes.Count; i++)
                 {
                     switch (node.ChildNodes[i].Name) {
+                        case "CurrentTime":
+                            DateTime.TryParse(node.ChildNodes[i].InnerText, out stats.currentTime);
+                            break;
+                        case "CurrentLocation":
+                            Int32.TryParse(node.ChildNodes[i].InnerText, out stats.currentLocation);
+                            break;
                         case "Money":
                             Int32.TryParse(node.ChildNodes[i].InnerText, out stats.Money);
                             break;
@@ -252,6 +276,12 @@ namespace moonshot
                             break;
                         case "Status":
                             stats.status = node.ChildNodes[i].InnerText;
+                            break;
+                        case "Pace":
+                            stats.pace = node.ChildNodes[i].InnerText;
+                            break;
+                        case "Rations":
+                            stats.rations = node.ChildNodes[i].InnerText;
                             break;
                         case "Items":
                             if (!String.IsNullOrEmpty(node.ChildNodes[i].OuterXml))

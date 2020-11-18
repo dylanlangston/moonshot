@@ -103,6 +103,9 @@ namespace moonshot.Screens
                 case '9':
                     selection += "9";
                     break;
+                case '0':
+                    selection += "0";
+                    break;
                 case 9000:
                     try {selection = selection.Remove(selection.Length-1, 1);} catch {}
                     break;

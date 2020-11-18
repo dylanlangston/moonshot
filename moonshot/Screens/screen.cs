@@ -17,6 +17,7 @@ namespace moonshot.Screens
             get;
         }
         public abstract void Display();
+        public void RunOnExit() {}
 
         // Press SPACEBAR to continue text and logic
         internal static bool PressSPACEBAR() {

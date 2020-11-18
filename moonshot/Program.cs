@@ -1,4 +1,5 @@
 ﻿using System;
+
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -22,7 +23,6 @@ namespace moonshot
             // Convert args array into list, replace "/" with "-"
             List<string> argsList = new List<string>();
             args.ToList().ForEach(arg => argsList.Add(arg.Replace("/", "-")));
-
             // If run with -help, -?, or -h display version and other possible flags.
             if (argsList.Contains("-help", StringComparer.OrdinalIgnoreCase) || argsList.Contains("-h", StringComparer.OrdinalIgnoreCase) || argsList.Contains("-?", StringComparer.OrdinalIgnoreCase))
             {
@@ -35,6 +35,8 @@ namespace moonshot
 | Run with '-Debug' to get raylib output.      |
 |- - - - - - - - - - - - - - - - - - - - - - - |
 | Run with '-Reset' to reset progress.         |
+|- - - - - - - - - - - - - - - - - - - - - - - |
+| Run with '-RaylibLogs' to write raylib logs. |
 ------------------------------------------------";
                 Console.WriteLine(helpMessage);
                 return;
@@ -48,8 +50,12 @@ namespace moonshot
                 Process current = Process.GetCurrentProcess();
                 foreach (Process process in Process.GetProcessesByName(current.ProcessName))
                 {
-                    if (process.Id != current.Id)
+                    if (process.ProcessName == "dotnet") {
+                        Console.WriteLine("Debugging");
+                        argsList.Add("-debug");
+                    } else if (process.Id != current.Id)
                     {
+                        Console.WriteLine(process.ProcessName);
                         Console.WriteLine("Detected another instance of MOONSHOT running. Only one may run at a time, exiting this one.");
                         return; // Exit;
                     }
@@ -58,7 +64,8 @@ namespace moonshot
                 // Create Main Window
                 bool debugging = argsList.Contains("-debug", StringComparer.InvariantCultureIgnoreCase);
                 bool resetProgress = argsList.Contains("-reset", StringComparer.InvariantCultureIgnoreCase);
-                MainWindow.Init(debugging, resetProgress);
+                bool raylibLogs = argsList.Contains("-rayliblogs", StringComparer.InvariantCultureIgnoreCase);
+                MainWindow.Init(debugging, resetProgress, raylibLogs);
             } 
             catch (Exception err) 
             {
