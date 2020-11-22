@@ -177,11 +177,14 @@ namespace moonshot.Screens
             Raylib.DrawRectangle(0, 530, Raylib.GetScreenWidth(), 70, BLACK);
             Raylib.DrawText("All of the people in your crew have died.", 90, 535, 30, WHITE);
             if (PressSPACEBAR()) {
+                selection = String.Empty;
+                tombstoneEpitaph = string.Empty;
                 firstRun = true;
                 spaceBarPressed = false;
                 epitaphState = 0;
                 if (Raylib.IsSoundPlaying(sound))
                     Raylib.StopSound(sound);
+                MainWindow.settings.userStats = new UserStats();
                 MainWindow.settings.currentScreen = "welcome";
             }
         }

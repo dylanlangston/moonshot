@@ -200,6 +200,9 @@ namespace moonshot.Screens
                 MainWindow.settings.userStats.inventory.AddItem(item.id, item.value);
             }
             MainWindow.settings.currentScreen = "Leaving Matts Store";
+            CurrentSelection = new Inventory();
+            CurrentBill = 0;
+            loopCount = 0;
             selection = "";
         }
 
