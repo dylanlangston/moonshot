@@ -4,24 +4,227 @@ using static Raylib_cs.Color;
 using System;
 using System.Numerics;
 using System.Windows.Input;
+using System.IO;
+using System.Collections.Generic;
 
 namespace moonshot.Screens
 {
-    class mainTrail : screen
+    partial class mainTrail : screen
     {
         public override string Name {
             get { return "Main Trail"; }
         }
+        private static int annimationCounter = 15;
+        private static bool StartAnimation = false;
         public override void Display()
         {
             ClearBackground(Colors.space);
             starscape();
-            Confirmation();
+            if (StartAnimation)
+                annimationCounter++;
+            switch (annimationCounter/15) {
+                case (1):
+                    MainTrail1();
+                    break;
+                case (2):
+                    MainTrail2();
+                    break;
+                case (3):
+                    MainTrail3();
+                    break;
+                case (4):
+                    MainTrail4();
+                    break;
+                case (5):
+                    MainTrail4();
+                    break;
+                case (6):
+                    MainTrail3();
+                    break;
+                case (7):
+                    MainTrail2();
+                    break;
+                case (8):
+                    MainTrail1();
+                    break;
+                default:
+                    MainTrail1();
+                    annimationCounter = 15;
+                    break;
+            }
+            WhiteBackground();
+            Date();
+            Fuel();
+            Health();
+            Food();
+            NextLandmark();
+            LastLandmark();
+            //Confirmation();
+            if (StartAnimation == false && MainWindow.settings.userStats.milesTraveled == 0)
+                LargePopUp(popUpMessages[MainWindow.settings.userStats.currentLocation].Item1, popUpMessages[MainWindow.settings.userStats.currentLocation].Item2);
+            else if (StartAnimation == false)
+            {
+                if (Raylib.IsKeyReleased(KeyboardKey.KEY_ENTER))
+                    StartAnimation = true;
+            } else
+            {
+                PressEnterToSizeUp();
+                Travel();
+            }
+                
         }
         private static void Confirmation(){
             if (PressSPACEBAR()) {
                 //MainWindow.settings.currentScreen = "Supplies Screen Two";
             }
+        }
+
+        private static void WhiteBackground()
+        {
+            DrawRectangle(0, 300, Raylib.GetScreenWidth(), 260, new Color(255,255,255,200));
+        }
+        private static List<(string, bool)> popUpMessages = new List<(string, bool)>() { 
+            ("From the Landing Site it is 209\nMiles to the Mare Tranquillitatis.", false),
+            ("You are now at Mare\nTranquillitatis. Would you like to\nlook around? ", true)
+        };
+        private static string selectionLargePopUp = String.Empty;
+        private static void LargePopUp(string message = "", bool prompt = false)
+        {
+            string[] messageArray = message.Split("\n");
+            Raylib.DrawRectangleRounded(new Rectangle(Raylib.GetScreenWidth()/8, Raylib.GetScreenHeight()/3, Raylib.GetScreenWidth()/8*6, 40+(messageArray.Length*30)), 0.25f, 10, WHITE);
+            Raylib.DrawRectangle(Raylib.GetScreenWidth()/8+10, Raylib.GetScreenHeight()/3+10, Raylib.GetScreenWidth()/8*6-20, 20+(messageArray.Length*30), BLACK);
+            for (int i = 0;i < messageArray.Length;i++)
+            {
+                Raylib.DrawText(messageArray[i] + (prompt && messageArray.Length-1 == i ?  selectionLargePopUp + "_" : ""), Raylib.GetScreenWidth()/8+50, Raylib.GetScreenHeight()/3+20+(30*i), 30, WHITE);
+            }
+            if (prompt) {
+            int keypress = Raylib.GetKeyPressed();
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_BACKSPACE)) {
+                keypress = 9000;
+            } else if (Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER)) {
+                switch (selectionLargePopUp) {
+                    case "y":
+                        
+                        break;
+                    case "n":
+                        MainWindow.settings.userStats.milesTraveled++;
+                        break;
+                    default:
+                        break;
+                }
+                selectionLargePopUp = "";
+            }
+            switch (keypress){
+                case 'y':
+                    selectionLargePopUp = "y";
+                    break;
+                case 'n':
+                    selectionLargePopUp = "n";
+                    break;
+                case 9000:
+                    selectionLargePopUp = String.Empty;
+                    break;
+                default:
+                    break;
+            }
+            } else {
+            if (PressSPACEBAR()) {
+                //MainWindow.settings.currentScreen = "Supplies Screen Two";
+                StartAnimation = true;
+            }
+            }
+        }
+        private static void PressEnterToSizeUp()
+        {
+            Raylib.DrawRectangle(0, 300, Raylib.GetScreenWidth(), 35, Color.BLACK);
+            Raylib.DrawText("Press ENTER to size up the situation", 110, 303, 30, WHITE);
+            if (Raylib.IsKeyReleased(KeyboardKey.KEY_ENTER))
+            {
+                StartAnimation = false;
+                MainWindow.settings.currentScreen = "Check Stats";
+            }
+        }
+        private static void Date()
+        {
+            Raylib.DrawText("Date :", Raylib.GetScreenWidth()/2-100, Raylib.GetScreenHeight()/2+40, 30, BLACK);
+            Raylib.DrawText(MainWindow.settings.userStats.currentTime.ToString("MMMM dd, yyyy"), Raylib.GetScreenWidth()/2, Raylib.GetScreenHeight()/2+40, 30, BLACK);
+        }
+
+        private static void Fuel()
+        {
+            Raylib.DrawText("Fuel :", Raylib.GetScreenWidth()/2-95, Raylib.GetScreenHeight()/2+70, 30, BLACK);
+            Raylib.DrawText(MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 102).value.ToString() + " gallons", Raylib.GetScreenWidth()/2, Raylib.GetScreenHeight()/2+70, 30, BLACK);
+        }
+
+        private static void Health()
+        {
+            Raylib.DrawText("Health :", Raylib.GetScreenWidth()/2-128, Raylib.GetScreenHeight()/2+100, 30, BLACK);
+            Raylib.DrawText(MainWindow.settings.userStats.status, Raylib.GetScreenWidth()/2, Raylib.GetScreenHeight()/2+100, 30, BLACK);
+        }
+
+        private static void Food()
+        {
+            Raylib.DrawText("Food :", Raylib.GetScreenWidth()/2-104, Raylib.GetScreenHeight()/2+130, 30, BLACK);
+            Raylib.DrawText(MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 103).value.ToString() + " pounds", Raylib.GetScreenWidth()/2, Raylib.GetScreenHeight()/2+130, 30, BLACK);
+        }
+
+        private static void NextLandmark()
+        {
+            int currentLocation = MainWindow.settings.userStats.currentLocation;
+            int milesTraveled = MainWindow.settings.userStats.milesTraveled;
+            int NextLandmarkDistance = ((int)(LocationsAndDistances[currentLocation].Item3)) - milesTraveled;
+            Raylib.DrawText("Next Landmark :", Raylib.GetScreenWidth()/2-257, Raylib.GetScreenHeight()/2+160, 30, BLACK);
+            Raylib.DrawText(NextLandmarkDistance.ToString(), Raylib.GetScreenWidth()/2, Raylib.GetScreenHeight()/2+160, 30, BLACK);
+        }
+
+        private static void LastLandmark()
+        {
+            int currentLocation = MainWindow.settings.userStats.currentLocation;
+            int milesTraveled = MainWindow.settings.userStats.milesTraveled;
+            int totalMilesTraveled = GetMilesTraveled(currentLocation) + milesTraveled;
+            Raylib.DrawText("Miles Traveled :", Raylib.GetScreenWidth()/2-258, Raylib.GetScreenHeight()/2+190, 30, BLACK);
+            Raylib.DrawText(totalMilesTraveled.ToString(), Raylib.GetScreenWidth()/2, Raylib.GetScreenHeight()/2+190, 30, BLACK);
+        }
+
+        private static Texture2D mainTrail1Texture = new Texture2D();
+        private static void MainTrail1()
+        {
+            if (mainTrail1Texture.height == 0) {
+                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/mainTrail1.png"));
+                mainTrail1Texture = LoadTextureFromImage(img);
+                UnloadImage(img);
+            }
+            DrawTextureEx(mainTrail1Texture, new Vector2(0, 0), 0f, 1f, WHITE);
+        }
+        private static Texture2D mainTrail2Texture = new Texture2D();
+        private static void MainTrail2()
+        {
+            if (mainTrail2Texture.height == 0) {
+                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/mainTrail2.png"));
+                mainTrail2Texture = LoadTextureFromImage(img);
+                UnloadImage(img);
+            }
+            DrawTextureEx(mainTrail2Texture, new Vector2(0, 0), 0f, 1f, WHITE);
+        }
+        private static Texture2D mainTrail3Texture = new Texture2D();
+        private static void MainTrail3()
+        {
+            if (mainTrail3Texture.height == 0) {
+                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/mainTrail3.png"));
+                mainTrail3Texture = LoadTextureFromImage(img);
+                UnloadImage(img);
+            }
+            DrawTextureEx(mainTrail3Texture, new Vector2(0, 0), 0f, 1f, WHITE);
+        }
+        private static Texture2D mainTrail4Texture = new Texture2D();
+        private static void MainTrail4()
+        {
+            if (mainTrail4Texture.height == 0) {
+                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/mainTrail4.png"));
+                mainTrail4Texture = LoadTextureFromImage(img);
+                UnloadImage(img);
+            }
+            DrawTextureEx(mainTrail4Texture, new Vector2(0, 0), 0f, 1f, WHITE);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace moonshot
         internal static Settings settings= new Settings();
 
         internal static string currentScreenTempStore = "";
-        public static int Init(bool debugging = true, bool resetProgress = false, bool raylibLogging = false)
+        public static int Init(bool debugging = true, bool resetProgress = false, bool raylibLogging = false, bool displayFPS = false)
         {
             // Initialization
             //--------------------------------------------------------------------------------------
@@ -56,14 +56,10 @@ namespace moonshot
                 settings = new Settings(true);
             }
 
-                        Console.WriteLine("What?");
-
 
             // Create Window
             // 800x600 is the games internal resolution. 
             InitWindow(800, 600, "M O O N S H O T");
-
-                        Console.WriteLine("What now?");
 
 
             Image icon = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/moon.png"));
@@ -96,6 +92,8 @@ namespace moonshot
             // Main game loop
             while (!WindowShouldClose())    // Detect window close button
             {
+                if (displayFPS)
+                    Raylib.DrawFPS(0,0);
 
                 // Check if tab key is pressed and if so launch save menu
                 if (!settings.nonGameScreens.Contains(settings.currentScreen.ToLower())) 
