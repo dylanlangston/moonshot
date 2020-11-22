@@ -61,7 +61,7 @@ namespace moonshot.Screens
             LastLandmark();
             //Confirmation();
             if (StartAnimation == false && MainWindow.settings.userStats.milesTraveled == 0)
-                LargePopUp(popUpMessages[MainWindow.settings.userStats.currentLocation].Item1, popUpMessages[MainWindow.settings.userStats.currentLocation].Item2);
+                LargePopUp(popUpMessages[MainWindow.settings.userStats.currentLocation].Item1, popUpMessages[MainWindow.settings.userStats.currentLocation].Item2, popUpMessages[MainWindow.settings.userStats.currentLocation].Item3);
             else if (StartAnimation == false)
             {
                 if (Raylib.IsKeyReleased(KeyboardKey.KEY_ENTER))
@@ -69,7 +69,10 @@ namespace moonshot.Screens
             } else
             {
                 PressEnterToSizeUp();
-                Travel();
+                Tuple<int, int> foodAndFuel = GetFoodAndFuelMod();
+                
+                Travel(foodAndFuel.Item1);
+                UseFood(foodAndFuel.Item2);
             }
                 
         }
@@ -83,12 +86,12 @@ namespace moonshot.Screens
         {
             DrawRectangle(0, 300, Raylib.GetScreenWidth(), 260, new Color(255,255,255,200));
         }
-        private static List<(string, bool)> popUpMessages = new List<(string, bool)>() { 
-            ("From the Landing Site it is 209\nMiles to the Mare Tranquillitatis.", false),
-            ("You are now at Mare\nTranquillitatis. Would you like to\nlook around? ", true)
+        private static List<(string, bool, string)> popUpMessages = new List<(string, bool, string)>() { 
+            ("From the Landing Site it is 209\nMiles to the Mare Tranquillitatis.", false, String.Empty),
+            ("You are now at Mare\nTranquillitatis. Would you like to\nlook around? ", true, "Mare Tranquillitatis")
         };
         private static string selectionLargePopUp = String.Empty;
-        private static void LargePopUp(string message = "", bool prompt = false)
+        private static void LargePopUp(string message = "", bool prompt = false, string nextScreen = "Check Stats")
         {
             string[] messageArray = message.Split("\n");
             Raylib.DrawRectangleRounded(new Rectangle(Raylib.GetScreenWidth()/8, Raylib.GetScreenHeight()/3, Raylib.GetScreenWidth()/8*6, 40+(messageArray.Length*30)), 0.25f, 10, WHITE);
@@ -104,7 +107,7 @@ namespace moonshot.Screens
             } else if (Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER)) {
                 switch (selectionLargePopUp) {
                     case "y":
-                        
+                        MainWindow.settings.currentScreen = nextScreen;
                         break;
                     case "n":
                         MainWindow.settings.userStats.milesTraveled++;

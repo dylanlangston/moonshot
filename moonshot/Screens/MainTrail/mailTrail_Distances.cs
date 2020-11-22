@@ -71,14 +71,22 @@ namespace moonshot.Screens
         }
 
         private static int travelCounter = 0;
-        public static void Travel()
+        public static void Travel(int paceModifier = 1)
         {
             travelCounter++;
             if (travelCounter > 100)
             {
                 travelCounter = 0;
                 Random r = new Random();
-                MainWindow.settings.userStats.milesTraveled += r.Next(9,20);
+                MainWindow.settings.userStats.milesTraveled += r.Next(8,17)+paceModifier;
+                MainWindow.settings.userStats.currentTime = MainWindow.settings.userStats.currentTime.AddHours(6);
+
+
+                if (MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 102).value > 0)
+                    MainWindow.settings.userStats.inventory.Items.Find(f => f.id == 102).value -= r.Next(0,3)+paceModifier;
+                else
+                    MainWindow.settings.currentScreen = "tombstone";
+                
             }
             int currentLocation = MainWindow.settings.userStats.currentLocation;
             int milesTraveled = MainWindow.settings.userStats.milesTraveled;
