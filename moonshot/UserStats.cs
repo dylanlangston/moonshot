@@ -241,6 +241,7 @@ namespace moonshot
     {
         public DateTime currentTime = new DateTime();
         public int currentLocation = 0;
+        public int milesTraveled = 0;
         public int Money = 0;
         public String playerType = PlayerType.apollo11;
         public PartyMembers crew = new apollo11();
@@ -250,7 +251,7 @@ namespace moonshot
         public string rations = PlayerRations.filling;
         public override string ToString()
         {
-            return "<Stats><CurrentTime>" + currentTime.ToString() + "</CurrentTime><CurrentLocation>" + currentLocation + "</CurrentLocation><Money>" + Money.ToString() + "</Money><PlayerType>" + playerType + "</PlayerType><Status>" + status + "</Status><Pace>" + pace + "</Pace><Rations>" + rations + "</Rations>" + inventory.ToString() + crew.ToString() + "</Stats>";
+            return "<Stats><CurrentTime>" + currentTime.ToString() + "</CurrentTime><CurrentLocation>" + currentLocation + "</CurrentLocation><MilesTraveled>" + milesTraveled + "</MilesTraveled><Money>" + Money.ToString() + "</Money><PlayerType>" + playerType + "</PlayerType><Status>" + status + "</Status><Pace>" + pace + "</Pace><Rations>" + rations + "</Rations>" + inventory.ToString() + crew.ToString() + "</Stats>";
         }
         public void LoadUserStatsFromString(string userStatsString, UserStats stats)
         {
@@ -267,6 +268,9 @@ namespace moonshot
                             break;
                         case "CurrentLocation":
                             Int32.TryParse(node.ChildNodes[i].InnerText, out stats.currentLocation);
+                            break;
+                        case "MilesTraveled":
+                            Int32.TryParse(node.ChildNodes[i].InnerText, out stats.milesTraveled);
                             break;
                         case "Money":
                             Int32.TryParse(node.ChildNodes[i].InnerText, out stats.Money);

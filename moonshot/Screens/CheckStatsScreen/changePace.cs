@@ -57,7 +57,7 @@ namespace moonshot.Screens
                         MainWindow.settings.currentScreen = "Check Stats";
                         break;
                     case "4":
-                        //MainWindow.settings.currentScreen = "Check Stats";
+                        MainWindow.settings.currentScreen = "Change Pace Info";
                         break;
                     default:
                         break;

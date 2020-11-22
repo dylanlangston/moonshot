@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/moonshot/bin/Debug/netcoreapp3.1/moonshot.dll",
-            "args": ["-debug"],
+            "args": ["-debug", "-fps"],
             "cwd": "${workspaceFolder}/moonshot/bin/Debug/netcoreapp3.1/",
             "stopAtEntry": false,
             "console": "integratedTerminal"
@@ -21,7 +21,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/moonshot/bin/Debug/netcoreapp3.1/moonshot.dll",
-            "args": ["-debug"],
+            "args": ["-debug", "-fps"],
             "cwd": "${workspaceFolder}/moonshot/bin/Debug/netcoreapp3.1/",
             "stopAtEntry": false,
             "console": "externalTerminal"

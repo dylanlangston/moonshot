@@ -37,6 +37,8 @@ namespace moonshot
 | Run with '-Reset' to reset progress.         |
 |- - - - - - - - - - - - - - - - - - - - - - - |
 | Run with '-RaylibLogs' to write raylib logs. |
+|- - - - - - - - - - - - - - - - - - - - - - - |
+| Run with '-FPS' to display FPS count.        |
 ------------------------------------------------";
                 Console.WriteLine(helpMessage);
                 return;
@@ -65,7 +67,8 @@ namespace moonshot
                 bool debugging = argsList.Contains("-debug", StringComparer.InvariantCultureIgnoreCase);
                 bool resetProgress = argsList.Contains("-reset", StringComparer.InvariantCultureIgnoreCase);
                 bool raylibLogs = argsList.Contains("-rayliblogs", StringComparer.InvariantCultureIgnoreCase);
-                MainWindow.Init(debugging, resetProgress, raylibLogs);
+                bool displayFPS = argsList.Contains("-fps", StringComparer.InvariantCultureIgnoreCase);
+                MainWindow.Init(debugging, resetProgress, raylibLogs, displayFPS);
             } 
             catch (Exception err) 
             {
