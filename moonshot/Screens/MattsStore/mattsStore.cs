@@ -69,27 +69,37 @@ namespace moonshot.Screens
             int OxygenAmount = 0;
             try {
                 OxygenAmount = CurrentSelection.Items[CurrentSelection.Items.FindIndex(x => x.id == 101)].value * 15;
-            } catch {}
+            } catch {
+                CurrentSelection.Items.Add(new OxygenTank());
+            }
             Raylib.DrawText("$" + OxygenAmount + ".00", (Raylib.GetScreenWidth()-(OxygenAmount.ToString().Length * 16)-140)+(OxygenAmount.ToString().ToCharArray().Where(x => x == '1').Count()*6), Raylib.GetScreenHeight()/24*7, 30, WHITE);
             int FuelAmount = 0;
             try {
                 FuelAmount = CurrentSelection.Items[CurrentSelection.Items.FindIndex(x => x.id == 102)].value;
-            } catch {}
+            } catch {
+                CurrentSelection.Items.Add(new Fuel());
+            }
             Raylib.DrawText("$" + FuelAmount + ".00", (Raylib.GetScreenWidth()-(FuelAmount.ToString().Length * 16)-140)+(FuelAmount.ToString().ToCharArray().Where(x => x == '1').Count()*6), Raylib.GetScreenHeight()/24*7+35, 30, WHITE);
             int FoodAmount = 0;
             try {
                 FoodAmount = CurrentSelection.Items[CurrentSelection.Items.FindIndex(x => x.id == 103)].value;
-            } catch {}
+            } catch {
+                CurrentSelection.Items.Add(new Food());
+            }
             Raylib.DrawText("$" + FoodAmount + ".00", (Raylib.GetScreenWidth()-(FoodAmount.ToString().Length * 16)-140)+(FoodAmount.ToString().ToCharArray().Where(x => x == '1').Count()*6), Raylib.GetScreenHeight()/24*7+70, 30, WHITE);
             int BoxesAmount = 0;
             try {
                 BoxesAmount = CurrentSelection.Items[CurrentSelection.Items.FindIndex(x => x.id == 104)].value * 4;
-            } catch {}
+            } catch {
+                CurrentSelection.Items.Add(new Boxes());
+            }
             Raylib.DrawText("$" + BoxesAmount + ".00", (Raylib.GetScreenWidth()-(BoxesAmount.ToString().Length * 16)-140)+(BoxesAmount.ToString().ToCharArray().Where(x => x == '1').Count()*6), Raylib.GetScreenHeight()/24*7+105, 30, WHITE);
             int PartsAmount = 0;
             try {
                 PartsAmount = CurrentSelection.Items[CurrentSelection.Items.FindIndex(x => x.id == 105)].value * 20;
-            } catch {}
+            } catch {
+               CurrentSelection.Items.Add(new ShipParts());
+            }
             Raylib.DrawText("$" + PartsAmount + ".00", (Raylib.GetScreenWidth()-(PartsAmount.ToString().Length * 16)-140)+(PartsAmount.ToString().ToCharArray().Where(x => x == '1').Count()*6), Raylib.GetScreenHeight()/24*7+140, 30, WHITE);
 
 

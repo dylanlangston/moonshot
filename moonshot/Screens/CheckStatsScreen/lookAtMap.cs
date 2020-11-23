@@ -19,7 +19,7 @@ namespace moonshot.Screens
             ClearBackground(Colors.space);
             starscape();
             Map();
-            MapProgress(MainWindow.settings.userStats.currentLocation);
+            MapProgress(MainWindow.settings.userStats.currentLocation+1);
             Confirmation();
         }
         private static void Confirmation(){

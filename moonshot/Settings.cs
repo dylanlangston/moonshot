@@ -53,6 +53,14 @@ namespace moonshot
             new BuySupplies(),
             new mainTrail(),
             new MareTranquillitatis(),
+            new MTP(),
+            new mareSerenitatis(),
+            new posidonius(),
+            new montesTaurus(),
+            new atlasAndHercules(),
+            new mareFrigoris(),
+            new anaxagoras(),
+            new peary(),
             new tombstone()
         };
         internal List<screen> screensList {
@@ -66,7 +74,7 @@ namespace moonshot
             new Tuple<string, int>("Collapsed Pit of Mare Tranquillitatis", 3),
             new Tuple<string, int>("Mare Serenitatis", 4),
             new Tuple<string, int>("Posidonius", 5),
-            new Tuple<string, int>("Sculptured Hills", 6),
+            new Tuple<string, int>("Montes Taurus", 6),
             new Tuple<string, int>("Atlas & Hercules", 7),
             new Tuple<string, int>("Mare Frigoris", 8),
             new Tuple<string, int>("Anaxagoras", 9),
