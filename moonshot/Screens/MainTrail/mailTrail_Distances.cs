@@ -79,7 +79,7 @@ namespace moonshot.Screens
             {
                 travelCounter = 0;
                 Random r = new Random();
-                MainWindow.settings.userStats.milesTraveled += r.Next(8,17)+paceModifier;
+                MainWindow.settings.userStats.milesTraveled += r.Next(18,27)+paceModifier;
                 MainWindow.settings.userStats.currentTime = MainWindow.settings.userStats.currentTime.AddHours(6);
 
 
