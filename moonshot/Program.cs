@@ -12,11 +12,13 @@ namespace moonshot
 {
     class Program
     {
-        // -----------------------------------------------------------------------------------
+        // -----------------------------------------------------------------------------------------------
         // Program is a intended to be a clone of the Oregon Trail but apollo mission themed.
         // Made as a submission for Game Off 2020 - MOONSHOT
         // Uses Raylib Engine, Raylib-CS, and dotnet core. 
-        // -----------------------------------------------------------------------------------
+        //
+        // Code is pretty ugly (mostly due to time constraints) and should be considered proof of concept.
+        // -----------------------------------------------------------------------------------------------
 
         static void Main(string[] args)
         {
