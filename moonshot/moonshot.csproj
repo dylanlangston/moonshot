@@ -10,6 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Images\AandH.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Images\crew.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
