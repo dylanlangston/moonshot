@@ -61,7 +61,9 @@ namespace moonshot.Screens
             LastLandmark();
             //Confirmation();
             if (StartAnimation == false && MainWindow.settings.userStats.milesTraveled == 0)
+            {
                 LargePopUp(popUpMessages[MainWindow.settings.userStats.currentLocation].Item1, popUpMessages[MainWindow.settings.userStats.currentLocation].Item2, popUpMessages[MainWindow.settings.userStats.currentLocation].Item3);
+            }
             else if (StartAnimation == false)
             {
                 if (Raylib.IsKeyReleased(KeyboardKey.KEY_ENTER))
@@ -86,9 +88,17 @@ namespace moonshot.Screens
         {
             DrawRectangle(0, 300, Raylib.GetScreenWidth(), 260, new Color(255,255,255,200));
         }
-        private static List<(string, bool, string)> popUpMessages = new List<(string, bool, string)>() { 
+        public static List<(string, bool, string)> popUpMessages = new List<(string, bool, string)>() { 
             ("From the Landing Site it is 209\nMiles to the Mare Tranquillitatis.", false, String.Empty),
-            ("You are now at Mare\nTranquillitatis. Would you like to\nlook around? ", true, "Mare Tranquillitatis")
+            ("You are now at Mare\nTranquillitatis. Would you like to\nlook around? ", true, "Mare Tranquillitatis"),
+            ("       You are now at MTP.\n          (collapsed pit of\n       Mare Tranquillitatis)\nWould you like to look around? ", true, "MTP"),
+            ("You are now at Mare Serenitatis.\nWould you like to look around? ", true, "Mare Serenitatis"),
+            ("You are now at Posidonius. Would\nyou like to look around? ", true, "Posidonius"),
+            ("You are now at Montes Taurus.\nWould you like to look around? ", true, "Montes Taurus"),
+            ("You are now at Atlas & Hercules.\nWould you like to look around? ", true, "Atlas and Hercules"),
+            ("You are now at Mare Frigoris.\nWould you like to look around? ", true, "Mare Frigoris"),
+            ("You are now at Anaxagoras. Would\nyou like to look around? ", true, "Anaxagoras"),
+            ("        You are now at Peary!", false, "Peary")
         };
         private static string selectionLargePopUp = String.Empty;
         private static void LargePopUp(string message = "", bool prompt = false, string nextScreen = "Check Stats")
@@ -132,7 +142,8 @@ namespace moonshot.Screens
             }
             } else {
             if (PressSPACEBAR()) {
-                //MainWindow.settings.currentScreen = "Supplies Screen Two";
+                if (nextScreen != String.Empty)
+                    MainWindow.settings.currentScreen = nextScreen;
                 StartAnimation = true;
             }
             }
@@ -177,7 +188,7 @@ namespace moonshot.Screens
             int milesTraveled = MainWindow.settings.userStats.milesTraveled;
             int NextLandmarkDistance = ((int)(LocationsAndDistances[currentLocation].Item3)) - milesTraveled;
             Raylib.DrawText("Next Landmark :", Raylib.GetScreenWidth()/2-257, Raylib.GetScreenHeight()/2+160, 30, BLACK);
-            Raylib.DrawText(NextLandmarkDistance.ToString(), Raylib.GetScreenWidth()/2, Raylib.GetScreenHeight()/2+160, 30, BLACK);
+            Raylib.DrawText(NextLandmarkDistance.ToString() + " miles", Raylib.GetScreenWidth()/2, Raylib.GetScreenHeight()/2+160, 30, BLACK);
         }
 
         private static void LastLandmark()
@@ -186,7 +197,7 @@ namespace moonshot.Screens
             int milesTraveled = MainWindow.settings.userStats.milesTraveled;
             int totalMilesTraveled = GetMilesTraveled(currentLocation) + milesTraveled;
             Raylib.DrawText("Miles Traveled :", Raylib.GetScreenWidth()/2-258, Raylib.GetScreenHeight()/2+190, 30, BLACK);
-            Raylib.DrawText(totalMilesTraveled.ToString(), Raylib.GetScreenWidth()/2, Raylib.GetScreenHeight()/2+190, 30, BLACK);
+            Raylib.DrawText(totalMilesTraveled.ToString() + " miles", Raylib.GetScreenWidth()/2, Raylib.GetScreenHeight()/2+190, 30, BLACK);
         }
 
         private static Texture2D mainTrail1Texture = new Texture2D();

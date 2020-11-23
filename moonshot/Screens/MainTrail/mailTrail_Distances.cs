@@ -56,7 +56,8 @@ namespace moonshot.Screens
             (new Location("Montes Taurus"), new Location("Atlas & Hercules"), 346),
             (new Location("Atlas & Hercules"), new Location("Mare Frigoris"), 470),
             (new Location("Mare Frigoris"), new Location("Anaxagoras"), 339),
-            (new Location("Anaxagoras"), new Location("Peary"), 294)
+            (new Location("Anaxagoras"), new Location("Peary"), 294),
+            (new Location("Peary"), new Location("Earth"), 220000)
         };
         public static int GetMilesTraveled(int currentLocation)
         {
@@ -85,7 +86,10 @@ namespace moonshot.Screens
                 if (MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 102).value > 0)
                     MainWindow.settings.userStats.inventory.Items.Find(f => f.id == 102).value -= r.Next(0,3)+paceModifier;
                 else
+                {
+                    StartAnimation = false;
                     MainWindow.settings.currentScreen = "tombstone";
+                }
                 
             }
             int currentLocation = MainWindow.settings.userStats.currentLocation;

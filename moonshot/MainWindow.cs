@@ -167,9 +167,8 @@ namespace moonshot
                 if (!string.IsNullOrEmpty(currentScreenTempStore)) {
                     settings.currentScreen = currentScreenTempStore;
                 }
-                else if (settings.currentScreen == "welcome") {
-                    settings.currentScreen = "";
-                }
+                else
+                    settings.currentScreen = "";         
             }
             settings.SaveSettings();
 

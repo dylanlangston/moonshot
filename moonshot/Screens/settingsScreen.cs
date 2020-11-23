@@ -41,10 +41,10 @@ namespace moonshot.Screens
             Raylib.DrawText("1.  See the current Top Ten list", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3, 30, WHITE);
             Raylib.DrawText("2. See the original Top Ten list", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 35, 30, WHITE);
             Raylib.DrawText("3. Erase the current Top Ten list", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 70, 30, WHITE);
-            Raylib.DrawText("4. Erase the tombstone messages", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 105, 30, WHITE);
-            Raylib.DrawText("5. Erase the saved game", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 140, 30, WHITE);
-            Raylib.DrawText("6. Full Screen " + (Raylib.IsWindowFullscreen() ? "Off" : "On") + "   (press escape)", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 175, 30, WHITE);
-            Raylib.DrawText("7. Return to the main menu", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 210, 30, WHITE);
+            //Raylib.DrawText("4. Erase the tombstone messages", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 105, 30, WHITE);
+            Raylib.DrawText("4. Erase the saved game", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 105, 30, WHITE);
+            Raylib.DrawText("5. Full Screen " + (Raylib.IsWindowFullscreen() ? "Off" : "On") + "   (press escape)", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 140, 30, WHITE);
+            Raylib.DrawText("6. Return to the main menu", Raylib.GetScreenWidth()/7, Raylib.GetScreenHeight()/3 + 175, 30, WHITE);
 
 
             int keypress = Raylib.GetKeyPressed();
@@ -52,7 +52,10 @@ namespace moonshot.Screens
                 keypress = 9000;
             } else if (Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER)) {
                 switch (selection) {
-                    case "6":
+                    case "4":
+                        MainWindow.settings.currentScreen = "erase game";
+                        break;
+                    case "5":
                         Raylib.ToggleFullscreen();
                         // Show/Hide cursor depending on if full screen or not.
                         if (Raylib.IsCursorHidden())
@@ -66,7 +69,7 @@ namespace moonshot.Screens
                         // Update setting
                         MainWindow.settings.StartFullscreen = Raylib.IsWindowFullscreen();
                         break;
-                    case "7":
+                    case "6":
                         MainWindow.settings.currentScreen = "welcome";
                         break;
                     default:
@@ -92,9 +95,6 @@ namespace moonshot.Screens
                     break;
                 case 54:
                     selection = "6";
-                    break;
-                case 55:
-                    selection = "7";
                     break;
                 case 9000:
                     selection = String.Empty;

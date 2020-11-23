@@ -25,6 +25,7 @@ namespace moonshot
         private List<screen> _screensList = new List<screen>(){ 
             new welcome(),
             new settingsScreen(),
+            new eraseGame(),
             new saveScreen(),
             new loadScreen(),
             new chooseCharacter(),
@@ -53,6 +54,14 @@ namespace moonshot
             new BuySupplies(),
             new mainTrail(),
             new MareTranquillitatis(),
+            new MTP(),
+            new mareSerenitatis(),
+            new posidonius(),
+            new montesTaurus(),
+            new atlasAndHercules(),
+            new mareFrigoris(),
+            new anaxagoras(),
+            new peary(),
             new tombstone()
         };
         internal List<screen> screensList {
@@ -66,7 +75,7 @@ namespace moonshot
             new Tuple<string, int>("Collapsed Pit of Mare Tranquillitatis", 3),
             new Tuple<string, int>("Mare Serenitatis", 4),
             new Tuple<string, int>("Posidonius", 5),
-            new Tuple<string, int>("Sculptured Hills", 6),
+            new Tuple<string, int>("Montes Taurus", 6),
             new Tuple<string, int>("Atlas & Hercules", 7),
             new Tuple<string, int>("Mare Frigoris", 8),
             new Tuple<string, int>("Anaxagoras", 9),
@@ -79,7 +88,7 @@ namespace moonshot
         
 
         // Screens to load even if current game is in progress.
-        internal List<string> nonGameScreens = new List<string>() {"load", "save", "settings", "welcome"};
+        internal List<string> nonGameScreens = new List<string>() {"load", "save", "settings", "welcome", "erase game"};
 
         // Track if game should start fullscreen
         public bool StartFullscreen = true;

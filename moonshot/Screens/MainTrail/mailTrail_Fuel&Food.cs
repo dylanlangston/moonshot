@@ -51,12 +51,21 @@ namespace moonshot.Screens
             return new Tuple<int, int>(paceModifier, rationsModifier);
         }
 
+
+        private static int foodCounter = 0;
         public static void UseFood(int amount)
         {
-            if (MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 103).value > 0)
-                MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 103).value -= amount;
-            else
-                MainWindow.settings.currentScreen = "tombstone";
+            foodCounter++;
+            if (foodCounter > 400) {
+                foodCounter = 0;
+                if (MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 103).value > 0)
+                    MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 103).value -= amount;
+                else
+                {
+                    StartAnimation = false;
+                    MainWindow.settings.currentScreen = "tombstone";
+                }
+            }
         }
     }
 }
