@@ -73,6 +73,9 @@
     <None Update="Images\oxygentanks.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Images\peary.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Images\posidonius.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
