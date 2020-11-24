@@ -42,7 +42,7 @@ namespace moonshot.Screens
                 rationsModifier = 2;
                 break;
                 case (PlayerRations.filling):
-                rationsModifier = 3;
+                rationsModifier = 4;
                 break;
                 default:
                 break;
@@ -59,11 +59,89 @@ namespace moonshot.Screens
             if (foodCounter > 400) {
                 foodCounter = 0;
                 if (MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 103).value > 0)
-                    MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 103).value -= amount;
+                {
+                    bool healthBeingIncreased = false;
+                    int loopCount = 0;
+                    switch (MainWindow.settings.userStats.rations)
+                    {
+                        case (PlayerRations.filling):
+                            loopCount = 2;
+                            break;
+                        case (PlayerRations.meager):
+                            loopCount = 1;
+                            break;
+                    }
+                    for (int c = 0; c < loopCount; c++)
+                    {
+                    if (!healthBeingIncreased)
+                    {
+                        foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.veryPoor))
+                        {
+                            member.status = PlayerStatus.poor;
+                            healthBeingIncreased = true;
+                            break;
+                        }
+                    }
+                    if (!healthBeingIncreased)
+                    {
+                        foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.poor))
+                        {
+                            member.status = PlayerStatus.fair;
+                            healthBeingIncreased = true;
+                            break;
+                        }
+                    }
+                    if (!healthBeingIncreased)
+                    {
+                        foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.fair))
+                        {
+                            member.status = PlayerStatus.good;
+                            healthBeingIncreased = true;
+                            break;
+                        }
+                    }
+                    }
+                    MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 103).value -= (amount + (healthBeingIncreased ? 1 : 0));
+                }
                 else
                 {
-                    StartAnimation = false;
-                    MainWindow.settings.currentScreen = "tombstone";
+                    for (int c = 0; c < 2; c++)
+                    {
+                    bool healthNeedsReduced = true;
+                    if (healthNeedsReduced)
+                    {
+                        foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.good))
+                        {
+                            member.status = PlayerStatus.fair;
+                            healthNeedsReduced = false;
+                            break;
+                        }
+                    }
+                    if (healthNeedsReduced)
+                    {
+                        foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.fair))
+                        {
+                            member.status = PlayerStatus.poor;
+                            healthNeedsReduced = false;
+                            break;
+                        }
+                    }
+                    if (healthNeedsReduced)
+                    {
+                        foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.poor))
+                        {
+                            member.status = PlayerStatus.veryPoor;
+                            healthNeedsReduced = false;
+                            break;
+                        }
+                    }
+                    if (healthNeedsReduced)
+                    {
+                        // Kill the user if everyone is very poor
+                        StartAnimation = false;
+                        MainWindow.settings.currentScreen = "tombstone";
+                    }
+                    }
                 }
             }
         }

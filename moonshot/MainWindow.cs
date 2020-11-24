@@ -110,7 +110,7 @@ namespace moonshot
                 if (firstRun)
                 {
                     (new splashScreen()).Display();
-                    if (true) //if (cleanupCounter > 150)
+                    if (cleanupCounter > 150)
                     {
                         firstRun = false;
                     }

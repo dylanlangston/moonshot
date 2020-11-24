@@ -43,13 +43,13 @@ namespace moonshot.Screens
         }
 
         // space center
-        internal static Sound sound = LoadSound("Music/POL-moon-castle-short.wav");
+        internal static Sound sound = LoadSound("Music/POL-cookie-island-short.wav");
         internal static Texture2D imgTexture = new Texture2D();
         internal static void img()
         {
             Raylib.SetMasterVolume(1f);
             if (imgTexture.height == 0) {
-                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/posidonius.png"));
+                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/anaxagoras.png"));
                 imgTexture = LoadTextureFromImage(img);
                 UnloadImage(img);
             }

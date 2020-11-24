@@ -44,6 +44,9 @@ namespace moonshot.Screens
                             MainWindow.settings.currentScreen = "Character Selection";
                         }
                         break;
+                    case "3":
+                        MainWindow.settings.currentScreen = "Top Ten";
+                        break;
                     case "4":
                         MainWindow.settings.currentScreen = "Settings";
                         break;
