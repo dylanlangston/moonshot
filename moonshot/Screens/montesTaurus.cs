@@ -49,7 +49,7 @@ namespace moonshot.Screens
         {
             Raylib.SetMasterVolume(1f);
             if (imgTexture.height == 0) {
-                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/posidonius.png"));
+                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/montesTaurus.png"));
                 imgTexture = LoadTextureFromImage(img);
                 UnloadImage(img);
             }

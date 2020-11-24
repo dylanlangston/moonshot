@@ -96,6 +96,10 @@ namespace moonshot
         // Track User Stats
         internal UserStats userStats = new UserStats();
 
+        // Track Top Ten
+
+        internal TopTen topTen = new TopTen();
+
         // Init Settings
         public Settings(bool useDefaults = false) 
         {
@@ -125,6 +129,10 @@ namespace moonshot
             string ustat = GetConfigValue("UserStats");
             userStats.LoadUserStatsFromString(ustat, userStats);
 
+            // Load Top Ten
+            string topten = GetConfigValue("TTCollection");
+            topTen.LoadTopTenFromString(topten);
+
         }
         
         // Save Settings
@@ -139,6 +147,9 @@ namespace moonshot
 
             // Save the Userstats
             SetConfigValue("UserStats", userStats.ToString());
+
+            // Save the top ten
+            SetConfigValue("TTCollection", topTen.ToString());
         }
 
         // Reads the moonshot.xml file for the supplied tag value.

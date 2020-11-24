@@ -72,7 +72,8 @@ namespace moonshot.Screens
             {
                 PressEnterToSizeUp();
                 Tuple<int, int> foodAndFuel = GetFoodAndFuelMod();
-                
+                CheckHealth();
+                CheckOxygen();
                 Travel(foodAndFuel.Item1);
                 UseFood(foodAndFuel.Item2);
             }
