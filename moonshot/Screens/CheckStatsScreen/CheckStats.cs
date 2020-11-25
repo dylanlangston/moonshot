@@ -151,6 +151,12 @@ namespace moonshot.Screens
                     int tempInt = 0; 
                     Int32.TryParse(timeToRest, out tempInt);
                     MainWindow.settings.userStats.currentTime = MainWindow.settings.userStats.currentTime.AddDays((double)tempInt);
+                    for (int i = 0; i < tempInt; i++)
+                    {
+                        Tuple<int, int> foodAndFuel = mainTrail.GetFoodAndFuelMod();
+                        mainTrail.UseFood(foodAndFuel.Item2);
+                        mainTrail.CheckHealth();
+                    }
                     resting = false;
                     timeToRest = String.Empty;
                     selection = String.Empty;

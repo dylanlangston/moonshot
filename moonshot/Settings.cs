@@ -26,6 +26,9 @@ namespace moonshot
             new welcome(),
             new settingsScreen(),
             new topTenScreen(),
+            new scoringInfo(),
+            new scoringInfoTwo(),
+            new scoringInfoThree(),
             new eraseGame(),
             new saveScreen(),
             new loadScreen(),
@@ -89,7 +92,17 @@ namespace moonshot
         
 
         // Screens to load even if current game is in progress.
-        internal List<string> nonGameScreens = new List<string>() {"load", "save", "settings", "welcome", "erase game", "top ten"};
+        internal List<string> nonGameScreens = new List<string>() {
+            "load", 
+            "save", 
+            "settings", 
+            "welcome", 
+            "erase game", 
+            "top ten", 
+            "scoring info", 
+            "scoring info two",
+            "scoring info three"
+            };
 
         // Track if game should start fullscreen
         public bool StartFullscreen = true;

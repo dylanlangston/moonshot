@@ -15,6 +15,7 @@ namespace moonshot.Screens
             get { return "Main Trail"; }
         }
         private static int annimationCounter = 15;
+        private static int foodCounter = 0;
         private static bool StartAnimation = false;
         public override void Display()
         {
@@ -59,23 +60,34 @@ namespace moonshot.Screens
             Food();
             NextLandmark();
             LastLandmark();
+            DisplayIcon();
             //Confirmation();
-            if (StartAnimation == false && MainWindow.settings.userStats.milesTraveled == 0)
+            if (StartAnimation == false && MainWindow.settings.userStats.milesTraveled == 0 && String.IsNullOrEmpty(tempPopUpMessage))
             {
                 LargePopUp(popUpMessages[MainWindow.settings.userStats.currentLocation].Item1, popUpMessages[MainWindow.settings.userStats.currentLocation].Item2, popUpMessages[MainWindow.settings.userStats.currentLocation].Item3);
             }
-            else if (StartAnimation == false)
+            else if (StartAnimation == false && String.IsNullOrEmpty(tempPopUpMessage))
             {
                 if (Raylib.IsKeyReleased(KeyboardKey.KEY_ENTER))
                     StartAnimation = true;
             } else
             {
-                PressEnterToSizeUp();
-                Tuple<int, int> foodAndFuel = GetFoodAndFuelMod();
-                CheckHealth();
-                CheckOxygen();
-                Travel(foodAndFuel.Item1);
-                UseFood(foodAndFuel.Item2);
+                if (!String.IsNullOrEmpty(tempPopUpMessage))
+                {
+                    LargePopUp(tempPopUpMessage, tempPromptBool, String.Empty);
+                }
+                else {
+                    PressEnterToSizeUp();
+                    Tuple<int, int> foodAndFuel = GetFoodAndFuelMod();
+                    CheckHealth();
+                    CheckOxygen();
+
+                    Travel(foodAndFuel.Item1);
+                    foodCounter++;
+                    if (foodCounter > 400) {
+                        UseFood(foodAndFuel.Item2);
+                    }
+                }
             }
                 
         }
@@ -101,6 +113,16 @@ namespace moonshot.Screens
             ("You are now at Anaxagoras. Would\nyou like to look around? ", true, "Anaxagoras"),
             ("        You are now at Peary!", false, "Peary")
         };
+
+        private static string tempPopUpMessage = String.Empty;
+        private static bool tempPromptBool = false;
+        private static void DisplayNewPopUp(string newTempPopUpMessage, bool newTempPromptBool = false)
+        {
+            StartAnimation = false;
+            tempPopUpMessage = newTempPopUpMessage;
+            tempPromptBool = newTempPromptBool;
+        }
+
         private static string selectionLargePopUp = String.Empty;
         private static void LargePopUp(string message = "", bool prompt = false, string nextScreen = "Check Stats")
         {
@@ -146,6 +168,7 @@ namespace moonshot.Screens
                 if (nextScreen != String.Empty)
                     MainWindow.settings.currentScreen = nextScreen;
                 StartAnimation = true;
+                tempPopUpMessage = String.Empty;
             }
             }
         }
