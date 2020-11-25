@@ -33,11 +33,7 @@ namespace moonshot.Screens
                 }
             }
             Console.WriteLine(totalStatus);
-            if (totalStatus == 4)
-            {
-                StartAnimation = false;
-                MainWindow.settings.currentScreen = "tombstone";
-            } else if (totalStatus < 5)
+            if (totalStatus < 6)
             {
                 MainWindow.settings.userStats.status = PlayerStatus.veryPoor;
             } else if (totalStatus < 9)

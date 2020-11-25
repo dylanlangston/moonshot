@@ -25,6 +25,7 @@ namespace moonshot
         private List<screen> _screensList = new List<screen>(){ 
             new welcome(),
             new settingsScreen(),
+            new topTenScreen(),
             new eraseGame(),
             new saveScreen(),
             new loadScreen(),
@@ -88,7 +89,7 @@ namespace moonshot
         
 
         // Screens to load even if current game is in progress.
-        internal List<string> nonGameScreens = new List<string>() {"load", "save", "settings", "welcome", "erase game"};
+        internal List<string> nonGameScreens = new List<string>() {"load", "save", "settings", "welcome", "erase game", "top ten"};
 
         // Track if game should start fullscreen
         public bool StartFullscreen = true;

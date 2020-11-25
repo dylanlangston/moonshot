@@ -43,7 +43,7 @@ namespace moonshot.Screens
         }
 
         // space center
-        internal static Sound sound = LoadSound("Music/POL-moon-castle-short.wav");
+        internal static Sound sound = LoadSound("Music/POL-yellow-copter-short.wav");
         internal static Texture2D imgTexture = new Texture2D();
         internal static void img()
         {

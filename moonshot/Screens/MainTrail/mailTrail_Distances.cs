@@ -77,18 +77,16 @@ namespace moonshot.Screens
             travelCounter++;
             if (travelCounter > 100)
             {
-                travelCounter = 0;
-                Random r = new Random();
-                MainWindow.settings.userStats.milesTraveled += r.Next(18,27)+paceModifier;
                 MainWindow.settings.userStats.currentTime = MainWindow.settings.userStats.currentTime.AddHours(6);
 
-
+                travelCounter = 0;
+                Random r = new Random();
                 if (MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 102).value > 0)
-                    MainWindow.settings.userStats.inventory.Items.Find(f => f.id == 102).value -= r.Next(0,3)+paceModifier;
-                else
                 {
-                    StartAnimation = false;
-                    MainWindow.settings.currentScreen = "tombstone";
+                    MainWindow.settings.userStats.milesTraveled += r.Next(18,27)+paceModifier;
+                    MainWindow.settings.userStats.inventory.Items.Find(f => f.id == 102).value -= r.Next(0,3)+paceModifier;
+                    if (MainWindow.settings.userStats.inventory.Items.Find(f => f.id == 102).value < 0)
+                        MainWindow.settings.userStats.inventory.Items.Find(f => f.id == 102).value = 0;
                 }
                 
             }
