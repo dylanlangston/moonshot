@@ -33,9 +33,17 @@ namespace moonshot.Screens
         }
         private static string selection = String.Empty;
         private static void ScoreInfo() {
-            Raylib.DrawText("On Arriving at Peary", (Raylib.GetScreenWidth()-("On Arriving at Peary".Length*17))/2, 35, 30, WHITE);
+            Raylib.DrawText("On Arriving at Peary", (Raylib.GetScreenWidth()-("On Arriving at Peary".Length*17))/2, 30, 30, WHITE);
             Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight()/12);
             Menuline(Raylib.GetScreenWidth() / 128, Raylib.GetScreenHeight() / 24 * 20 );
+
+            Raylib.DrawText(
+@"You receive points depending on which mission
+you go on. Because the Apollo 12 and 14 missions
+collected more moon rocks than the Apollo 11
+mission, you receive double points upon finishing
+the path of the Apollo 12 mission, and triple
+points for finishing on the Apollo 14 path.", 30, 180, 30, WHITE);
         }
         private static void Confirmation(){
             if (PressSPACEBAR()) {

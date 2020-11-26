@@ -26,6 +26,7 @@ namespace moonshot
             new welcome(),
             new settingsScreen(),
             new topTenScreen(),
+            new currentTopTenSettings(),
             new scoringInfo(),
             new scoringInfoTwo(),
             new scoringInfoThree(),

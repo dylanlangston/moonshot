@@ -46,7 +46,25 @@ namespace moonshot.Screens
 @"Your most important resource is the people you
 have with you. You receive points for each
 member of your party who arrives safely; you
-receivemore points if they arrive in good health!", 30, 110, 30, WHITE);
+receive more points if they arrive in good health!", 30, 110, 30, WHITE);
+
+            Raylib.DrawRectangle(100, 285, 175, 65, WHITE);
+            Raylib.DrawText("Health of", 115, 290, 30, BLACK);
+            Raylib.DrawText("Crew", 150, 320, 30, BLACK);
+
+            Raylib.DrawText("good", 110, 360, 30, WHITE);
+            Raylib.DrawText("fair", 110, 390, 30, WHITE);
+            Raylib.DrawText("poor", 110, 420, 30, WHITE);
+            Raylib.DrawText("very poor", 110, 450, 30, WHITE);
+
+            Raylib.DrawRectangle(460, 285, 180, 65, WHITE);
+            Raylib.DrawText("Points per", 470, 290, 30, BLACK);
+            Raylib.DrawText("Person", 495, 320, 30, BLACK);
+
+            Raylib.DrawText("500", 520, 360, 30, WHITE);
+            Raylib.DrawText("400", 520, 390, 30, WHITE);
+            Raylib.DrawText("300", 520, 420, 30, WHITE);
+            Raylib.DrawText("200", 520, 450, 30, WHITE);
 
         }
         private static void Confirmation(){
