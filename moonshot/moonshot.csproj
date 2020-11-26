@@ -13,6 +13,9 @@
     <None Update="Images\AandH.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Images\anaxagoarsIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Images\anaxagoras.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
