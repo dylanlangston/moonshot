@@ -51,12 +51,9 @@ namespace moonshot.Screens
             return new Tuple<int, int>(paceModifier, rationsModifier);
         }
 
-
-        private static int foodCounter = 0;
         public static void UseFood(int amount)
         {
-            foodCounter++;
-            if (foodCounter > 400) {
+            
                 foodCounter = 0;
                 if (MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 103).value > 0)
                 {
@@ -105,45 +102,8 @@ namespace moonshot.Screens
                 }
                 else
                 {
-                    for (int c = 0; c < 2; c++)
-                    {
-                    bool healthNeedsReduced = true;
-                    if (healthNeedsReduced)
-                    {
-                        foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.good))
-                        {
-                            member.status = PlayerStatus.fair;
-                            healthNeedsReduced = false;
-                            break;
-                        }
-                    }
-                    if (healthNeedsReduced)
-                    {
-                        foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.fair))
-                        {
-                            member.status = PlayerStatus.poor;
-                            healthNeedsReduced = false;
-                            break;
-                        }
-                    }
-                    if (healthNeedsReduced)
-                    {
-                        foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.poor))
-                        {
-                            member.status = PlayerStatus.veryPoor;
-                            healthNeedsReduced = false;
-                            break;
-                        }
-                    }
-                    if (healthNeedsReduced)
-                    {
-                        // Kill the user if everyone is very poor
-                        StartAnimation = false;
-                        MainWindow.settings.currentScreen = "tombstone";
-                    }
-                    }
+                    ReduceHealth();
                 }
-            }
         }
     }
 }

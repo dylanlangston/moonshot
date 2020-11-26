@@ -77,7 +77,6 @@ namespace moonshot.Screens
             travelCounter++;
             if (travelCounter > 100)
             {
-                MainWindow.settings.userStats.currentTime = MainWindow.settings.userStats.currentTime.AddHours(6);
 
                 travelCounter = 0;
                 Random r = new Random();

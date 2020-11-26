@@ -32,6 +32,7 @@ namespace moonshot
         public const string fair = "Fair";
         public const string poor = "Poor";
         public const string veryPoor = "Very Poor";
+        public const string dead = "Dead";
     }
     public class PlayerPace
     {
