@@ -13,7 +13,7 @@
     <None Update="Images\AandH.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Images\anaxagoarsIcon.png">
+    <None Update="Images\anaxagorasIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Images\anaxagoras.png">
