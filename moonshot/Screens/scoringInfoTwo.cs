@@ -41,6 +41,34 @@ namespace moonshot.Screens
             Raylib.DrawLineV(new Vector2(0, 93), new Vector2(Raylib.GetScreenWidth(), 93), BLUE);
             Raylib.DrawLineV(new Vector2(0, 94), new Vector2(Raylib.GetScreenWidth(), 94), BLUE);
 
+            Raylib.DrawText(
+@"Mission control likes it when you return with a
+surplus of items. They will reward you with
+points for each item you bring safely back.", 30, 110, 30, WHITE);
+
+            Raylib.DrawRectangle(100, 245, 235, 65, WHITE);
+            Raylib.DrawText("Resources of", 115, 250, 30, BLACK);
+            Raylib.DrawText("Crew", 180, 280, 30, BLACK);
+
+            Raylib.DrawText("ship", 110, 330, 30, WHITE);
+            Raylib.DrawText("oxygen", 110, 360, 30, WHITE);
+            Raylib.DrawText("spare ship part", 110, 390, 30, WHITE);
+            Raylib.DrawText("rock boxes", 110, 420, 30, WHITE);
+            Raylib.DrawText("fuel (each 10 gallons)", 110, 450, 30, WHITE);
+            Raylib.DrawText("food (each 20 pounds)", 110, 480, 30, WHITE);
+            Raylib.DrawText("cash (each 5 dollars)", 110, 510, 30, WHITE);
+
+            Raylib.DrawRectangle(460, 245, 180, 65, WHITE);
+            Raylib.DrawText("Points per", 470, 250, 30, BLACK);
+            Raylib.DrawText("Item", 515, 280, 30, BLACK);
+
+            Raylib.DrawText("50", 510, 330, 30, WHITE);
+            Raylib.DrawText("4", 510, 360, 30, WHITE);
+            Raylib.DrawText("2", 510, 390, 30, WHITE);
+            Raylib.DrawText("2", 510, 420, 30, WHITE);
+            Raylib.DrawText("1", 510, 450, 30, WHITE);
+            Raylib.DrawText("1", 510, 480, 30, WHITE);
+            Raylib.DrawText("1", 510, 510, 30, WHITE);
         }
         private static void Confirmation(){
             if (PressSPACEBAR()) {
