@@ -126,14 +126,16 @@ namespace moonshot
     public class InventoryItem
     {
         public InventoryItem() { }
-        public InventoryItem(string nameIn, int idIn, int valueIn) {
+        public InventoryItem(string nameIn, int idIn, int valueIn, float capacityIn = 1f) {
             name = nameIn;
             id = idIn;
             value = valueIn;
+            capacity = capacityIn;
         }
         public string name;
         public int id;
         public int value;
+        public float capacity;
     }
     public class OxygenTank : InventoryItem 
     {
@@ -161,10 +163,11 @@ namespace moonshot
     }
     public class Boxes: InventoryItem 
     {
-        internal Boxes(int valueIn = 0) {
+        internal Boxes(int valueIn = 0, float capacityIn = 0f) {
             name = "Boxes";
             id = 104;
             value = valueIn;
+            capacity = capacityIn;
         }
     }
     public class ShipParts : InventoryItem 
@@ -183,7 +186,7 @@ namespace moonshot
         {
             string output = "<Items>";
             foreach (InventoryItem item in Items) {
-                output += "<Item><Name>" + item.name + "</Name><Id>" + item.id + "</Id><Value>" + item.value + "</Value></Item>";
+                output += "<Item><Name>" + item.name + "</Name><Id>" + item.id + "</Id><Value>" + item.value + "</Value><Capacity>" + item.capacity + "</Capacity></Item>";
             }
             output += "</Items>";
             return output;
@@ -214,6 +217,7 @@ namespace moonshot
                 string name = "";
                 int id = 0;
                 int value = 0;
+                float capacity = 1f;
                 for (int i = 0; i < node.ChildNodes.Count; i++)
                 {
                     foreach (XmlNode item in node.ChildNodes[i]) {
@@ -227,12 +231,15 @@ namespace moonshot
                             case "Value":
                                 Int32.TryParse(item.InnerText, out value);
                                 break;
+                            case "Capacity":
+                                float.TryParse(item.InnerText, out capacity);
+                                break;
                             default:
                                 Console.WriteLine(item.Name);
                                 break;
                         }
                     }
-                    Items.Add(new InventoryItem(name, id, value));
+                    Items.Add(new InventoryItem(name, id, value, capacity));
                 }
             }
             inventory.Items = Items;

@@ -23,7 +23,7 @@ namespace moonshot.Screens
             ShowBasicStats(stats.status, stats.pace, stats.rations);
             bool AtLandmark = MainWindow.settings.userStats.milesTraveled == 0;
             YouMay(AtLandmark);
-            WhatIsYourChoice(resting);
+            WhatIsYourChoice(resting, AtLandmark);
             if (resting)
                 Rest();
         }
@@ -51,6 +51,8 @@ namespace moonshot.Screens
             Raylib.DrawText("7. Talk with mission control", 100, 435, 30, WHITE);
             if (BuySupplies)
                 Raylib.DrawText("8. Buy supplies", 100, 470, 30, WHITE);
+            else 
+                Raylib.DrawText("8. Collect Rocks", 100, 470, 30, WHITE);
         }
         private static string selection = String.Empty;
         private void WhatIsYourChoice(bool resting, bool BuySupplies = true)
@@ -81,7 +83,10 @@ namespace moonshot.Screens
                         CheckStats.resting = true;
                         break;
                     case "8":
-                        MainWindow.settings.currentScreen = "Buy Supplies";
+                        if (BuySupplies)
+                            MainWindow.settings.currentScreen = "Buy Supplies";
+                        else 
+                            MainWindow.settings.currentScreen = "Collect Rocks Game";
                         break;
                     default:
                         break;
@@ -111,8 +116,7 @@ namespace moonshot.Screens
                     selection = "7";
                     break;
                 case '8':
-                    if (BuySupplies)
-                        selection = "8";
+                    selection = "8";
                     break;
                 case 9000:
                     selection = String.Empty;
