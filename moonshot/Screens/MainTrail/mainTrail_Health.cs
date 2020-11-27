@@ -27,8 +27,10 @@ namespace moonshot.Screens
                     case PlayerStatus.poor:
                         totalStatus += 2;
                         break;
-                    default:
+                    case PlayerStatus.veryPoor:
                         totalStatus += 1;
+                        break;
+                    default:
                         break;
                 }
             }

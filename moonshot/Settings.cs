@@ -69,6 +69,8 @@ namespace moonshot
             new mareFrigoris(),
             new anaxagoras(),
             new peary(),
+            new arrivalPoints(),
+            new editTopTen(),
             new tombstone()
         };
         internal List<screen> screensList {

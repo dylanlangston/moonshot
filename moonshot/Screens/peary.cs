@@ -47,7 +47,7 @@ namespace moonshot.Screens
             if (PressSPACEBAR()) {
                 loopCount = 0;
                 enterPressed = false;
-                MainWindow.settings.currentScreen = "welcome";
+                MainWindow.settings.currentScreen = "Arrival Points";
             }
         }
         private static void Confirmation(){
