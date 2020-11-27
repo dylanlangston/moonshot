@@ -42,11 +42,7 @@ namespace moonshot.Screens
             Raylib.DrawLineV(new Vector2(0, 94), new Vector2(Raylib.GetScreenWidth(), 94), BLUE);
 
 
-            Raylib.DrawText(
-@"Your most important resource is the people you
-have with you. You receive points for each
-member of your party who arrives safely; you
-receive more points if they arrive in good health!", 30, 110, 30, WHITE);
+            Raylib.DrawText("Your most important resource is the people you\nhave with you. You receive points for each\nmember of your party who arrives safely; you\nreceive more points if they arrive in good health!", 30, 110, 30, WHITE);
 
             Raylib.DrawRectangle(100, 285, 175, 65, WHITE);
             Raylib.DrawText("Health of", 115, 290, 30, BLACK);

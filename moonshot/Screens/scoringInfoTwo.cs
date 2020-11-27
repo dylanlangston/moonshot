@@ -41,10 +41,7 @@ namespace moonshot.Screens
             Raylib.DrawLineV(new Vector2(0, 93), new Vector2(Raylib.GetScreenWidth(), 93), BLUE);
             Raylib.DrawLineV(new Vector2(0, 94), new Vector2(Raylib.GetScreenWidth(), 94), BLUE);
 
-            Raylib.DrawText(
-@"Mission control likes it when you return with a
-surplus of items. They will reward you with
-points for each item you bring safely back.", 30, 110, 30, WHITE);
+            Raylib.DrawText("Mission control likes it when you return with a\nsurplus of items. They will reward you with\npoints for each item you bring safely back.", 30, 110, 30, WHITE);
 
             Raylib.DrawRectangle(100, 245, 235, 65, WHITE);
             Raylib.DrawText("Resources of", 115, 250, 30, BLACK);
