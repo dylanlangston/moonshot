@@ -21,7 +21,8 @@ namespace moonshot.Screens
             UserStats stats = MainWindow.settings.userStats;
             LocationAndTime(MainWindow.settings.Locations[stats.currentLocation+1].Item1, stats.currentTime);
             ShowBasicStats(stats.status, stats.pace, stats.rations);
-            YouMay();
+            bool AtLandmark = MainWindow.settings.userStats.milesTraveled == 0;
+            YouMay(AtLandmark);
             WhatIsYourChoice(resting);
             if (resting)
                 Rest();

@@ -14,13 +14,18 @@ namespace moonshot.Screens
         public override string Name {
             get { return "Arrival Points"; }
         }
+        private static int loopCount = 0;
         public override void Display()
         {
             ClearBackground(Colors.space);
             starscape();
             Message();
             CalcPoints();
-            Confirmation();
+            if (loopCount > 5) {
+                Confirmation();
+            } else {
+                loopCount++;
+            }
         }
         private static void Message() {
             Raylib.DrawRectangle(Raylib.GetScreenWidth()/16, 10, Raylib.GetScreenWidth()/8*7, 35, WHITE);
@@ -201,6 +206,7 @@ namespace moonshot.Screens
                 {
                     multiplyMod = 1;
                     MainWindow.settings.currentScreen = "Edit Top Ten";
+                    loopCount = 0;
                 }
             }
         }

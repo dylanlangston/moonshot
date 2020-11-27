@@ -44,6 +44,9 @@ namespace moonshot.Screens
                             MainWindow.settings.currentScreen = "Character Selection";
                         }
                         break;
+                    case "2":
+                        MainWindow.settings.currentScreen = "Learn About Trail One";
+                        break;
                     case "3":
                         MainWindow.settings.currentScreen = "Top Ten";
                         break;
