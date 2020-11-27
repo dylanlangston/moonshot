@@ -124,6 +124,15 @@
     <None Update="Images\rockMiniGame\rock5.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Images\rockMiniGame\sideAstronaut1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\rockMiniGame\sideAstronaut2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\rockMiniGame\sideAstronaut3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Images\salesman.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
