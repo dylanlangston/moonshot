@@ -25,6 +25,12 @@ namespace moonshot.Screens
             }
             switch (currentLocation+currentLocationMod)
             {
+                case (0):
+                    landingIcon(175 + (int)(300*milesPercent), 75);
+                    break;
+                case (1):
+                    mareTranIcon(175 + (int)(250*milesPercent), 75);
+                    break;
                 case (2):
                     mtpIcon(175 + (int)(250*milesPercent), 75);
                     break;
@@ -32,9 +38,19 @@ namespace moonshot.Screens
                     posidoniusIcon(175 + (int)(250*milesPercent), 75);
                     break;
                 default:
-                    mareTranIcon(175 + (int)(250*milesPercent), 75);
+                    anaxagorasIcon(175 + (int)(250*milesPercent), 75);
                     break;
             }
+        }
+        private static Texture2D landingIconTexture = new Texture2D();
+        private static void landingIcon(int x, int y)
+        {
+            if (landingIconTexture.height == 0) {
+                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/landingIcon.png"));
+                landingIconTexture = LoadTextureFromImage(img);
+                UnloadImage(img);
+            }
+            DrawTextureEx(landingIconTexture, new Vector2(x, y), 0f, 0.5f, WHITE);
         }
         private static Texture2D mareTranIconTexture = new Texture2D();
         private static void mareTranIcon(int x, int y)
@@ -65,6 +81,16 @@ namespace moonshot.Screens
                 UnloadImage(img);
             }
             DrawTextureEx(posidoniusIconTexture, new Vector2(x, y), 0f, 0.75f, WHITE);
+        }
+        private static Texture2D anaxagorasIconTexture = new Texture2D();
+        private static void anaxagorasIcon(int x, int y)
+        {
+            if (anaxagorasIconTexture.height == 0) {
+                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/anaxagorasIcon.png"));
+                anaxagorasIconTexture = LoadTextureFromImage(img);
+                UnloadImage(img);
+            }
+            DrawTextureEx(anaxagorasIconTexture, new Vector2(x, y), 0f, 0.75f, WHITE);
         }
     }
 }

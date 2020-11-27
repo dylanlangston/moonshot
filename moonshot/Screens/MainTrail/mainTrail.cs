@@ -85,6 +85,7 @@ namespace moonshot.Screens
                     Travel(foodAndFuel.Item1);
                     foodCounter++;
                     if (foodCounter > 400) {
+                        foodCounter = 0;
                         UseFood(foodAndFuel.Item2);
                     }
                 }

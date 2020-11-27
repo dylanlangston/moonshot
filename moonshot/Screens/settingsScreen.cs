@@ -52,6 +52,15 @@ namespace moonshot.Screens
                 keypress = 9000;
             } else if (Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER)) {
                 switch (selection) {
+                    case "1":
+                        MainWindow.settings.currentScreen = "current top ten settings";
+                        break;
+                    case "2":
+                        MainWindow.settings.currentScreen = "original top ten settings";
+                        break;
+                    case "3":
+                        MainWindow.settings.currentScreen = "erase top ten settings";
+                        break;
                     case "4":
                         MainWindow.settings.currentScreen = "erase game";
                         break;
