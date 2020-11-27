@@ -58,6 +58,9 @@
     <None Update="Images\mareSeren.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Images\mareSerenIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Images\mareTran.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
