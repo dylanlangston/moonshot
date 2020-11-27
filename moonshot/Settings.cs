@@ -27,6 +27,8 @@ namespace moonshot
             new settingsScreen(),
             new topTenScreen(),
             new currentTopTenSettings(),
+            new originalTopTenSettings(),
+            new eraseTopTenSettings(),
             new scoringInfo(),
             new scoringInfoTwo(),
             new scoringInfoThree(),
@@ -100,6 +102,9 @@ namespace moonshot
             "welcome", 
             "erase game", 
             "top ten", 
+            "current top ten settings",
+            "original top ten settings",
+            "erase top ten settings",
             "scoring info", 
             "scoring info two",
             "scoring info three"
