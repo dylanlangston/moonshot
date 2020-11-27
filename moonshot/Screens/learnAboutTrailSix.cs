@@ -37,10 +37,7 @@ namespace moonshot.Screens
         }
         private static void Message()
         {
-            Raylib.DrawText(
-@"                        Tab Key
-
-      Press the tab key to save the game.", 30, 290, 30, WHITE);
+            Raylib.DrawText("                        Tab Key\n\n      Press the tab key to save the game.", 30, 290, 30, WHITE);
         }
         // Moon
         private static Texture2D moonTexture = new Texture2D();

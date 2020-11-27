@@ -37,12 +37,7 @@ namespace moonshot.Screens
         }
         private static void Message()
         {
-            Raylib.DrawText(
-@"Or, if you join the Apollo 12 mission, you will
-play an important part in studying the lunar
-frontier! For the Apollo 14 mission, you will
-survey the geography of the moon and collect
-the most lunar rocks of all of these missions. ", 30, 280, 30, WHITE);
+            Raylib.DrawText("Or, if you join the Apollo 12 mission, you will\nplay an important part in studying the lunar\nfrontier! For the Apollo 14 mission, you will\nsurvey the geography of the moon and collect\nthe most lunar rocks of all of these missions. ", 30, 280, 30, WHITE);
         }
         // Moon
         private static Texture2D moonTexture = new Texture2D();

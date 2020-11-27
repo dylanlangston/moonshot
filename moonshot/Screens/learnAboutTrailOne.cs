@@ -31,11 +31,7 @@ namespace moonshot.Screens
         }
         private static void Message()
         {
-            Raylib.DrawText(
-@"Imagine being one of the few people to ever walk
-on the moon. Now you can! As part of the Apollo
-11 mission, you are part of the first crew to land
-on the moon.", 30, 290, 30, WHITE);
+            Raylib.DrawText("Imagine being one of the few people to ever walk\non the moon. Now you can! As part of the Apollo\n11 mission, you are part of the first crew to land\non the moon.", 30, 290, 30, WHITE);
         }
         // Moon
         private static Texture2D moonTexture = new Texture2D();

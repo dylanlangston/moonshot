@@ -37,11 +37,7 @@ namespace moonshot.Screens
         }
         private static void Message()
         {
-            Raylib.DrawText(
-@"The software team responsible for creation of
-this game: 
-                    Dylan Langston
-                      Mia Johnson", 30, 290, 30, WHITE);
+            Raylib.DrawText("The software team responsible for creation of\nthis game: \n                    Dylan Langston\n                      Mia Johnson", 30, 290, 30, WHITE);
         }
         // Moon
         private static Texture2D moonTexture = new Texture2D();

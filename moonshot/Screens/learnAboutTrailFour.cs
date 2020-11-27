@@ -37,13 +37,7 @@ namespace moonshot.Screens
         }
         private static void Message()
         {
-            Raylib.DrawText(
-@"If for some reason you don't survive -- your
-rocket gets destroyed, or you run out of
-provisions, or you die of oxygen deprivation --
-don't give up! Try again... and again... until
-your name is up with the others on
-The Moon Top Ten.", 30, 250, 30, WHITE);
+            Raylib.DrawText("If for some reason you don't survive -- your\nrocket gets destroyed, or you run out of\nprovisions, or you die of oxygen deprivation --\ndon't give up! Try again... and again... until\nyour name is up with the others on\nThe Moon Top Ten.", 30, 250, 30, WHITE);
         }
         // Moon
         private static Texture2D moonTexture = new Texture2D();

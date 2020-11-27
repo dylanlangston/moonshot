@@ -37,11 +37,7 @@ namespace moonshot.Screens
         }
         private static void Message()
         {
-            Raylib.DrawText(
-@"Whichever mission you pick will come with some 
-challenges. Will you run out of food? Hopefully 
-you'll get to the next landmark soon to buy more!
-Or worse, what if you run out of fuel?", 30, 280, 30, WHITE);
+            Raylib.DrawText("Whichever mission you pick will come with some\nchallenges. Will you run out of food? Hopefully\nyou'll get to the next landmark soon to buy more!\nOr worse, what if you run out of fuel?", 30, 280, 30, WHITE);
         }
         // Moon
         private static Texture2D moonTexture = new Texture2D();

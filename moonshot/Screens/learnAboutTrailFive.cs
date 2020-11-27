@@ -37,11 +37,7 @@ namespace moonshot.Screens
         }
         private static void Message()
         {
-            Raylib.DrawText(
-@"                         Esc Key
-
-   You may make the screen full-screen by
-              pressing the escape key.", 30, 290, 30, WHITE);
+            Raylib.DrawText("                         Esc Key\n\n   You may make the screen full-screen by\n              pressing the escape key.", 30, 290, 30, WHITE);
         }
         // Moon
         private static Texture2D moonTexture = new Texture2D();
