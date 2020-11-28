@@ -1,10 +1,23 @@
-# M O O N S H O T
-Oregon Trail Clone themed for the Apollo Missions. Submission for Game Off 2020 - "MOONSHOT".
+![](logo.png)
 
-https://itch.io/jam/game-off-2020
+---
 
-https://dylanlangston.itch.io/moonshot
+#### Oregon Trail Clone themed for the Apollo Missions. <a href="https://itch.io/jam/game-off-2020">Submission for Game Off 2020 - "MOONSHOT"</a>.
 
-Using:
-https://github.com/ChrisDill/Raylib-cs
-https://dotnet.microsoft.com/download/dotnet-core
+<a href="https://dylanlangston.itch.io/moonshot">![Download from itch.io](itch.io-banner.png)</a>
+
+
+Made possible thanks to the following:
+* <a href="https://github.com/ChrisDill/Raylib-cs">Raylib-cs</a>
+* <a href="https://dotnet.microsoft.com/download/dotnet-core">.NET Core</a>
+* <a href="https://github.com/dylanlangston/moonshot/blob/main/attribution.md">Images and Music</a>
+
+---
+
+#### Getting Started
+
+To get started clone the repository. Then run the following commands in the downloaded directory.
+```bash
+dotnet restore
+dotnet run
+```
