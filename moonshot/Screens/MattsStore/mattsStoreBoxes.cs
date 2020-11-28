@@ -67,7 +67,7 @@ namespace moonshot.Screens
                         mattsStore.CurrentBill -= mattsStore.CurrentSelection.Items[mattsStore.CurrentSelection.Items.FindIndex(x => x.id == 104)].value * 4;
                         mattsStore.CurrentSelection.Items[mattsStore.CurrentSelection.Items.FindIndex(x => x.id == 104)].value = tempInt;
                     } catch {
-                        mattsStore.CurrentSelection.Items.Add(new Boxes(tempInt));
+                        mattsStore.CurrentSelection.Items.Add(new Boxes(tempInt, 0f));
                     }
                     mattsStore.CurrentBill += tempInt * 4;
                     MainWindow.settings.currentScreen = "Matts Store";

@@ -16,15 +16,26 @@ namespace moonshot.Screens
         }
         private static collectRocksMiniGame game = new collectRocksMiniGame();
         private static bool playingGame = false;
+        private static System.Timers.Timer theTimer;
         public override void Display()
         {
             if (!playingGame)
             {
+                theTimer = new System.Timers.Timer(30000);
+                theTimer.Elapsed += Quit;
+                theTimer.Start();
                 playingGame = true;
                 game.StartGame();
             }
             else
                 game.Continue();
+        }
+        private void Quit(object sender, EventArgs e)
+        {
+            theTimer.Stop();
+            theTimer = null;
+            playingGame = false;
+            collectRocks.CollectRocksState = "Complete";
         }
 
     }
@@ -32,18 +43,21 @@ namespace moonshot.Screens
     {
         private Rocks rocks = null;
         private Astronaut astronaut = null;
+        private Decor decor = null;
         public collectRocksMiniGame()
         {   
         }
         public void StartGame()
         {
+            decor = new Decor(Raylib.GetScreenWidth()-100, Raylib.GetScreenHeight()-100);
             rocks = new Rocks(Raylib.GetScreenWidth()-100, Raylib.GetScreenHeight()-100);
-            astronaut = new Astronaut(100, 100, Raylib.GetScreenWidth(), Raylib.GetScreenHeight());
+            astronaut = new Astronaut(350, 350, Raylib.GetScreenWidth(), Raylib.GetScreenHeight(), rocks);
             Continue();
         }
         public void Continue()
         {
             Raylib.ClearBackground(GRAY);
+            decor.DisplayDecor();
             rocks.DisplayRocks();
             astronaut.DisplayAstronaut();
         }
@@ -56,13 +70,15 @@ namespace moonshot.Screens
         int maxHeight = 0;
         int currentFrame = 1;
         int currentDirection = 0;
-        public Astronaut(int startX, int startY, int MaxWidth, int MaxHeight)
+        Rocks rocks = null;
+        public Astronaut(int startX, int startY, int MaxWidth, int MaxHeight, Rocks RocksIn)
         {
             x = startX;
             y = startY;
             frontAstronautOneIcon(-500, -500);
             maxWidth = MaxWidth - frontAstronautOneTexture.width+100;
             maxHeight = MaxHeight - frontAstronautOneTexture.height;
+            rocks = RocksIn;
             currentFrame = 1;
             currentDirection = 0;
             DisplayAstronaut();
@@ -154,6 +170,9 @@ namespace moonshot.Screens
 
             if (Raylib.IsKeyReleased(KeyboardKey.KEY_ENTER))
                 IsMoving = !IsMoving;
+            
+            if (Raylib.IsKeyReleased(KeyboardKey.KEY_SPACE))
+                TryPickUpRock();
 
             int keypress = Raylib.GetKeyPressed();
             
@@ -233,6 +252,29 @@ namespace moonshot.Screens
             {
                 IsMoving = false;
                 x = maxWidth - 10;
+            }
+        }
+
+        private void TryPickUpRock()
+        {
+            List<(int index, int x, int y, float roation, float scale)> rocksToRemove = new List<(int index, int x, int y, float roation, float scale)>(){};
+            foreach (var rock in rocks.rockTypesAndLocations)
+            {
+                bool matchX = false;
+                bool matchY = false;
+                if (x > (rock.x - (rocks.GetTexture(rock.index).width*rock.scale)))
+                    if (x < rock.x)
+                        matchX = true;
+                if (y+40 > (rock.y - (rocks.GetTexture(rock.index).height*rock.scale)))
+                    if (y+40 < rock.y)
+                        matchY = true;
+                if (matchX && matchY)
+                    rocksToRemove.Add(rock);
+            }
+            foreach (var rock in rocksToRemove)
+            {
+                collectRocks.rocksCollected++;
+                rocks.rockTypesAndLocations.Remove(rock);
             }
         }
 
@@ -359,25 +401,29 @@ namespace moonshot.Screens
     }
     class Rocks
     {
-        public List<(int index, int x, int y)> rockTypesAndLocations = new List<(int index, int x, int y)>();
+        public List<(int index, int x, int y, float rotation, float scale)> rockTypesAndLocations = new List<(int index, int x, int y, float rotation, float scale)>();
         public Rocks(int maxWidth, int maxHeight)
         {
             if (rockTypesAndLocations.Count == 0)
             {
                 Random r = new Random();
-                int loops = r.Next(0,7);
+                int loops = r.Next(1,7);
                 for (int i = 0; i < loops; i++)
                 {
-                    int RandIndex = r.Next(0,5);
-                    int RandX = r.Next(1,maxWidth);
-                    int RandY = r.Next(1,maxHeight);
-                    rockTypesAndLocations.Add((RandIndex, RandX, RandY));
+                    int RandIndex = r.Next(1,6);
+                    int RandX = r.Next(30,maxWidth-30);
+                    int RandY = r.Next(30,maxHeight-30);
+                    float RandRotation = (float)r.Next(-15, 15);
+                    float RandScale = (float)r.NextDouble();
+                    if (RandScale < 0.45f) {RandScale+=0.35f; }
+                    if (RandScale > 0.85f) {RandScale=0.85f; }
+                    rockTypesAndLocations.Add((RandIndex, RandX, RandY, RandRotation, RandScale));
                 }
             }
             else {
                 foreach (var rock in rockTypesAndLocations)
                 {
-                    DisplayRock(rock.index, rock.x, rock.y);
+                    DisplayRock(rock.index, rock.x, rock.y, rock.rotation, rock.scale);
                 }
             }
         }
@@ -385,79 +431,164 @@ namespace moonshot.Screens
         {
             foreach (var rock in rockTypesAndLocations)
             {
-                DisplayRock(rock.index, rock.x, rock.y);
+                DisplayRock(rock.index, rock.x, rock.y, rock.rotation, rock.scale);
             }
         }
-        public void DisplayRock(int index, int x, int y)
+        public void DisplayRock(int index, int x, int y, float rotation, float scale)
         {
             switch (index)
             {
                 case 1:
-                    rockOneIcon(x ,y);
+                    rockOneIcon(x, y, rotation, scale);
                     break;
                 case 2:
-                    rockTwoIcon(x ,y);
+                    rockTwoIcon(x, y, rotation, scale);
                     break;
                 case 3:
-                    rockThreeIcon(x ,y);
+                    rockThreeIcon(x, y, rotation, scale);
                     break;
                 case 4:
-                    rockOneIcon(x ,y);
+                    rockFourIcon(x, y, rotation, scale);
                     break;
                 default:
-                    rockFiveIcon(x ,y);
+                    rockFiveIcon(x, y, rotation, scale);
                     break;
             }
         }
+        public Texture2D GetTexture(int index)
+        {
+            switch (index)
+            {
+                case 1:
+                    return rockOneTexture;
+                case 2:
+                    return rockTwoTexture;
+                case 3:
+                    return rockThreeTexture;
+                case 4:
+                    return rockFourTexture;
+                default:
+                    return rockFiveTexture;
+            }
+        }
+
         private static Texture2D rockOneTexture = new Texture2D();
-        private static void rockOneIcon(int x, int y)
+        private static void rockOneIcon(int x, int y, float rotation, float scale)
         {
             if (rockOneTexture.height == 0) {
                 Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/rockMiniGame/rock1.png"));
                 rockOneTexture = LoadTextureFromImage(img);
                 UnloadImage(img);
             }
-            DrawTextureEx(rockOneTexture, new Vector2(x, y), 0f, 0.5f, WHITE);
+            DrawTextureEx(rockOneTexture, new Vector2(x, y), rotation, scale, WHITE);
         }
         private static Texture2D rockTwoTexture = new Texture2D();
-        private static void rockTwoIcon(int x, int y)
+        private static void rockTwoIcon(int x, int y, float rotation, float scale)
         {
             if (rockTwoTexture.height == 0) {
                 Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/rockMiniGame/rock2.png"));
                 rockTwoTexture = LoadTextureFromImage(img);
                 UnloadImage(img);
             }
-            DrawTextureEx(rockTwoTexture, new Vector2(x, y), 0f, 0.5f, WHITE);
+            DrawTextureEx(rockTwoTexture, new Vector2(x, y), rotation, scale, WHITE);
         }
         private static Texture2D rockThreeTexture = new Texture2D();
-        private static void rockThreeIcon(int x, int y)
+        private static void rockThreeIcon(int x, int y, float rotation, float scale)
         {
             if (rockThreeTexture.height == 0) {
                 Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/rockMiniGame/rock3.png"));
                 rockThreeTexture = LoadTextureFromImage(img);
                 UnloadImage(img);
             }
-            DrawTextureEx(rockThreeTexture, new Vector2(x, y), 0f, 0.5f, WHITE);
+            DrawTextureEx(rockThreeTexture, new Vector2(x, y), rotation, scale, WHITE);
         }
         private static Texture2D rockFourTexture = new Texture2D();
-        private static void rockFourIcon(int x, int y)
+        private static void rockFourIcon(int x, int y, float rotation, float scale)
         {
             if (rockFourTexture.height == 0) {
                 Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/rockMiniGame/rock4.png"));
                 rockFourTexture = LoadTextureFromImage(img);
                 UnloadImage(img);
             }
-            DrawTextureEx(rockFourTexture, new Vector2(x, y), 0f, 0.5f, WHITE);
+            DrawTextureEx(rockFourTexture, new Vector2(x, y), rotation, scale, WHITE);
         }
         private static Texture2D rockFiveTexture = new Texture2D();
-        private static void rockFiveIcon(int x, int y)
+        private static void rockFiveIcon(int x, int y, float rotation, float scale)
         {
             if (rockFiveTexture.height == 0) {
                 Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/rockMiniGame/rock5.png"));
                 rockFiveTexture = LoadTextureFromImage(img);
                 UnloadImage(img);
             }
-            DrawTextureEx(rockFiveTexture, new Vector2(x, y), 0f, 0.5f, WHITE);
+            DrawTextureEx(rockFiveTexture, new Vector2(x, y), rotation, scale, WHITE);
+        }
+    }
+    class Decor
+    {
+        public List<(int index, int x, int y, float rotation, float scale)> decorTypesAndLocations = new List<(int index, int x, int y, float rotation, float scale)>();
+        public Decor(int maxWidth, int maxHeight)
+        {
+            if (decorTypesAndLocations.Count == 0)
+            {
+                Random r = new Random();
+                int loops = r.Next(8,12);
+                for (int i = 0; i < loops; i++)
+                {
+                    int RandIndex = r.Next(0,4);
+                    int RandX = r.Next(30,maxWidth-30);
+                    int RandY = r.Next(30,maxHeight-30);
+                    float RandRotation = (float)r.Next(0, 365);
+                    float RandScale = (float)r.NextDouble();
+                    if (RandScale < 0.3f) { RandScale += 0.2f;}
+                    decorTypesAndLocations.Add((RandIndex, RandX, RandY, RandRotation, RandScale));
+                }
+            }
+            else {
+                foreach (var decor in decorTypesAndLocations)
+                {
+                    DisplayDecor(decor.index, decor.x, decor.y, decor.rotation, decor.scale);
+                }
+            }
+        }
+        public void DisplayDecor()
+        {
+            foreach (var decor in decorTypesAndLocations)
+            {
+                DisplayDecor(decor.index, decor.x, decor.y, decor.rotation, decor.scale);
+            }
+        }
+        public void DisplayDecor(int index, int x, int y,float rotation, float scale)
+        {
+            switch (index)
+            {
+                case 1:
+                    cratorDecorIcon(x ,y, rotation, scale);
+                    break;
+                default:
+                    ridgesDecorIcon(x ,y, rotation, scale);
+                    break;
+            }
+        }
+
+        private static Texture2D cratorDecorTexture = new Texture2D();
+        private static void cratorDecorIcon(int x, int y, float rotation, float scale)
+        {
+            if (cratorDecorTexture.height == 0) {
+                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/rockMiniGame/craterDecor.png"));
+                cratorDecorTexture = LoadTextureFromImage(img);
+                UnloadImage(img);
+            }
+            DrawTextureEx(cratorDecorTexture, new Vector2(x, y), rotation, scale, WHITE);
+        }
+        private static Texture2D ridgesDecorTexture = new Texture2D();
+        private static void ridgesDecorIcon(int x, int y, float rotation, float scale)
+        {
+            if (ridgesDecorTexture.height == 0) {
+                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/rockMiniGame/ridgesDecor.png"));
+                ridgesDecorTexture = LoadTextureFromImage(img);
+                UnloadImage(img);
+            }
+            DrawTextureEx(ridgesDecorTexture, new Vector2(x, y), rotation, scale, WHITE);
         }
     }
 }

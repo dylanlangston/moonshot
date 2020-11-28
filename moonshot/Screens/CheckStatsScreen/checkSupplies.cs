@@ -38,7 +38,7 @@ namespace moonshot.Screens
             Raylib.DrawText(MainWindow.settings.userStats.inventory.Items.Find(x => x.id == 101).value.ToString(), Raylib.GetScreenWidth()/10*8, 75, 30, WHITE);
             Raylib.DrawText(MainWindow.settings.userStats.inventory.Items.Find(x => x.id == 102).value.ToString(), Raylib.GetScreenWidth()/10*8, 110, 30, WHITE);
             Raylib.DrawText(MainWindow.settings.userStats.inventory.Items.Find(x => x.id == 103).value.ToString(), Raylib.GetScreenWidth()/10*8, 145, 30, WHITE);
-            Raylib.DrawText(MainWindow.settings.userStats.inventory.Items.Find(x => x.id == 104).value.ToString(), Raylib.GetScreenWidth()/10*8, 180, 30, WHITE);
+            Raylib.DrawText(MainWindow.settings.userStats.inventory.Items.Find(x => x.id == 104).capacity.ToString("0.0") + "/" + MainWindow.settings.userStats.inventory.Items.Find(x => x.id == 104).value.ToString(), Raylib.GetScreenWidth()/10*8, 180, 30, WHITE);
             Raylib.DrawText(MainWindow.settings.userStats.inventory.Items.Find(x => x.id == 105).value.ToString(), Raylib.GetScreenWidth()/10*8, 215, 30, WHITE);
             string money = "$" + MainWindow.settings.userStats.Money+".00";
             Raylib.DrawText(money, (Raylib.GetScreenWidth()/10*8)-((money.Length-4)*16), 250, 30, WHITE);

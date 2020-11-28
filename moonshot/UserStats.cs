@@ -126,7 +126,7 @@ namespace moonshot
     public class InventoryItem
     {
         public InventoryItem() { }
-        public InventoryItem(string nameIn, int idIn, int valueIn, float capacityIn = 1f) {
+        public InventoryItem(string nameIn, int idIn, int valueIn, double capacityIn = 0f) {
             name = nameIn;
             id = idIn;
             value = valueIn;
@@ -135,7 +135,7 @@ namespace moonshot
         public string name;
         public int id;
         public int value;
-        public float capacity;
+        public double capacity;
     }
     public class OxygenTank : InventoryItem 
     {
@@ -163,7 +163,7 @@ namespace moonshot
     }
     public class Boxes: InventoryItem 
     {
-        internal Boxes(int valueIn = 0, float capacityIn = 0f) {
+        internal Boxes(int valueIn = 0, double capacityIn = 0f) {
             name = "Boxes";
             id = 104;
             value = valueIn;
@@ -192,11 +192,14 @@ namespace moonshot
             return output;
         }
 
-        public void AddItem(int id, int value) {
+        public void AddItem(int id, int value, float capacity = 0f) {
             foreach (InventoryItem item in Items)
             {
                 if (item.id == id)
+                {
                     item.value += value;
+                    item.capacity += capacity;
+                }
             }
         }
         public void RemoveItem(int id, int value) {
@@ -217,7 +220,7 @@ namespace moonshot
                 string name = "";
                 int id = 0;
                 int value = 0;
-                float capacity = 1f;
+                float capacity = 0f;
                 for (int i = 0; i < node.ChildNodes.Count; i++)
                 {
                     foreach (XmlNode item in node.ChildNodes[i]) {

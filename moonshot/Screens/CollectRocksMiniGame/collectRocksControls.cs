@@ -51,7 +51,7 @@ namespace moonshot.Screens
 
 
             Raylib.DrawText("Space Bar", 30, 450, 30, WHITE);
-            Raylib.DrawText("To use a Rock Box", 350, 450, 30, WHITE);
+            Raylib.DrawText("To pick up rock", 350, 450, 30, WHITE);
 
             if (loopCount > 5) {
                 Confirmation();
