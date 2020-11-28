@@ -18,7 +18,13 @@ Made possible thanks to the following:
 
 #### Getting Started
 
+Prerequisites:
+* You'll need to download and install the .NET Core 3.1 SDK.
+* On linux you'll need to ensure that libgdiplus is installed.
+</br>
+</br>
 To get started clone the repository. Then run the following commands in the downloaded directory.
+
 ```bash
 dotnet restore
 dotnet run
