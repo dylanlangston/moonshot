@@ -7,6 +7,7 @@ using System.Numerics;
 using System.Windows.Input;
 using System.IO;
 using System.Collections.Generic;
+// Note: requires libgdiplus
 using System.Drawing.Drawing2D;
 
 namespace moonshot.Screens
@@ -279,6 +280,7 @@ namespace moonshot.Screens
                 System.Drawing.RectangleF clientRectangle = new System.Drawing.RectangleF(rock.x,rock.y,(rocks.GetTexture(rock.index).width*rock.scale),(rocks.GetTexture(rock.index).height*rock.scale));
 
                 // Create Matrix and rotate, create points.
+                // Note: requires libgdiplus
                 Matrix matrix = new Matrix();
                 var p = new System.Drawing.PointF[] {
                 clientRectangle.Location,
