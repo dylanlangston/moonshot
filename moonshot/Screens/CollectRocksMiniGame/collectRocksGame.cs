@@ -258,6 +258,20 @@ namespace moonshot.Screens
             }
         }
 
+        public class ParametricLine{
+            System.Drawing.PointF p1;
+            System.Drawing.PointF p2;
+            
+            public ParametricLine(System.Drawing.PointF p1, System.Drawing.PointF p2) {
+                this.p1 = p1;
+                this.p2 = p2;
+            }
+            
+            public System.Drawing.PointF Fraction(float frac) {
+                return new System.Drawing.PointF( p1.X + frac*(p2.X-p1.X), p1.Y + frac*(p2.Y-p1.Y));
+            }
+        }
+
         // https://stackoverflow.com/a/49886367
         private void TryPickUpRock()
         {
@@ -276,10 +290,9 @@ namespace moonshot.Screens
                 //if (matchX && matchY)
                     //rocksToRemove.Add(rock);
 
-
                 System.Drawing.RectangleF clientRectangle = new System.Drawing.RectangleF(rock.x,rock.y,(rocks.GetTexture(rock.index).width*rock.scale),(rocks.GetTexture(rock.index).height*rock.scale));
 
-                // Create Matrix and rotate, create points.
+                // Create Matrix and rotate points.
                 // Note: requires libgdiplus
                 Matrix matrix = new Matrix();
                 var p = new System.Drawing.PointF[] {
@@ -287,8 +300,6 @@ namespace moonshot.Screens
                 new System.Drawing.PointF(clientRectangle.Right, clientRectangle.Top),
                 new System.Drawing.PointF(clientRectangle.Right, clientRectangle.Bottom),
                 new System.Drawing.PointF(clientRectangle.Left, clientRectangle.Bottom) };
-
-
                 matrix.RotateAt(rock.rotation, new System.Drawing.PointF(clientRectangle.X, clientRectangle.Top));
                 matrix.TransformPoints(p);
 
@@ -304,6 +315,20 @@ namespace moonshot.Screens
                 if (Raylib.CheckCollisionPointRec(new Vector2(p[3].X, p[3].Y), astronautRectangle))
                     rocksToRemove.Add(rock);
 
+                var sideOneMidpoint = new ParametricLine(p[0], p[1]);
+                var sideTwoMidpoint = new ParametricLine(p[1], p[2]);
+                var sideThreeMidpoint = new ParametricLine(p[2], p[3]);
+                var sideFourMidpoint = new ParametricLine(p[3], p[0]);
+
+                // Detect if touching midpoint of rock edge.
+                if (Raylib.CheckCollisionPointRec(new Vector2(sideOneMidpoint.Fraction(1.0f/2.0f).X, sideOneMidpoint.Fraction(1.0f/2.0f).Y), astronautRectangle))
+                    rocksToRemove.Add(rock);
+                if (Raylib.CheckCollisionPointRec(new Vector2(sideTwoMidpoint.Fraction(1.0f/2.0f).X, sideOneMidpoint.Fraction(1.0f/2.0f).Y), astronautRectangle))
+                    rocksToRemove.Add(rock);
+                if (Raylib.CheckCollisionPointRec(new Vector2(sideThreeMidpoint.Fraction(1.0f/2.0f).X, sideOneMidpoint.Fraction(1.0f/2.0f).Y), astronautRectangle))
+                    rocksToRemove.Add(rock);
+                if (Raylib.CheckCollisionPointRec(new Vector2(sideFourMidpoint.Fraction(1.0f/2.0f).X, sideOneMidpoint.Fraction(1.0f/2.0f).Y), astronautRectangle))
+                    rocksToRemove.Add(rock);
             }
             foreach (var rock in rocksToRemove)
             {
@@ -568,7 +593,7 @@ namespace moonshot.Screens
                 int loops = r.Next(8,12);
                 for (int i = 0; i < loops; i++)
                 {
-                    int RandIndex = r.Next(0,4);
+                    int RandIndex = r.Next(0,5);
                     int RandX = r.Next(30,maxWidth-30);
                     int RandY = r.Next(30,maxHeight-30);
                     float RandRotation = (float)r.Next(0, 365);
@@ -598,6 +623,12 @@ namespace moonshot.Screens
                 case 1:
                     cratorDecorIcon(x ,y, rotation, scale);
                     break;
+                case 2:
+                    ridgesTwoDecorIcon(x ,y, rotation, scale);
+                    break;
+                case 3:
+                    holeDecorIcon(x ,y, rotation, scale);
+                    break; 
                 default:
                     ridgesDecorIcon(x ,y, rotation, scale);
                     break;
@@ -614,6 +645,26 @@ namespace moonshot.Screens
             }
             DrawTextureEx(cratorDecorTexture, new Vector2(x, y), rotation, scale, WHITE);
         }
+        private static Texture2D holeDecorTexture = new Texture2D();
+        private static void holeDecorIcon(int x, int y, float rotation, float scale)
+        {
+            if (holeDecorTexture.height == 0) {
+                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/rockMiniGame/holeDecor.png"));
+                holeDecorTexture = LoadTextureFromImage(img);
+                UnloadImage(img);
+            }
+            DrawTextureEx(holeDecorTexture, new Vector2(x, y), rotation, scale, WHITE);
+        }
+        private static Texture2D grayDecorTexture = new Texture2D();
+        private static void greyDecorIcon(int x, int y, float rotation, float scale)
+        {
+            if (grayDecorTexture.height == 0) {
+                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/rockMiniGame/greyDecor.png"));
+                grayDecorTexture = LoadTextureFromImage(img);
+                UnloadImage(img);
+            }
+            DrawTextureEx(grayDecorTexture, new Vector2(x, y), rotation, scale, WHITE);
+        }
         private static Texture2D ridgesDecorTexture = new Texture2D();
         private static void ridgesDecorIcon(int x, int y, float rotation, float scale)
         {
@@ -623,6 +674,16 @@ namespace moonshot.Screens
                 UnloadImage(img);
             }
             DrawTextureEx(ridgesDecorTexture, new Vector2(x, y), rotation, scale, WHITE);
+        }
+        private static Texture2D ridgesTwoDecorTexture = new Texture2D();
+        private static void ridgesTwoDecorIcon(int x, int y, float rotation, float scale)
+        {
+            if (ridgesTwoDecorTexture.height == 0) {
+                Image img = LoadImage(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/rockMiniGame/ridges2Decor.png"));
+                ridgesTwoDecorTexture = LoadTextureFromImage(img);
+                UnloadImage(img);
+            }
+            DrawTextureEx(ridgesTwoDecorTexture, new Vector2(x, y), rotation, scale, WHITE);
         }
     }
 }
