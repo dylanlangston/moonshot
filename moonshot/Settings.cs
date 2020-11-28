@@ -59,6 +59,7 @@ namespace moonshot
             new leavingCapeKennedy(),
             new CheckStats(),
             new collectRocks(),
+            new AvoidMeteorMiniGame(),
             new ContinueOnTrail(),
             new CheckSupplies(),
             new LookAtMap(),

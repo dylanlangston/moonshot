@@ -16,7 +16,7 @@ namespace moonshot.Screens
         }
         private static int annimationCounter = 15;
         private static int foodCounter = 0;
-        private static bool StartAnimation = false;
+        internal static bool StartAnimation = false;
         public override void Display()
         {
             ClearBackground(Colors.space);
@@ -74,13 +74,14 @@ namespace moonshot.Screens
             {
                 if (!String.IsNullOrEmpty(tempPopUpMessage))
                 {
-                    LargePopUp(tempPopUpMessage, tempPromptBool, String.Empty);
+                    LargePopUp(tempPopUpMessage, tempPromptBool, tempNextScreen);
                 }
                 else {
                     PressEnterToSizeUp();
                     Tuple<int, int> foodAndFuel = GetFoodAndFuelMod();
                     CheckHealth();
                     CheckOxygen();
+                    CalamityChance();
 
                     Travel(foodAndFuel.Item1);
                     foodCounter++;
@@ -117,11 +118,13 @@ namespace moonshot.Screens
 
         private static string tempPopUpMessage = String.Empty;
         private static bool tempPromptBool = false;
-        private static void DisplayNewPopUp(string newTempPopUpMessage, bool newTempPromptBool = false)
+        private static string tempNextScreen = String.Empty;
+        private static void DisplayNewPopUp(string newTempPopUpMessage, bool newTempPromptBool = false, string newTempNextScreen = "")
         {
             StartAnimation = false;
             tempPopUpMessage = newTempPopUpMessage;
             tempPromptBool = newTempPromptBool;
+            tempNextScreen = newTempNextScreen;
         }
 
         private static string selectionLargePopUp = String.Empty;
@@ -168,7 +171,8 @@ namespace moonshot.Screens
             if (PressSPACEBAR()) {
                 if (nextScreen != String.Empty)
                     MainWindow.settings.currentScreen = nextScreen;
-                StartAnimation = true;
+                else 
+                    StartAnimation = true;
                 tempPopUpMessage = String.Empty;
             }
             }
