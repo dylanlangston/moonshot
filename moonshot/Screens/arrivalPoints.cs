@@ -138,7 +138,7 @@ namespace moonshot.Screens
                 offsetY += 33;
             }
 
-            int boxCounts = MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 104).value;
+            int boxCounts = (int)MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 104).capacity;
             if (boxCounts > 0)
             {
                 Raylib.DrawText(boxCounts.ToString(), 70-(boxCounts.ToString().Length * 16)+(boxCounts.ToString().ToCharArray().Where(x => x == '1').Count()*6), offsetY, 30, WHITE);

@@ -11,13 +11,15 @@ namespace moonshot.Screens
 {
     partial class collectRocks : screen
     {
+        public static int rocksCollected = 0;
         public override string Name {
             get { return "Collect Rocks Game"; }
         }
         internal static string CollectRocksState = "Controls";
         private static List<collectRocksMiniGameScreen> CollectRockStates = new List<collectRocksMiniGameScreen>() { 
             new collectRocksControls(),
-            new collectRocksGame()
+            new collectRocksGame(),
+            new collectRocksComplete(),
          };
         public override void Display()
         {

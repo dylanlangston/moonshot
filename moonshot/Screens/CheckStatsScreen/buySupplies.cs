@@ -229,7 +229,7 @@ namespace moonshot.Screens
                             price = (tempInt * 5);
                             if (price <= MainWindow.settings.userStats.Money)
                             {
-                                MainWindow.settings.userStats.inventory.AddItem(104, tempInt);
+                                MainWindow.settings.userStats.inventory.AddItem(104, tempInt, 0f);
                                 MainWindow.settings.userStats.Money -= price;
                                 howManySelection = String.Empty;
                                 selection = String.Empty;
