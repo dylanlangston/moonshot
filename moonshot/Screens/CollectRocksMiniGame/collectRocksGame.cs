@@ -1,4 +1,5 @@
-﻿using Raylib_cs;
+﻿using System.Text.RegularExpressions;
+using Raylib_cs;
 using static Raylib_cs.Raylib;
 using static Raylib_cs.Color;
 using System;
@@ -6,6 +7,7 @@ using System.Numerics;
 using System.Windows.Input;
 using System.IO;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 
 namespace moonshot.Screens
 {
@@ -255,21 +257,51 @@ namespace moonshot.Screens
             }
         }
 
+        // https://stackoverflow.com/a/49886367
         private void TryPickUpRock()
         {
             List<(int index, int x, int y, float roation, float scale)> rocksToRemove = new List<(int index, int x, int y, float roation, float scale)>(){};
             foreach (var rock in rocks.rockTypesAndLocations)
             {
-                bool matchX = false;
-                bool matchY = false;
-                if (x > (rock.x - (rocks.GetTexture(rock.index).width*rock.scale)))
-                    if (x < rock.x)
-                        matchX = true;
-                if (y+40 > (rock.y - (rocks.GetTexture(rock.index).height*rock.scale)))
-                    if (y+40 < rock.y)
-                        matchY = true;
-                if (matchX && matchY)
+                // Old code, couldn't handle rotation of rocks
+                //bool matchX = false;
+                //bool matchY = false;
+                //if (x > (rock.x - (rocks.GetTexture(rock.index).width*rock.scale)))
+                    //if (x < rock.x)
+                       // matchX = true;
+                //if (y+40 > (rock.y - (rocks.GetTexture(rock.index).height*rock.scale)))
+                    //if (y+40 < rock.y)
+                        //matchY = true;
+                //if (matchX && matchY)
+                    //rocksToRemove.Add(rock);
+
+
+                System.Drawing.RectangleF clientRectangle = new System.Drawing.RectangleF(rock.x,rock.y,(rocks.GetTexture(rock.index).width*rock.scale),(rocks.GetTexture(rock.index).height*rock.scale));
+
+                // Create Matrix and rotate, create points.
+                Matrix matrix = new Matrix();
+                var p = new System.Drawing.PointF[] {
+                clientRectangle.Location,
+                new System.Drawing.PointF(clientRectangle.Right, clientRectangle.Top),
+                new System.Drawing.PointF(clientRectangle.Right, clientRectangle.Bottom),
+                new System.Drawing.PointF(clientRectangle.Left, clientRectangle.Bottom) };
+
+
+                matrix.RotateAt(rock.rotation, new System.Drawing.PointF(clientRectangle.X, clientRectangle.Top));
+                matrix.TransformPoints(p);
+
+                var astronautRectangle = new Raylib_cs.Rectangle(x + 50, y + 10, 50, 110);
+
+                // Detect if we're touching the corners of the rocks.
+                if (Raylib.CheckCollisionPointRec(new Vector2(p[0].X, p[0].Y), astronautRectangle))
                     rocksToRemove.Add(rock);
+                if (Raylib.CheckCollisionPointRec(new Vector2(p[1].X, p[1].Y), astronautRectangle))
+                    rocksToRemove.Add(rock);
+                if (Raylib.CheckCollisionPointRec(new Vector2(p[2].X, p[2].Y), astronautRectangle))
+                    rocksToRemove.Add(rock);
+                if (Raylib.CheckCollisionPointRec(new Vector2(p[3].X, p[3].Y), astronautRectangle))
+                    rocksToRemove.Add(rock);
+
             }
             foreach (var rock in rocksToRemove)
             {
@@ -413,7 +445,7 @@ namespace moonshot.Screens
                     int RandIndex = r.Next(1,6);
                     int RandX = r.Next(30,maxWidth-30);
                     int RandY = r.Next(30,maxHeight-30);
-                    float RandRotation = (float)r.Next(-15, 15);
+                    float RandRotation = (float)r.Next(1, 265);
                     float RandScale = (float)r.NextDouble();
                     if (RandScale < 0.45f) {RandScale+=0.35f; }
                     if (RandScale > 0.85f) {RandScale=0.85f; }
