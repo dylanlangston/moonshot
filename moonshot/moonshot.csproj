@@ -86,6 +86,12 @@
     <None Update="Images\meteorMiniGame\meteor1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Images\meteorMiniGame\meteor2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\meteorMiniGame\meteor3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Images\montesTaurus.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
