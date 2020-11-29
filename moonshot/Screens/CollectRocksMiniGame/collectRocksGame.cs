@@ -335,6 +335,8 @@ namespace moonshot.Screens
                 collectRocks.rocksCollected++;
                 rocks.rockTypesAndLocations.Remove(rock);
             }
+            if (rocksToRemove.Count == 0)
+                IsMoving = false;
         }
 
         private static Texture2D frontAstronautOneTexture = new Texture2D();
