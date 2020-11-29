@@ -24,6 +24,7 @@ namespace moonshot.Screens
         }
         private static bool confirmed = false;
         private static int switchInt = 0;
+        private static int loopCounter = 0;
         public override void Display()
         {
             mainTrail.MainTrailMainDisplay();
@@ -41,6 +42,7 @@ namespace moonshot.Screens
                             DisplayMessage("Ship repaired using spare part!\nPress Space Bar to continue.");
                             if (screen.PressSPACEBAR())
                             {
+                                loopCounter = 0;
                                 confirmed = false;
                                 MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 105).value--;
                                 MainWindow.settings.userStats.ShipWorking = true;
@@ -75,9 +77,13 @@ namespace moonshot.Screens
                 switch (switchInt)
                 {
                     case 1:
+                        if (loopCounter > 5) {
+                            if (screen.PressSPACEBAR())
+                                confirmed = true;
+                        } else {
+                            loopCounter++;
+                        }
                         DisplayMessage("Unable to repair, press space bar\nto use spare ship part.");
-                        if (screen.PressSPACEBAR())
-                            confirmed = true;
                         break;
                     default:
                         confirmed = true;
