@@ -17,7 +17,7 @@ namespace moonshot.Screens
         private static int annimationCounter = 15;
         private static int foodCounter = 0;
         internal static bool StartAnimation = false;
-        public override void Display()
+        public static void MainTrailMainDisplay()
         {
             ClearBackground(Colors.space);
             starscape();
@@ -61,6 +61,10 @@ namespace moonshot.Screens
             NextLandmark();
             LastLandmark();
             DisplayIcon();
+        }
+        public override void Display()
+        {
+            MainTrailMainDisplay();
 
             //Confirmation();
 

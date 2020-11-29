@@ -26,6 +26,7 @@ namespace moonshot.Screens
         private static int switchInt = 0;
         public override void Display()
         {
+            mainTrail.MainTrailMainDisplay();
             if (switchInt == 0)
             {
                 Random r = new Random();
