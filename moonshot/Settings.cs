@@ -128,6 +128,7 @@ namespace moonshot
             "scoring info two",
             "scoring info three",
             "avoid meteor game",
+            "collect rocks game",
             "repair ship"
             };
 
