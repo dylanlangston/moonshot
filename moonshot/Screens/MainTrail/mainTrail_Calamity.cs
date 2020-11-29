@@ -13,12 +13,12 @@ namespace moonshot.Screens
     partial class mainTrail : screen
     {
         private static Random r = new Random();
-        private static int coolDown = 100;
+        private static int coolDown = 70;
         internal static void CalamityChance()
         {
             if (coolDown < 1) {
-                coolDown = 200;
-                int Rand= r.Next(0,75);
+                coolDown = 70;
+                int Rand= r.Next(0,100);
                 switch (Rand)
                 {
                     case 10:
@@ -42,7 +42,7 @@ namespace moonshot.Screens
                     case 70:
                         GetSpareParts();
                         break;
-                    case 1:
+                    case 80:
                         GravityAssist();
                         break;
                     default:
