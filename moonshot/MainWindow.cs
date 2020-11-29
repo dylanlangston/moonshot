@@ -127,7 +127,11 @@ namespace moonshot
                         if (settings.savedProgress == true ) {
                             if (settings.nonGameScreens.Contains(scrn.Name.ToLower()) && settings.nonGameScreens.Contains(settings.currentScreen.ToLower()))
                             {
-                                if (settings.currentScreen.ToLower() == scrn.Name.ToLower()) {
+                                if (settings.currentScreen.ToLower() == "avoid meteor game")
+                                {}
+                                else if (settings.currentScreen.ToLower() == "collect rocks game")
+                                {}
+                                else if (settings.currentScreen.ToLower() == scrn.Name.ToLower()) {
                                     ((screen)scrn).Display(); // Display screen
                                     foundScreen = true;
                                 }
@@ -167,6 +171,12 @@ namespace moonshot
                 if (!string.IsNullOrEmpty(currentScreenTempStore)) {
                     settings.currentScreen = currentScreenTempStore;
                 }
+                else if (settings.currentScreen.ToLower() == "avoid meteor game")
+                {}
+                else if (settings.currentScreen.ToLower() == "collect rocks game")
+                {}
+                else if (settings.currentScreen.ToLower() == "repair ship")
+                    settings.currentScreen = "main trail";
                 else
                     settings.currentScreen = "";         
             }

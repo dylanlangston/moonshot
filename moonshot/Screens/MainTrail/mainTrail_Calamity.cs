@@ -24,7 +24,9 @@ namespace moonshot.Screens
                 default:
                     break;
             }
+
         }
+        
         private static void MeteorShower()
         {
             DisplayNewPopUp("Warning: Meteor Shower!", false, "Avoid Meteor Game");

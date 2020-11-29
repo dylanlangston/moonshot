@@ -7,8 +7,6 @@ using System.Numerics;
 using System.Windows.Input;
 using System.IO;
 using System.Collections.Generic;
-// Note: requires libgdiplus
-using System.Drawing.Drawing2D;
 
 namespace moonshot.Screens
 {
@@ -19,13 +17,14 @@ namespace moonshot.Screens
         }
         private static avoidMeteorMiniGame game = new avoidMeteorMiniGame();
         private static bool playingGame = false;
-        private static bool gameComplete = false;
+        internal static bool gameComplete = false;
         private static System.Timers.Timer theTimer;
         public override void Display()
         {
             if (!playingGame && !gameComplete)
             {
-                theTimer = new System.Timers.Timer(30000);
+                RandomCrash = 0;
+                theTimer = new System.Timers.Timer(20000);
                 theTimer.Elapsed += Quit;
                 theTimer.Start();
                 playingGame = true;
@@ -37,13 +36,115 @@ namespace moonshot.Screens
         }
         private void Quit(object sender, EventArgs e)
         {
+            theTimer.Stop();
+            theTimer = null;
             gameComplete = true;
         }
+        private static int RandomCrash = 0;
+        private static PartyMember whosHurt = null;
         private static void GameOver()
         {
-            MessageBox("Game Over.");
+            if (theTimer != null)
+            {
+                theTimer.Stop();
+                if (RandomCrash == 0)
+                {
+                    Random r = new Random();
+                    RandomCrash = r.Next(1,10);
+                }
+                switch (RandomCrash)
+                {
+                    case 1:
+                        MessageBox("You crashed! Ship was damaged on\nimpact.");
+                        break;
+                    case 2:
+                        MessageBox("You crashed! Lost 1 oxygen tank.");
+                        break;
+                    case 3:
+                        MessageBox("You crashed! Lost 1 oxygen tank.");
+                        break;
+                    default:
+                        if (whosHurt == null) {
+                        bool healthNeedsReduced = true;
+                        if (healthNeedsReduced)
+                        {
+                            foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.good))
+                            {
+                                whosHurt = member;
+                                whosHurt.status = PlayerStatus.poor;
+                                healthNeedsReduced = false;
+                                break;
+                            }
+                        }
+                        if (healthNeedsReduced)
+                        {
+                            foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.fair))
+                            {
+                                whosHurt = member;
+                                whosHurt.status = PlayerStatus.veryPoor;
+                                healthNeedsReduced = false;
+                                break;
+                            }
+                        }
+                        if (healthNeedsReduced)
+                        {
+                            foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.poor))
+                            {
+                                whosHurt = member;
+                                whosHurt.status = PlayerStatus.dead;
+                                healthNeedsReduced = false;
+                                break;
+                            }
+                        }
+                        if (healthNeedsReduced)
+                        {
+                            foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.veryPoor))
+                            {
+                                whosHurt = member;
+                                whosHurt.status = PlayerStatus.dead;
+                                healthNeedsReduced = false;
+                                
+                                break;
+                            }
+                        }
+                        }
+                        MessageBox("You crashed! " + whosHurt.name + " was\ninjurded and is now " + (whosHurt.status == PlayerStatus.dead ? whosHurt.status : "is in\n" + whosHurt.status + " health") + ".");
+                        break;
+                }
+                
+            }
+            else
+                MessageBox("Nice Job! You survived the meteor\nshower.");
             if (screen.PressSPACEBAR()) {
-                //MainWindow.settings.currentScreen = "Supplies Screen Two";
+                if (theTimer != null)
+                {
+                    switch (RandomCrash)
+                    {
+                        case 1:
+                            MainWindow.settings.userStats.ShipWorking = false;
+                            break;
+                        case 2:
+                            MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 101).value--;
+                            mainTrail.StartAnimation = true;
+                            break;
+                        case 3:
+                            MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 101).value--;
+                            mainTrail.StartAnimation = true;
+                            break;
+                        default:
+                            MainWindow.settings.userStats.crew.Party.Find(member => member.name == whosHurt.name).status = whosHurt.status;
+                            mainTrail.StartAnimation = true;
+                            break;
+                    }
+                } else {
+                    mainTrail.StartAnimation = true;
+                }
+                whosHurt = null;
+                RandomCrash = 0;
+                AvoidMeteorMiniGame.avoidMeteorState = "Selection";
+                MainWindow.settings.currentScreen = "Main Trail";
+                playingGame = false;
+                gameComplete = false;
             }
         }
         private static void MessageBox(string message)
@@ -65,7 +166,7 @@ namespace moonshot.Screens
         public void StartGame()
         {
             meteors = new Meteors(Raylib.GetScreenWidth()-100, Raylib.GetScreenHeight()-100);
-            ship = new Ship(100, 375, 50, 750);
+            ship = new Ship(100, 375, 50, 750, meteors);
         }
         public void Continue(bool gameComplete)
         {
@@ -100,8 +201,10 @@ namespace moonshot.Screens
         int minWidth = 0;
         int maxWidth = 0;
         int currentDirection = 0;
-        public Ship(int startX, int startY, int MinWidth, int MaxWidth)
+        Meteors meteors = null;
+        public Ship(int startX, int startY, int MinWidth, int MaxWidth, Meteors meteorsIn)
         {
+            meteors = meteorsIn;
             x = startX;
             y = startY;
             lunarModule(-500, -500);
@@ -112,7 +215,10 @@ namespace moonshot.Screens
         public void DisplayShip(bool gameComplete = false)
         {
             if (!gameComplete)
+            {
                 GetKeyPress();
+                DetectCrash();
+            }
             lunarModule(x, y);
         }
         private void GetKeyPress()
@@ -186,6 +292,20 @@ namespace moonshot.Screens
             }
         }
 
+        private void DetectCrash()
+        {
+            foreach (var meteor in meteors.meteorTypesAndLocations)
+            {
+                int centerpointX = meteor.x + (int)((meteors.GetTexture(meteor.index).width/2)*meteor.scale);
+                int centerpointY = meteor.y + (int)((meteors.GetTexture(meteor.index).height-(meteors.GetTexture(meteor.index).height*(1/3)))*meteor.scale);
+                int radius = (int)((meteors.GetTexture(meteor.index).width/2)*meteor.scale);
+
+                if (Raylib.CheckCollisionCircles(new Vector2(centerpointX, centerpointY-radius), radius, new Vector2(x+40, y+45), (lunarModuleTexture.width*(0.20f))/2))
+                    avoidMeteorGame.gameComplete = true;
+            }
+
+        }
+
         private static Texture2D lunarModuleTexture = new Texture2D();
         private static void lunarModule(int x, int y)
         {
@@ -200,7 +320,7 @@ namespace moonshot.Screens
 
     class Meteors
     {
-        public List<(int index, int x, int y, float scale)> meteorTypesAndLocations = new List<(int index, int x, int y, float scale)>();
+        public List<(int index, int x, int y, float scale, int speed)> meteorTypesAndLocations = new List<(int index, int x, int y, float scale, int speed)>();
         private static int MaxWidth = 0;
         private static int MaxHeight = 0;
         public Meteors(int maxWidth, int maxHeight)
@@ -216,17 +336,15 @@ namespace moonshot.Screens
                     int RandIndex = r.Next(1,4);
                     int RandX = r.Next(30,maxWidth-30);
                     int RandY = r.Next(-1000,-50);
+                    int RandSpeed = r.Next(1,6);
                     float RandScale = (float)r.NextDouble();
                     if (RandScale < 0.45f) {RandScale+=0.35f; }
                     if (RandScale > 0.85f) {RandScale=0.85f; }
-                    meteorTypesAndLocations.Add((RandIndex, RandX, RandY, RandScale));
+                    meteorTypesAndLocations.Add((RandIndex, RandX, RandY, RandScale, RandSpeed));
                 }
             }
             else {
-                foreach (var rock in meteorTypesAndLocations)
-                {
-                    DisplayMeteor(rock.index, rock.x, rock.y, rock.scale);
-                }
+                DisplayMeteor();
             }
         }
         public void DisplayMeteor(bool gameComplete = false)
@@ -237,9 +355,9 @@ namespace moonshot.Screens
                 if (!gameComplete)
                 {
                 if (meteorTypesAndLocations[c].y > MaxHeight + 200)
-                    meteorTypesAndLocations[c] = (meteorTypesAndLocations[c].index, r.Next(30,MaxWidth-30), r.Next(-1000,-50), meteorTypesAndLocations[c].scale);
+                    meteorTypesAndLocations[c] = (meteorTypesAndLocations[c].index, r.Next(30,MaxWidth-30), r.Next(-1000,-50), meteorTypesAndLocations[c].scale, r.Next(1,6));
                 else
-                    meteorTypesAndLocations[c] = (meteorTypesAndLocations[c].index, meteorTypesAndLocations[c].x, meteorTypesAndLocations[c].y + 2, meteorTypesAndLocations[c].scale);
+                    meteorTypesAndLocations[c] = (meteorTypesAndLocations[c].index, meteorTypesAndLocations[c].x, meteorTypesAndLocations[c].y + meteorTypesAndLocations[c].speed, meteorTypesAndLocations[c].scale, meteorTypesAndLocations[c].speed);
                 }
                 DisplayMeteor(meteorTypesAndLocations[c].index, meteorTypesAndLocations[c].x, meteorTypesAndLocations[c].y, meteorTypesAndLocations[c].scale);
             }

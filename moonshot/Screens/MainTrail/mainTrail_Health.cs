@@ -111,7 +111,12 @@ namespace moonshot.Screens
             }
             // Kill the user if everyone is dead
             if (deadPlayersCount == MainWindow.settings.userStats.crew.Party.Count)
+            {
+                tempPopUpMessage = String.Empty;
+                tempPromptBool = false;
+                tempNextScreen = String.Empty;
                 MainWindow.settings.currentScreen = "tombstone";
+            }
         }
     }
 }

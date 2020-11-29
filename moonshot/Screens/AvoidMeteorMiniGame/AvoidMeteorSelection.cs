@@ -41,7 +41,7 @@ namespace moonshot.Screens
             int keypress = Raylib.GetKeyPressed();
             if (Raylib.IsKeyPressed(KeyboardKey.KEY_BACKSPACE)) {
                 keypress = 9000;
-            } else if (Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER)) {
+            } else if (Raylib.IsKeyReleased(KeyboardKey.KEY_ENTER)) {
                 switch (selection) {
                     case "1":
                         AvoidMeteorMiniGame.avoidMeteorState= "Game";

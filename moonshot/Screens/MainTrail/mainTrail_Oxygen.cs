@@ -11,12 +11,17 @@ namespace moonshot.Screens
 {
     partial class mainTrail : screen
     {
+        private static int oxygenCounter = 0;
         public static void CheckOxygen()
         {
-            if (MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 101).value == 0)
-            {
-                StartAnimation = false;
-                MainWindow.settings.currentScreen = "tombstone";
+            oxygenCounter++;
+            if (oxygenCounter > 100) {
+                oxygenCounter = 0;
+                if (MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 101).value < MainWindow.settings.userStats.crew.Party.Count)
+                {
+                    int reduceBy = MainWindow.settings.userStats.crew.Party.Count - MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 101).value;
+                    ReduceHealth(reduceBy);
+                }
             }
         }
     }

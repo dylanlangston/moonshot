@@ -61,8 +61,13 @@ namespace moonshot.Screens
             NextLandmark();
             LastLandmark();
             DisplayIcon();
+
             //Confirmation();
-            if (StartAnimation == false && MainWindow.settings.userStats.milesTraveled == 0 && String.IsNullOrEmpty(tempPopUpMessage))
+
+            if (!MainWindow.settings.userStats.ShipWorking){
+                ShipBroke();
+            }
+            else if (StartAnimation == false && MainWindow.settings.userStats.milesTraveled == 0 && String.IsNullOrEmpty(tempPopUpMessage))
             {
                 LargePopUp(popUpMessages[MainWindow.settings.userStats.currentLocation].Item1, popUpMessages[MainWindow.settings.userStats.currentLocation].Item2, popUpMessages[MainWindow.settings.userStats.currentLocation].Item3);
             }
@@ -128,7 +133,7 @@ namespace moonshot.Screens
         }
 
         private static string selectionLargePopUp = String.Empty;
-        private static void LargePopUp(string message = "", bool prompt = false, string nextScreen = "Check Stats")
+        internal static void LargePopUp(string message = "", bool prompt = false, string nextScreen = "Check Stats")
         {
             string[] messageArray = message.Split("\n");
             Raylib.DrawRectangleRounded(new Rectangle(Raylib.GetScreenWidth()/8, Raylib.GetScreenHeight()/3, Raylib.GetScreenWidth()/8*6, 40+(messageArray.Length*30)), 0.25f, 10, WHITE);

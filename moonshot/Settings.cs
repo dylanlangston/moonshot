@@ -80,7 +80,8 @@ namespace moonshot
             new peary(),
             new arrivalPoints(),
             new editTopTen(),
-            new tombstone()
+            new tombstone(),
+            new RepairShip()
         };
         internal List<screen> screensList {
             get { return _screensList; }
@@ -125,7 +126,9 @@ namespace moonshot
             "erase top ten settings",
             "scoring info", 
             "scoring info two",
-            "scoring info three"
+            "scoring info three",
+            "avoid meteor game",
+            "repair ship"
             };
 
         // Track if game should start fullscreen

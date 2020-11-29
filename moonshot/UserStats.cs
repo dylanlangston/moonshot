@@ -250,6 +250,7 @@ namespace moonshot
     }
     public class UserStats
     {
+        public bool ShipWorking = true;
         public DateTime currentTime = new DateTime();
         public int currentLocation = 0;
         public int milesTraveled = 0;
@@ -262,7 +263,7 @@ namespace moonshot
         public string rations = PlayerRations.filling;
         public override string ToString()
         {
-            return "<Stats><CurrentTime>" + currentTime.ToString() + "</CurrentTime><CurrentLocation>" + currentLocation + "</CurrentLocation><MilesTraveled>" + milesTraveled + "</MilesTraveled><Money>" + Money.ToString() + "</Money><PlayerType>" + playerType + "</PlayerType><Status>" + status + "</Status><Pace>" + pace + "</Pace><Rations>" + rations + "</Rations>" + inventory.ToString() + crew.ToString() + "</Stats>";
+            return "<Stats><ShipWorking>" + ShipWorking.ToString() + "</ShipWorking><CurrentTime>" + currentTime.ToString() + "</CurrentTime><CurrentLocation>" + currentLocation + "</CurrentLocation><MilesTraveled>" + milesTraveled + "</MilesTraveled><Money>" + Money.ToString() + "</Money><PlayerType>" + playerType + "</PlayerType><Status>" + status + "</Status><Pace>" + pace + "</Pace><Rations>" + rations + "</Rations>" + inventory.ToString() + crew.ToString() + "</Stats>";
         }
         public void LoadUserStatsFromString(string userStatsString, UserStats stats)
         {
@@ -274,6 +275,9 @@ namespace moonshot
                 for (int i = 0; i < node.ChildNodes.Count; i++)
                 {
                     switch (node.ChildNodes[i].Name) {
+                        case "ShipWorking":
+                            Boolean.TryParse(node.ChildNodes[i].InnerText,out stats.ShipWorking);
+                            break;
                         case "CurrentTime":
                             DateTime.TryParse(node.ChildNodes[i].InnerText, out stats.currentTime);
                             break;

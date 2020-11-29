@@ -99,6 +99,8 @@ namespace moonshot.Screens
                     }
                     }
                     MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 103).value -= (amount + (healthBeingIncreased ? 1 : 0));
+                    if (MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 103).value < 0)
+                        MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 103).value = 0;
                 }
                 else
                 {
