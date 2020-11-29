@@ -65,3 +65,25 @@
 **Stealth Mode:**- https://www.playonloop.com/2015-music-loops/stealth-mode/ - PlayOnLoop.com, CC BY 4.0 <https://creativecommons.org/licenses/by/4.0>
 
 **Yellow Copter:**- https://www.playonloop.com/2014-music-loops/yellow-copter/ - PlayOnLoop.com, CC BY 4.0 <https://creativecommons.org/licenses/by/4.0>
+
+---
+
+### Mission Control Facts
+
+**Landing Site:**- “Tranquility Base.” Wikipedia, Wikimedia Foundation, 5 Oct. 2020, https://en.wikipedia.org/wiki/Tranquility_Base. 
+
+**Mare Tranquillitatis:**- “Mare Tranquillitatis.” Wikipedia, Wikimedia Foundation, 22 Nov. 2020, https://en.wikipedia.org/wiki/Mare_Tranquillitatis.  
+
+**Collapsed Pit of the Mare Tranquilitatis:**- Steigerwald, Bill. “Lunar Pits Could Shelter Astronauts, Reveal How Man in the Moon Formed.” NASA, NASA, 27 Feb. 2015, www.nasa.gov/content/goddard/lunar-pits-could-shelter-astronauts-reveal-details-of-how-man-in-the-moon-formed. 
+
+**Mare Serenitatis:** - “Mare Serenitatis.” Wikipedia, Wikimedia Foundation, 13 Sept. 2020, https://en.wikipedia.org/wiki/Mare_Serenitatis. 
+
+**Posidonius:**- “Posidonius (Crater).” Wikipedia, Wikimedia Foundation, 23 Sept. 2019, https://en.wikipedia.org/wiki/Posidonius_(crater). 
+
+**Montes Taurus:**- “Montes Taurus.” Wikipedia, Wikimedia Foundation, 26 Sept. 2019, https://en.wikipedia.org/wiki/Montes_Taurus. 
+
+**Atlas and Hercules:**- “Atlas (Crater).” Wikipedia, Wikimedia Foundation, 12 Sept. 2019, https://en.wikipedia.org/wiki/Atlas_(crater).; “Hercules (Crater).” Wikipedia, Wikimedia Foundation, 7 Aug. 2019, https://en.wikipedia.org/wiki/Hercules_(crater). 
+
+**Mare Frigoris:**- “Mare Frigoris.” Wikipedia, Wikimedia Foundation, 8 Oct. 2020, https://en.wikipedia.org/wiki/Mare_Frigoris. 
+
+**Anaxagoras:**- “Anaxagoras (Crater).” Wikipedia, Wikimedia Foundation, 7 Aug. 2019, https://en.wikipedia.org/wiki/Anaxagoras_(crater). 
