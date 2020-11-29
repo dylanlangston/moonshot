@@ -82,6 +82,9 @@ namespace moonshot.Screens
                     case "6":
                         CheckStats.resting = true;
                         break;
+                    case "7":
+                        MainWindow.settings.currentScreen = "Talk to People";
+                        break;
                     case "8":
                         if (BuySupplies)
                             MainWindow.settings.currentScreen = "Buy Supplies";
