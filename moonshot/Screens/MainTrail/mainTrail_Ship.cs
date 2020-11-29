@@ -60,7 +60,7 @@ namespace moonshot.Screens
                         }
                         break;
                     default:
-                        DisplayMessage("Ship repaired! Press Space Bar\nto continue.");
+                        DisplayMessage("Ship repaired!");
                         if (screen.PressSPACEBAR())
                         {
                             confirmed = false;
