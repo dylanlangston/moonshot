@@ -70,20 +70,34 @@
 
 ### Mission Control Facts
 
-**Landing Site:**- “Tranquility Base.” Wikipedia, Wikimedia Foundation, 5 Oct. 2020, https://en.wikipedia.org/wiki/Tranquility_Base. 
+**Landing Site:**
+* Chaikin, Andrew (2007). A Man on the Moon: The Triumphant Story Of The Apollo Space Program. New York: Penguin Group. p. 88. ISBN 978-0-14-311235-8.
 
-**Mare Tranquillitatis:**- “Mare Tranquillitatis.” Wikipedia, Wikimedia Foundation, 22 Nov. 2020, https://en.wikipedia.org/wiki/Mare_Tranquillitatis.  
+**Mare Tranquillitatis:**
+* Filipe Alves (July 2005). "Capturing the Colors of the Moon". Sky and Telescope. pp. 120–122. Archived from the original on 2014-10-20.
 
-**Collapsed Pit of the Mare Tranquilitatis:**- Steigerwald, Bill. “Lunar Pits Could Shelter Astronauts, Reveal How Man in the Moon Formed.” NASA, NASA, 27 Feb. 2015, www.nasa.gov/content/goddard/lunar-pits-could-shelter-astronauts-reveal-details-of-how-man-in-the-moon-formed. 
+**Collapsed Pit of the Mare Tranquilitatis:**
+* Steigerwald, Bill. “Lunar Pits Could Shelter Astronauts, Reveal How Man in the Moon Formed.” NASA, NASA, 27 Feb. 2015, www.nasa.gov/content/goddard/lunar-pits-could-shelter-astronauts-reveal-details-of-how-man-in-the-moon-formed. 
 
-**Mare Serenitatis:** - “Mare Serenitatis.” Wikipedia, Wikimedia Foundation, 13 Sept. 2020, https://en.wikipedia.org/wiki/Mare_Serenitatis. 
+**Mare Serenitatis:**
+* "Mare Serenitatis". Gazetteer of Planetary Nomenclature. USGS Astrogeology Research Program.
+* P. M. Muller, W. L. Sjogren (1968). "Mascons: Lunar Mass Concentrations". Science. 161 (3842): 680–684. doi:10.1126/science.161.3842.680.
 
-**Posidonius:**- “Posidonius (Crater).” Wikipedia, Wikimedia Foundation, 23 Sept. 2019, https://en.wikipedia.org/wiki/Posidonius_(crater). 
+**Posidonius:**
+* Elger T. G. (1895). The Moon. A Full Description and Map of its Principal Physical Features. London: Georg Philip & Son. p. 160. 
+* "Posidonius (crater)". Gazetteer of Planetary Nomenclature. USGS Astrogeology Research Program.
 
-**Montes Taurus:**- “Montes Taurus.” Wikipedia, Wikimedia Foundation, 26 Sept. 2019, https://en.wikipedia.org/wiki/Montes_Taurus. 
+**Montes Taurus:**
+* Altimetric data by Lunar Reconnaissance Orbiter, obtained via JMARS.
+* "Montes Taurus". Gazetteer of Planetary Nomenclature. International Astronomical Union (IAU) Working Group for Planetary System Nomenclature (WGPSN). 2010-10-18. Retrieved 2014-11-27.
 
-**Atlas and Hercules:**- “Atlas (Crater).” Wikipedia, Wikimedia Foundation, 12 Sept. 2019, https://en.wikipedia.org/wiki/Atlas_(crater).; “Hercules (Crater).” Wikipedia, Wikimedia Foundation, 7 Aug. 2019, https://en.wikipedia.org/wiki/Hercules_(crater). 
+**Atlas and Hercules:**
+* Barbara M. Middlehurst; Burley, Jaylee M.; Moore, Patrick; Welther, Barbara L. (1967). "Chronological Catalog of Reported Lunar Events" (PDF). Astrosurf. NASA.
+* Planck, Andrew. “Two Splendid #MoonCraters Described As ‘Noble, Magnificent, Spectacular, Scarcely Surpassed.’” Andrew Planck, 30 July 2018, andrewplanck.com/two-splendid-mooncraters-hercules-atlas/. 
 
-**Mare Frigoris:**- “Mare Frigoris.” Wikipedia, Wikimedia Foundation, 8 Oct. 2020, https://en.wikipedia.org/wiki/Mare_Frigoris. 
+**Mare Frigoris:**
+* Dunbar, Brian. “Mare Frigoris Constellation Region of Interest.” NASA, NASA, 7 May 2010, www.nasa.gov/mission_pages/LRO/multimedia/lroimages/201000506_marefrigoris.html. 
 
-**Anaxagoras:**- “Anaxagoras (Crater).” Wikipedia, Wikimedia Foundation, 7 Aug. 2019, https://en.wikipedia.org/wiki/Anaxagoras_(crater). 
+**Anaxagoras:**
+* The geologic history of the Moon, 1987, Wilhelms, Don E.; with sections by McCauley, John F.; Trask, Newell J. USGS Professional Paper: 1348. Figure 3.34.
+* The geologic history of the Moon, 1987, Wilhelms, Don E.; with sections by McCauley, John F.; Trask, Newell J. USGS Professional Paper: 1348. Plate 11: Copernican System.
