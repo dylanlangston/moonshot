@@ -108,7 +108,7 @@ namespace moonshot.Screens
                             }
                         }
                         }
-                        MessageBox("You crashed! " + whosHurt.name + " was\ninjurded and is now " + (whosHurt.status == PlayerStatus.dead ? whosHurt.status : "is in\n" + whosHurt.status + " health") + ".");
+                        MessageBox("You crashed! " + whosHurt.name + " was\ninjured and is now " + (whosHurt.status == PlayerStatus.dead ? whosHurt.status : "is in\n" + whosHurt.status + " health") + ".");
                         break;
                 }
                 
