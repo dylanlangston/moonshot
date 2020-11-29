@@ -17,9 +17,9 @@ namespace moonshot.Screens
             oxygenCounter++;
             if (oxygenCounter > 100) {
                 oxygenCounter = 0;
-                if (MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 101).value < MainWindow.settings.userStats.crew.Party.Count)
+                if (MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 101).value < MainWindow.settings.userStats.crew.Party.Count - MainWindow.settings.userStats.crew.Party.FindAll(s => s.status == PlayerStatus.dead).Count)
                 {
-                    int reduceBy = MainWindow.settings.userStats.crew.Party.Count - MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 101).value;
+                    int reduceBy = (MainWindow.settings.userStats.crew.Party.Count - MainWindow.settings.userStats.crew.Party.FindAll(s => s.status == PlayerStatus.dead).Count) - MainWindow.settings.userStats.inventory.Items.Find(s => s.id == 101).value;
                     ReduceHealth(reduceBy);
                 }
             }

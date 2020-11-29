@@ -41,7 +41,8 @@ namespace moonshot.Screens
                         MainWindow.settings.currentScreen = "Enter Name";
                         break;
                     case "2":
-                    MainWindow.settings.userStats.playerType = PlayerType.apollo12;
+                        MainWindow.settings.userStats = new UserStats();
+                        MainWindow.settings.userStats.playerType = PlayerType.apollo12;
                         MainWindow.settings.userStats.crew = new apollo12();
                         MainWindow.settings.userStats.currentTime = PlayerType.GetLaunchDate(PlayerType.apollo12);
                         MainWindow.settings.userStats.Money = 800;
@@ -49,7 +50,8 @@ namespace moonshot.Screens
                         MainWindow.settings.currentScreen = "Enter Name";
                         break;
                     case "3":
-                    MainWindow.settings.userStats.playerType = PlayerType.apollo14;
+                        MainWindow.settings.userStats = new UserStats();
+                        MainWindow.settings.userStats.playerType = PlayerType.apollo14;
                         MainWindow.settings.userStats.crew = new apollo14();
                         MainWindow.settings.userStats.currentTime = PlayerType.GetLaunchDate(PlayerType.apollo14);
                         MainWindow.settings.userStats.Money = 400;
