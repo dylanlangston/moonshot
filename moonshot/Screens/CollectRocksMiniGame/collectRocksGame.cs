@@ -52,8 +52,8 @@ namespace moonshot.Screens
         }
         public void StartGame()
         {
-            decor = new Decor(Raylib.GetScreenWidth()-100, Raylib.GetScreenHeight()-100);
-            rocks = new Rocks(Raylib.GetScreenWidth()-100, Raylib.GetScreenHeight()-100);
+            decor = new Decor(Raylib.GetScreenWidth(), Raylib.GetScreenHeight());
+            rocks = new Rocks(Raylib.GetScreenWidth()-50, Raylib.GetScreenHeight()-50);
             astronaut = new Astronaut(350, 350, Raylib.GetScreenWidth(), Raylib.GetScreenHeight(), rocks);
             Continue();
         }
@@ -466,7 +466,7 @@ namespace moonshot.Screens
             if (rockTypesAndLocations.Count == 0)
             {
                 Random r = new Random();
-                int loops = r.Next(1,7);
+                int loops = r.Next(2,7);
                 for (int i = 0; i < loops; i++)
                 {
                     int RandIndex = r.Next(1,6);
