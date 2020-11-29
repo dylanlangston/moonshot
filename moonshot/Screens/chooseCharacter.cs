@@ -33,6 +33,7 @@ namespace moonshot.Screens
             } else if (Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER)) {
                 switch (selection) {
                     case "1":
+                        MainWindow.settings.userStats = new UserStats();
                         MainWindow.settings.userStats.playerType = PlayerType.apollo11;
                         MainWindow.settings.userStats.crew = new apollo11();
                         MainWindow.settings.userStats.currentTime = PlayerType.GetLaunchDate(PlayerType.apollo11);
