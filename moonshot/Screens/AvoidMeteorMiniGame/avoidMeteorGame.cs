@@ -65,10 +65,12 @@ namespace moonshot.Screens
                         break;
                     default:
                         if (whosHurt == null) {
+                        PartyMembers crewShuffed = MainWindow.settings.userStats.crew;
+                        MyExtensions.Shuffle(crewShuffed.Party);
                         bool healthNeedsReduced = true;
                         if (healthNeedsReduced)
                         {
-                            foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.good))
+                            foreach (PartyMember member in crewShuffed.Party.FindAll(c => c.status == PlayerStatus.good))
                             {
                                 whosHurt = member;
                                 whosHurt.status = PlayerStatus.poor;
@@ -78,7 +80,7 @@ namespace moonshot.Screens
                         }
                         if (healthNeedsReduced)
                         {
-                            foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.fair))
+                            foreach (PartyMember member in crewShuffed.Party.FindAll(c => c.status == PlayerStatus.fair))
                             {
                                 whosHurt = member;
                                 whosHurt.status = PlayerStatus.veryPoor;
@@ -88,7 +90,7 @@ namespace moonshot.Screens
                         }
                         if (healthNeedsReduced)
                         {
-                            foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.poor))
+                            foreach (PartyMember member in crewShuffed.Party.FindAll(c => c.status == PlayerStatus.poor))
                             {
                                 whosHurt = member;
                                 whosHurt.status = PlayerStatus.dead;
@@ -98,7 +100,7 @@ namespace moonshot.Screens
                         }
                         if (healthNeedsReduced)
                         {
-                            foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.veryPoor))
+                            foreach (PartyMember member in crewShuffed.Party.FindAll(c => c.status == PlayerStatus.veryPoor))
                             {
                                 whosHurt = member;
                                 whosHurt.status = PlayerStatus.dead;
@@ -156,6 +158,21 @@ namespace moonshot.Screens
             {
                 Raylib.DrawText(messageArray[i], Raylib.GetScreenWidth()/8+50, Raylib.GetScreenHeight()/3+20+(30*i), 30, WHITE);
             }
+        }
+    }
+    static class MyExtensions
+    {
+        private static Random rng = new Random();  
+        public static void Shuffle<T>(this IList<T> list)  
+        {  
+            int n = list.Count;  
+            while (n > 1) {  
+                n--;  
+                int k = rng.Next(n + 1);  
+                T value = list[k];  
+                list[k] = list[n];  
+                list[n] = value;  
+            }  
         }
     }
     

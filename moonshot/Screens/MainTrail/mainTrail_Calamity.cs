@@ -138,10 +138,12 @@ namespace moonshot.Screens
         public override void Display()
         {
             if (whosHurt == null) {
+                PartyMembers crewShuffed = MainWindow.settings.userStats.crew;
+                MyExtensions.Shuffle(crewShuffed.Party);
                 bool healthNeedsReduced = true;
                 if (healthNeedsReduced)
                 {
-                    foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.good))
+                    foreach (PartyMember member in crewShuffed.Party.FindAll(c => c.status == PlayerStatus.good))
                     {
                         whosHurt = member;
                         whosHurt.status = PlayerStatus.poor;
@@ -151,7 +153,7 @@ namespace moonshot.Screens
                 }
                 if (healthNeedsReduced)
                 {
-                    foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.fair))
+                    foreach (PartyMember member in crewShuffed.Party.FindAll(c => c.status == PlayerStatus.fair))
                     {
                         whosHurt = member;
                         whosHurt.status = PlayerStatus.veryPoor;
@@ -161,7 +163,7 @@ namespace moonshot.Screens
                 }
                 if (healthNeedsReduced)
                 {
-                    foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.poor))
+                    foreach (PartyMember member in crewShuffed.Party.FindAll(c => c.status == PlayerStatus.poor))
                     {
                         whosHurt = member;
                         whosHurt.status = PlayerStatus.dead;
@@ -171,7 +173,7 @@ namespace moonshot.Screens
                 }
                 if (healthNeedsReduced)
                 {
-                    foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.veryPoor))
+                    foreach (PartyMember member in crewShuffed.Party.FindAll(c => c.status == PlayerStatus.veryPoor))
                     {
                         whosHurt = member;
                         whosHurt.status = PlayerStatus.dead;
@@ -206,6 +208,7 @@ namespace moonshot.Screens
             }
         }
     }
+
     class GetSparePartsCalamity : screen
     {
         public override string Name {
