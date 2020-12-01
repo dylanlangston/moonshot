@@ -204,7 +204,24 @@ namespace moonshot.Screens
             DrawTextureEx(tombstoneTexture, new Vector2(0, 0), 0f, 1f, WHITE);
 
             Raylib.DrawText("Here lies", 330, 150, 30, BLACK);
-            Raylib.DrawText(MainWindow.settings.userStats.crew.Party[MainWindow.settings.userStats.crew.Party.Count-1].name, (Raylib.GetScreenWidth() - (MainWindow.settings.userStats.crew.Party[MainWindow.settings.userStats.crew.Party.Count-1].name.Length * 16))/2, 180, 30, BLACK);
+            foreach (PartyMember member in MainWindow.settings.userStats.crew.Party)
+            {
+                switch (MainWindow.settings.userStats.playerType)
+                {
+                    case PlayerType.apollo11:
+                        if ((new apollo11()).Party.Find(s => s.name == member.name) == null)
+                            Raylib.DrawText(member.name, (Raylib.GetScreenWidth() - (member.name.Length * 16))/2, 180, 30, BLACK);
+                        break;
+                    case PlayerType.apollo12:
+                        if ((new apollo12()).Party.Find(s => s.name == member.name) == null)
+                            Raylib.DrawText(member.name, (Raylib.GetScreenWidth() - (member.name.Length * 16))/2, 180, 30, BLACK);
+                        break;
+                    case PlayerType.apollo14:
+                        if ((new apollo14()).Party.Find(s => s.name == member.name) == null)
+                            Raylib.DrawText(member.name, (Raylib.GetScreenWidth() - (member.name.Length * 16))/2, 180, 30, BLACK);
+                        break;
+                }
+            }
             
 
             string epitaphPart1 = String.Empty;

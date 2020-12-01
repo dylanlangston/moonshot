@@ -19,6 +19,7 @@ namespace moonshot.Screens
         private static bool playingGame = false;
         internal static bool gameComplete = false;
         private static System.Timers.Timer theTimer;
+        private static DateTime startTime = DateTime.Now;
         public override void Display()
         {
             if (!playingGame && !gameComplete)
@@ -26,6 +27,7 @@ namespace moonshot.Screens
                 RandomCrash = 0;
                 theTimer = new System.Timers.Timer(20000);
                 theTimer.Elapsed += Quit;
+                startTime = DateTime.Now;
                 theTimer.Start();
                 playingGame = true;
                 game.StartGame();
@@ -33,6 +35,8 @@ namespace moonshot.Screens
             game.Continue(gameComplete);
             if (gameComplete)
                 GameOver();
+            else 
+                Controls();
         }
         private void Quit(object sender, EventArgs e)
         {
@@ -158,6 +162,21 @@ namespace moonshot.Screens
             {
                 Raylib.DrawText(messageArray[i], Raylib.GetScreenWidth()/8+50, Raylib.GetScreenHeight()/3+20+(30*i), 30, WHITE);
             }
+        }
+        private static void Controls()
+        {
+            Raylib.DrawText("Time Remaining: " + (20.0-(DateTime.Now-startTime).TotalSeconds).ToString("0.0"), 475, 10, 30, WHITE);
+
+            Raylib.DrawRectangleRounded(new Rectangle(220, 555, 40, 40), 0.25f, 10, WHITE);
+            Raylib.DrawRectangleRounded(new Rectangle(270, 555, 40, 40), 0.25f, 10, WHITE);
+            Raylib.DrawText("A", 230, 560, 30, BLACK);
+            Raylib.DrawText("D", 280, 560, 30, BLACK);
+            Raylib.DrawText("Move with: ", 50, 560, 30, WHITE);
+            Raylib.DrawText("or", 330, 560, 30, WHITE);
+            Raylib.DrawRectangleRounded(new Rectangle(380, 555, 40, 40), 0.25f, 10, WHITE);
+            Raylib.DrawRectangleRounded(new Rectangle(430, 555, 40, 40), 0.25f, 10, WHITE);
+            Raylib.DrawTriangle(new Vector2(410, 565),  new Vector2(390, 575), new Vector2(410, 585), BLACK);
+            Raylib.DrawTriangle(new Vector2(440, 565), new Vector2(440, 585), new Vector2(460, 575), BLACK);
         }
     }
     static class MyExtensions

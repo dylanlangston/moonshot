@@ -50,41 +50,43 @@ namespace moonshot.Screens
         private static void ReduceHealth(int loopCount = 2)
         {
             List<string> deadPlayers = new List<string>(){};
+            PartyMembers crewShuffed = MainWindow.settings.userStats.crew;
+            MyExtensions.Shuffle(crewShuffed.Party);
             for (int c = 0; c < loopCount; c++)
             {
                 bool healthNeedsReduced = true;
                 if (healthNeedsReduced)
                 {
-                    foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.good))
+                    foreach (PartyMember member in crewShuffed.Party.FindAll(c => c.status == PlayerStatus.good))
                     {
-                        member.status = PlayerStatus.fair;
+                        MainWindow.settings.userStats.crew.Party.Find(p => p.name == member.name).status = PlayerStatus.fair;
                         healthNeedsReduced = false;
                         break;
                     }
                 }
                 if (healthNeedsReduced)
                 {
-                    foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.fair))
+                    foreach (PartyMember member in crewShuffed.Party.FindAll(c => c.status == PlayerStatus.fair))
                     {
-                        member.status = PlayerStatus.poor;
+                        MainWindow.settings.userStats.crew.Party.Find(p => p.name == member.name).status = PlayerStatus.poor;
                         healthNeedsReduced = false;
                         break;
                     }
                 }
                 if (healthNeedsReduced)
                 {
-                    foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.poor))
+                    foreach (PartyMember member in crewShuffed.Party.FindAll(c => c.status == PlayerStatus.poor))
                     {
-                        member.status = PlayerStatus.veryPoor;
+                        MainWindow.settings.userStats.crew.Party.Find(p => p.name == member.name).status = PlayerStatus.veryPoor;
                         healthNeedsReduced = false;
                         break;
                     }
                 }
                 if (healthNeedsReduced)
                 {
-                    foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.veryPoor))
+                    foreach (PartyMember member in crewShuffed.Party.FindAll(c => c.status == PlayerStatus.veryPoor))
                     {
-                        member.status = PlayerStatus.dead;
+                        MainWindow.settings.userStats.crew.Party.Find(p => p.name == member.name).status = PlayerStatus.dead;
                         deadPlayers.Add(member.name);
                         healthNeedsReduced = false;
                         c = loopCount;
@@ -104,6 +106,10 @@ namespace moonshot.Screens
                 }
                 DisplayNewPopUp(whoDead + (deadPlayers.Count > 1 ? "have" : "has") + " died.");
             }
+            CheckForDeadPlayers();
+        }
+        public static void CheckForDeadPlayers()
+        {
             int deadPlayersCount = 0;
             foreach (PartyMember member in MainWindow.settings.userStats.crew.Party.FindAll(c => c.status == PlayerStatus.dead))
             {

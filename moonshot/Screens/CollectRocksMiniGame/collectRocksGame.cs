@@ -20,18 +20,23 @@ namespace moonshot.Screens
         private static collectRocksMiniGame game = new collectRocksMiniGame();
         private static bool playingGame = false;
         private static System.Timers.Timer theTimer;
+        private static DateTime startTime = DateTime.Now;
         public override void Display()
         {
             if (!playingGame)
             {
                 theTimer = new System.Timers.Timer(30000);
                 theTimer.Elapsed += Quit;
+                startTime = DateTime.Now;
                 theTimer.Start();
                 playingGame = true;
                 game.StartGame();
             }
             else
+            {
                 game.Continue();
+                Timeout();
+            }
         }
         private void Quit(object sender, EventArgs e)
         {
@@ -40,7 +45,10 @@ namespace moonshot.Screens
             playingGame = false;
             collectRocks.CollectRocksState = "Complete";
         }
-
+        private static void Timeout()
+        {
+            Raylib.DrawText("Time Remaining: " + (30.0-(DateTime.Now-startTime).TotalSeconds).ToString("0.0"), 500, 10, 30, BLACK);
+        }
     }
     class collectRocksMiniGame
     {

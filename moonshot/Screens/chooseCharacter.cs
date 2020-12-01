@@ -39,6 +39,7 @@ namespace moonshot.Screens
                         MainWindow.settings.userStats.currentTime = PlayerType.GetLaunchDate(PlayerType.apollo11);
                         MainWindow.settings.userStats.Money = 1600;
                         MainWindow.settings.userStats.inventory.Items = new List<InventoryItem>(){new OxygenTank(), new Fuel(), new Food(), new Boxes(), new ShipParts()};
+                        mainTrail.ResetPopups();
                         MainWindow.settings.currentScreen = "Enter Name";
                         break;
                     case "2":
@@ -48,6 +49,7 @@ namespace moonshot.Screens
                         MainWindow.settings.userStats.currentTime = PlayerType.GetLaunchDate(PlayerType.apollo12);
                         MainWindow.settings.userStats.Money = 800;
                         MainWindow.settings.userStats.inventory.Items = new List<InventoryItem>(){new OxygenTank(), new Fuel(), new Food(), new Boxes(), new ShipParts()};
+                        mainTrail.ResetPopups();
                         MainWindow.settings.currentScreen = "Enter Name";
                         break;
                     case "3":
@@ -57,6 +59,7 @@ namespace moonshot.Screens
                         MainWindow.settings.userStats.currentTime = PlayerType.GetLaunchDate(PlayerType.apollo14);
                         MainWindow.settings.userStats.Money = 400;
                         MainWindow.settings.userStats.inventory.Items = new List<InventoryItem>(){new OxygenTank(), new Fuel(), new Food(), new Boxes(), new ShipParts()};
+                        mainTrail.ResetPopups();
                         MainWindow.settings.currentScreen = "Enter Name";
                         break;
                     case "4":

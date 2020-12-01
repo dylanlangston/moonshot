@@ -91,7 +91,7 @@ namespace moonshot.Screens
                     CheckHealth();
                     CheckOxygen();
                     CalamityChance();
-
+                    CheckForDeadPlayers();
                     Travel(foodAndFuel.Item1);
                     foodCounter++;
                     if (foodCounter > 400) {
@@ -112,7 +112,8 @@ namespace moonshot.Screens
         {
             DrawRectangle(0, 300, Raylib.GetScreenWidth(), 260, new Color(255,255,255,200));
         }
-        public static List<(string, bool, string)> popUpMessages = new List<(string, bool, string)>() { 
+        public static List<(string, bool, string)> popUpMessages = defaultPopUpMessages;
+        public static List<(string, bool, string)> defaultPopUpMessages = new List<(string, bool, string)>() { 
             ("From the Landing Site it is 209\nMiles to the Mare Tranquillitatis.", false, String.Empty),
             ("You are now at Mare\nTranquillitatis. Would you like to\nlook around? ", true, "Mare Tranquillitatis"),
             ("       You are now at MTP.\n          (collapsed pit of\n       Mare Tranquillitatis)\nWould you like to look around? ", true, "MTP"),
@@ -124,6 +125,25 @@ namespace moonshot.Screens
             ("You are now at Anaxagoras. Would\nyou like to look around? ", true, "Anaxagoras"),
             ("        You are now at Peary!", false, "Peary")
         };
+
+        public static void ResetPopups()
+        {
+            popUpMessages = new List<(string, bool, string)>() { 
+            ("From the Landing Site it is 209\nMiles to the Mare Tranquillitatis.", false, String.Empty),
+            ("You are now at Mare\nTranquillitatis. Would you like to\nlook around? ", true, "Mare Tranquillitatis"),
+            ("       You are now at MTP.\n          (collapsed pit of\n       Mare Tranquillitatis)\nWould you like to look around? ", true, "MTP"),
+            ("You are now at Mare Serenitatis.\nWould you like to look around? ", true, "Mare Serenitatis"),
+            ("You are now at Posidonius. Would\nyou like to look around? ", true, "Posidonius"),
+            ("You are now at Montes Taurus.\nWould you like to look around? ", true, "Montes Taurus"),
+            ("You are now at Atlas & Hercules.\nWould you like to look around? ", true, "Atlas and Hercules"),
+            ("You are now at Mare Frigoris.\nWould you like to look around? ", true, "Mare Frigoris"),
+            ("You are now at Anaxagoras. Would\nyou like to look around? ", true, "Anaxagoras"),
+            ("        You are now at Peary!", false, "Peary")
+        };
+
+        }
+
+
 
         private static string tempPopUpMessage = String.Empty;
         private static bool tempPromptBool = false;
