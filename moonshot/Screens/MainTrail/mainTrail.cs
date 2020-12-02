@@ -112,8 +112,7 @@ namespace moonshot.Screens
         {
             DrawRectangle(0, 300, Raylib.GetScreenWidth(), 260, new Color(255,255,255,200));
         }
-        public static List<(string, bool, string)> popUpMessages = defaultPopUpMessages;
-        public static List<(string, bool, string)> defaultPopUpMessages = new List<(string, bool, string)>() { 
+        public static List<(string, bool, string)> popUpMessages = new List<(string, bool, string)>() { 
             ("From the Landing Site it is 209\nMiles to the Mare Tranquillitatis.", false, String.Empty),
             ("You are now at Mare\nTranquillitatis. Would you like to\nlook around? ", true, "Mare Tranquillitatis"),
             ("       You are now at MTP.\n          (collapsed pit of\n       Mare Tranquillitatis)\nWould you like to look around? ", true, "MTP"),

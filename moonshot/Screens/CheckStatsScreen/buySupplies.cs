@@ -22,7 +22,7 @@ namespace moonshot.Screens
             ClearBackground(Colors.space);
             starscape();
             UserStats stats = MainWindow.settings.userStats;
-            LocationAndTime(MainWindow.settings.Locations[stats.currentLocation].Item1, stats.currentTime);
+            LocationAndTime(MainWindow.settings.Locations[stats.currentLocation+1].Item1, stats.currentTime);
             YouMayBuy();
             if (selectionMade)
             {
